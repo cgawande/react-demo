@@ -14,7 +14,7 @@ return(
         <Route path="/register" element={<RegistrationForm />} />
         <Route path ="/forgotpassword" element={<ForgotPassword/>}/>
         <Route path="otpverify" element={<OTPVerification/>}/>
-        <Route path="newpassword" element={<NewPassword/>}/>
+        <Route path="/reset/:id/:token" element={<NewPassword/>}/>
         <Route path="/userdashboard" element={<Dashboard/>}/>
 
         {/* <Route path="/login" element={<LoginForm />} /> */}

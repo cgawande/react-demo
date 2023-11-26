@@ -1,12 +1,18 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { Api } from "../../axios/Axios";
+import { toast } from "react-toastify";
 
 
 export  const userlogin=createAsyncThunk("userlogin",async(userdata)=>{
-    try{
-        console.log(userdata)
-    }catch(e){
+    try {
+        const res = await Api.post("/login",userdata)
+        console.log(res.data.token)
+        toast.success("User Login Successfully... !");
+      }catch(e){
         console.log(e)
-    }
+        console.log(e.response.data.message)
+        toast.error(e.response.data.message);
+      }
 })
 const loginState = {
     token: "",

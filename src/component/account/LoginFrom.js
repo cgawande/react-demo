@@ -3,6 +3,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Link, useNavigate } from "react-router-dom";
 import { userlogin } from "../redux/login/loginSlice";
 import { useDispatch } from "react-redux";
+import { ToastContainer, toast } from 'react-toastify';
+
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -12,13 +14,19 @@ const LoginForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Perform login logic here using email and password
-
-    console.log("Email:", email);
-    console.log("Password:", password);
-    dispatch(userlogin({ email: email, password: password }));
-    navigate("/userdashboard")
+    const userData={
+      email:email,
+      password:password,
+      }
+    dispatch(userlogin(userData));
+    // navigate("/userdashboard")
     // You can add further logic, such as sending data to an API for authentication
   };
+
+ 
+
+
+
 
   const handleForgotPassword = () => {
     // Handle forgot password logic, such as redirecting to a forgot password page
@@ -103,6 +111,7 @@ const LoginForm = () => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

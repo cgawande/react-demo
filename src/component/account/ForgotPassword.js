@@ -1,16 +1,28 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
+import { Api } from '../axios/Axios';
+import { ToastContainer, toast } from 'react-toastify';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
 const navigate=useNavigate()
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Perform forgot password logic here using the entered email
-    console.log('Email for Forgot Password:', email);
-    navigate("/otpverify")
-    // You can add further logic, such as sending a reset password link to the entered email
+
+( async () => {
+  try {
+    const res = await Api.post("/forgot-password",{email:email})
+    console.log(res)
+    toast.success("Check your mail in Inbox for reset password");
+  }catch(e){
+    // console.log(e)
+    console.log(e.response.data.message)
+    toast.error("Invalid Email  Address");
+  }
+})()
+
+  
   };
 
   return (
@@ -35,6 +47,7 @@ const navigate=useNavigate()
           </form>
         </div>
       </div>
+      <ToastContainer/>
     </div>
   );
 };

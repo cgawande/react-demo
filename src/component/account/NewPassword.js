@@ -1,20 +1,21 @@
-import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { useNavigate, useParams } from "react-router-dom";
 
 const NewPassword = () => {
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-const navigate =useNavigate()
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const { id, token } = useParams();
+  console.log(id, token);
+  const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
     // Perform logic to update the password
-    console.log('New Password:', newPassword);
-    console.log('Confirm Password:', confirmPassword);
-    navigate("/")
+    console.log("New Password:", newPassword);
+    console.log("Confirm Password:", confirmPassword);
+    navigate("/");
     // You can add further logic, such as sending the new password to a backend for updating
   };
-
   return (
     <div className="container mt-5">
       <div className="row justify-content-center">
@@ -22,7 +23,9 @@ const navigate =useNavigate()
           <form onSubmit={handleSubmit}>
             <h2 className="mb-3">Set New Password</h2>
             <div className="mb-3">
-              <label htmlFor="newPassword" className="form-label">New Password</label>
+              <label htmlFor="newPassword" className="form-label">
+                New Password
+              </label>
               <input
                 type="password"
                 className="form-control"
@@ -34,7 +37,9 @@ const navigate =useNavigate()
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
+              <label htmlFor="confirmPassword" className="form-label">
+                Confirm Password
+              </label>
               <input
                 type="password"
                 className="form-control"
@@ -45,7 +50,9 @@ const navigate =useNavigate()
                 required
               />
             </div>
-            <button type="submit" className="btn btn-primary">Save Password</button>
+            <button type="submit" className="btn btn-primary">
+              Save Password
+            </button>
           </form>
         </div>
       </div>

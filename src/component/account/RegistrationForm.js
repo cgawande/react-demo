@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+import { Api } from "../axios/Axios";
+// import { Api } from '../axios/Axios';
 
 const RegistrationForm = () => {
-  const [fullName, setFullName] = useState('');
-  const [mobileNumber, setMobileNumber] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-
+  const [fullName, setFullName] = useState("");
+  const [mobileNumber, setMobileNumber] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
 
   const validatePassword = () => {
@@ -21,21 +23,33 @@ const RegistrationForm = () => {
     return true;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!validatePassword()) {
       return;
     }
 
-    // Perform registration logic here using form data
-    console.log('Full Name:', fullName);
-    console.log('Mobile Number:', mobileNumber);
-    console.log('Email:', email);
-    console.log('Password:', password);
-    console.log('Confirm Password:', confirmPassword);
-    // You can add further logic, such as sending data to an API for registration
-    toast.success("Success Notification !");
+    getUserData();
+  };
+
+  const getUserData = async () => {
+    const userData = {
+      fullName: fullName,
+      email: email,
+      password: password,
+      confirmPassword: confirmPassword,
+      phoneNumber: mobileNumber,
+    };
+    try {
+      const res = await Api.post("/signup", userData);
+      console.log(res.data);
+      toast.success("User Registarion Successfully... !");
+    } catch (e) {
+      console.log(e);
+      console.log(e.response.data.message);
+      toast.error(e.response.data.message);
+    }
   };
 
   const handleSignIn = () => {
@@ -51,7 +65,9 @@ const RegistrationForm = () => {
               <h2 className="mb-4">Registration</h2>
 
               <div className="mb-3">
-                <label htmlFor="fullName" className="form-label">Full Name</label>
+                <label htmlFor="fullName" className="form-label">
+                  Full Name
+                </label>
                 <input
                   type="text"
                   className="form-control"
@@ -63,7 +79,9 @@ const RegistrationForm = () => {
                 />
               </div>
               <div className="mb-3">
-                <label htmlFor="mobileNumber" className="form-label">Mobile Number</label>
+                <label htmlFor="mobileNumber" className="form-label">
+                  Mobile Number
+                </label>
                 <input
                   type="text"
                   className="form-control"
@@ -75,7 +93,9 @@ const RegistrationForm = () => {
                 />
               </div>
               <div className="mb-3">
-                <label htmlFor="email" className="form-label">Email ID</label>
+                <label htmlFor="email" className="form-label">
+                  Email ID
+                </label>
                 <input
                   type="email"
                   className="form-control"
@@ -87,7 +107,9 @@ const RegistrationForm = () => {
                 />
               </div>
               <div className="mb-3">
-                <label htmlFor="password" className="form-label">Password</label>
+                <label htmlFor="password" className="form-label">
+                  Password
+                </label>
                 <input
                   type="password"
                   className="form-control"
@@ -99,7 +121,9 @@ const RegistrationForm = () => {
                 />
               </div>
               <div className="mb-3">
-                <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
+                <label htmlFor="confirmPassword" className="form-label">
+                  Confirm Password
+                </label>
                 <input
                   type="password"
                   className="form-control"
@@ -110,10 +134,18 @@ const RegistrationForm = () => {
                   required
                 />
               </div>
-              <div className='d-flex justify-content-between'>
-                <button type="submit" className="btn btn-primary">Register</button>
+              <div className="d-flex justify-content-between">
+                <button type="submit" className="btn btn-primary">
+                  Register
+                </button>
                 <div>
-                  <button type="button " className="btn btn-link" onClick={handleSignIn}>Already registered? Sign in</button>
+                  <button
+                    type="button "
+                    className="btn btn-link"
+                    onClick={handleSignIn}
+                  >
+                    Already registered? Sign in
+                  </button>
                 </div>
               </div>
             </form>
