@@ -13,7 +13,7 @@ return(
     <Route path="/" element={<LoginForm />} />
         <Route path="/register" element={<RegistrationForm />} />
         <Route path ="/forgotpassword" element={<ForgotPassword/>}/>
-        <Route path="otpverify" element={<OTPVerification/>}/>
+        <Route path="/otpverify" element={<OTPVerification/>}/>
         <Route path="/reset" element={<NewPassword/>}/>
         <Route path="/userdashboard" element={<Dashboard/>}/>
 
@@ -22,6 +22,6 @@ return(
 
     </Routes>
     </>
-)     
+)
 }
 export default RoutesNavigation;
