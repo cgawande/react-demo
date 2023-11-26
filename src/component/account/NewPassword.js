@@ -5,14 +5,11 @@ import { useNavigate, useParams } from "react-router-dom";
 const NewPassword = () => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const { id, token } = useParams();
-  console.log(id, token);
+  // const { id, token } = useParams();
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
     // Perform logic to update the password
-    console.log("New Password:", newPassword);
-    console.log("Confirm Password:", confirmPassword);
     navigate("/");
     // You can add further logic, such as sending the new password to a backend for updating
   };
