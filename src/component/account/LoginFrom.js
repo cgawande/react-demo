@@ -3,8 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Link, useNavigate } from "react-router-dom";
 import { userlogin } from "../redux/login/loginSlice";
 import { useDispatch } from "react-redux";
-import { ToastContainer, toast } from 'react-toastify';
-
+import { ToastContainer, toast } from "react-toastify";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -14,19 +13,14 @@ const LoginForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Perform login logic here using email and password
-    const userData={
-      email:email,
-      password:password,
-      }
+    const userData = {
+      email: email,
+      password: password,
+    };
     dispatch(userlogin(userData));
     // navigate("/userdashboard")
     // You can add further logic, such as sending data to an API for authentication
   };
-
- 
-
-
-
 
   const handleForgotPassword = () => {
     // Handle forgot password logic, such as redirecting to a forgot password page
@@ -90,21 +84,21 @@ const LoginForm = () => {
               </div>
               <div className="mb-3">
                 <div className="d-flex justify-content-between">
-          
-                <button type="submit" className="btn btn-primary me-2">
-                  Login
-                </button>
-                <div>
-                <label className="btn btn-link"  onClick={handleSignUp}>Create a new account</label>
-                {/* <button
+                  <button type="submit" className="btn btn-primary me-2">
+                    Login
+                  </button>
+                  <div>
+                    <label className="btn btn-link" onClick={handleSignUp}>
+                      Create a new account
+                    </label>
+                    {/* <button
                   type="button"
                   className="btn btn-secondary"
                   onClick={handleSignUp}
                 >
                   Sign Up
                 </button> */}
-                </div>
-                       
+                  </div>
                 </div>
               </div>
             </form>

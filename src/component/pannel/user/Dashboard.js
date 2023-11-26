@@ -4,7 +4,7 @@ import { Link, Route, Routes } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import RoutesNavigation from '../../routes/routes';
 
-export const WalletRecharge = () => <div>Wallet Recharge Content</div>;
+
 export const DriverDownload = () => <div>Driver Download Content</div>;
 export const AdharAdvance = () => <div>Adhar Advance Content</div>;
 export const AdharCard = () => <div>Adhar Card Content</div>;
@@ -32,7 +32,7 @@ const Dashboard = () => {
             <div className="position-sticky">
               <ul className="nav flex-column">
                 <li className="nav-item">
-                  <Link to="/dashboard/wallet-recharge" className="nav-link">Wallet Recharge</Link>
+                  <Link to="/userdashboard/wallet-recharge" className="nav-link">Wallet Recharge</Link>
                 </li>
                 <li className="nav-item">
                   <Link to="/dashboard/driver-download" className="nav-link">Driver Download</Link>
@@ -73,24 +73,8 @@ const Dashboard = () => {
           </div>
           {/* Main content */}
           <div className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-         
-          <Routes>
-            <Route path="/dashboard/wallet-recharge" element={<WalletRecharge />} />
-            <Route path="/dashboard/driver-download" element={<DriverDownload />} />
-            <Route path="/dashboard/adhar-advance" element={<AdharAdvance />} />
-            <Route path="/dashboard/adhar-card" element={<AdharCard />} />
-            <Route path="/dashboard/pan-card-find" element={<PanCardFind />} />
-            <Route path="/dashboard/voter-id-card" element={<VoterIdCard />} />
-            <Route path="/dashboard/ayushman-card" element={<AyushmanCard />} />
-            <Route path="/dashboard/sambhal-card" element={<SambhalCard />} />
-            <Route path="/dashboard/gumasta-form" element={<GumastaForm />} />
-            <Route path="/dashboard/forms" element={<Forms />} />
-            <Route path="/dashboard/profile" element={<Profile />} />
-            <Route path="/dashboard/popup-message" element={<PopupMessage />} />
-            <Route path="/dashboard/adhar-card/lost-adhar" element={<LostAdhar />} />
-            <Route path="/dashboard/adhar-card/adhar-payment" element={<AdharPayment />} />
-            <Route path="/dashboard/adhar-card/adhar-download" element={<AdharDownload />} />
-          </Routes>
+            <h1>Welcome</h1>
+    <RoutesNavigation/>
           </div>
         </div>
       </div>
