@@ -8,6 +8,7 @@ const ResetPassword = () => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const { id, token } = useParams();
+  const [isLoader,setLoader]=useState(false)
   const navigate = useNavigate();
 
   const passwordsMatch = () => {
@@ -25,12 +26,14 @@ const ResetPassword = () => {
 
 
     getUserData()
+   
     // Perform logic to update the password
   
     // You can add further logic, such as sending the new password to a backend for updating
   };
 
  const getUserData = async () => {
+  setLoader(true)
     const userData = {
       id: id,
      token: token,
@@ -41,9 +44,11 @@ const ResetPassword = () => {
     try {
       const res = await Api.post("/reset-password", userData);
       console.log(res.data);
+      setLoader(false)
       toast.success("User Registarion Successfully... !");
       navigate("/");
     } catch (e) {
+      setLoader(false)
       console.log(e);
       console.log(e.response.data.message);
       toast.error(e.response.data.message);
@@ -58,7 +63,7 @@ const ResetPassword = () => {
         <div className="col-md-6">
           <div className="border rounded p-3">
             <form onSubmit={handleSubmit}>
-              <h2 className="mb-3">Set New Password</h2>
+              <h2 className="mb-3">Reset Password</h2>
               <div className="mb-3">
                 <label htmlFor="newPassword" className="form-label">
                   New Password
@@ -87,6 +92,16 @@ const ResetPassword = () => {
                   required
                 />
               </div>
+              {isLoader && (
+                <button className="btn btn-primary" type="button" disabled="">
+                <span
+                  className="spinner-grow spinner-grow-sm"
+                  role="status"
+                  aria-hidden="true"
+                />
+                Loading...
+              </button>
+              )}
               <button type="submit" className="btn btn-primary">
                 Save Password
               </button>

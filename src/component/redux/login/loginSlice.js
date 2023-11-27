@@ -1,13 +1,20 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Api } from "../../axios/Axios";
 import { toast } from "react-toastify";
-
+import Cookies from "js-cookie";
 
 export  const userlogin=createAsyncThunk("userlogin",async(userdata)=>{
     try {
         const res = await Api.post("/login",userdata)
-        console.log(res.data.token)
+        if(res.data && res.data.token && res.data.token.length > 0 ){
+          let userToken =  res.data.token;
+          const expirationDate=new Date();
+          expirationDate.setTime(expirationDate.getTime()+3.33*60*60*1000)
+          Cookies.set("token",userToken,{expires: expirationDate})
+        }
+   
         toast.success("User Login Successfully... !");
+        return res.data.data
       }catch(e){
         console.log(e)
         console.log(e.response.data.message)
@@ -40,7 +47,7 @@ const loginSlice=createSlice({
             state.status = "rejected"; // Updated the status to 'rejected'
           });
     }
-    
+      
 
 })
 
