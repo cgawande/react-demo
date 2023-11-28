@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const AdharCard = () => {
+const AdminAdharCard = () => {
   const [adharSubMenu, setAdharSubMenu] = useState(false);
 
   const navigate = useNavigate();
@@ -41,4 +41,4 @@ const AdharCard = () => {
   );
 };
 
-export default AdharCard;
+export default AdminAdharCard;

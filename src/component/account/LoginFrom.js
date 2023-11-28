@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { userlogin } from "../redux/login/loginSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
@@ -9,7 +9,7 @@ const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoader, setLoader] = useState(false);
-  const {user}=useSelector((state)=>state.login)
+  const { user } = useSelector((state) => state.login);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
@@ -35,15 +35,16 @@ const LoginForm = () => {
     // You can add logic to navigate to a sign-up page or display a sign-up form
   };
 
-useEffect(()=>{
-  if(user){
-    if(user.role=="user"){
-      navigate("/user")
+  useEffect(() => {
+    if (user) {
+      if (user.role == "user") {
+        navigate("/user");
+      }
+      else if (user.role == "admin") {
+        navigate("/admin");
+      }
     }
-  }
-},[user])
-
-console.log("...",user)
+  }, [user]);
 
   return (
     <div className="container mt-5">
@@ -107,20 +108,17 @@ console.log("...",user)
                       Loading...
                     </button>
                   )}
-                  <button type="submit" className="btn btn-primary me-2">
-                    Login
-                  </button>
+                  {!isLoader && (
+                    <button type="submit" className="btn btn-primary me-2">
+                      Login
+                    </button>
+                  )}
+
                   <div>
                     <label className="btn btn-link" onClick={handleSignUp}>
                       Create a new account
                     </label>
-                    {/* <button
-                  type="button"
-                  className="btn btn-secondary"
-                  onClick={handleSignUp}
-                >
-                  Sign Up
-                </button> */}
+            
                   </div>
                 </div>
               </div>

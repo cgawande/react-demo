@@ -13,6 +13,7 @@ const RegistrationForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [isLoader, setLoader] = useState(false);
   const navigate = useNavigate();
 
   const validatePassword = () => {
@@ -34,6 +35,7 @@ const RegistrationForm = () => {
   };
 
   const getUserData = async () => {
+    setLoader(true);
     const userData = {
       fullName: fullName,
       email: email,
@@ -44,8 +46,12 @@ const RegistrationForm = () => {
     try {
       const res = await Api.post("/signup", userData);
       console.log(res.data);
+
       toast.success("User Registarion Successfully... !");
+      setLoader(false);
+      navigate("/");
     } catch (e) {
+      setLoader(false);
       console.log(e);
       console.log(e.response.data.message);
       toast.error(e.response.data.message);
@@ -134,10 +140,24 @@ const RegistrationForm = () => {
                   required
                 />
               </div>
+
               <div className="d-flex justify-content-between">
-                <button type="submit" className="btn btn-primary">
-                  Register
-                </button>
+                {isLoader && (
+                  <button className="btn btn-primary" type="button" disabled="">
+                    <span
+                      className="spinner-grow spinner-grow-sm"
+                      role="status"
+                      aria-hidden="true"
+                    />
+                    Loading...
+                  </button>
+                )}
+                {!isLoader && (
+                  <button type="submit" className="btn btn-primary">
+                    Register
+                  </button>
+                )}
+
                 <div>
                   <button
                     type="button "

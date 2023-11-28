@@ -26,6 +26,10 @@ import WalletRecharge from "../pannel/user/pages/WalletRecharge";
 import UserDashboard from "../pannel/user/UserDashboard";
 import LostAdharForm from "../pannel/user/pages/LostAdhar";
 
+import AdminDashboard from "../pannel/admin/AdminDashboard";
+import Wallet from "../pannel/admin/pages/Walletebalance";
+import UserList from "../pannel/admin/pages/UserList";
+
 function RoutesNavigation() {
   return (
     <>
@@ -36,9 +40,9 @@ function RoutesNavigation() {
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/otpverify" element={<OTPVerification />} />
         <Route path="/reset/:id/:token" element={<ResetPassword />} />
+
+        {/* User Routes */}
         <Route path="/user" element={<UserDashboard />}>
-
-
         <Route index element={<Navigate replace to="dashboard" />} />
           <Route path="dashboard" element={<WalletRecharge />} />
           <Route path={"lost-adhar-form"} element={<LostAdharForm />}></Route>
@@ -57,6 +61,13 @@ function RoutesNavigation() {
           <Route path="adhar-payment" element={<AdharPayment />} />
           <Route path="adhar-download" element={<AdharDownload />} /> */}
         </Route>
+{/* Admin Routes */}
+<Route path="/admin" element={<AdminDashboard />}>
+
+  <Route index element={<Navigate replace to="dashboard"/>}/> 
+  <Route path ="dashboard" element= {<Wallet/>} /> 
+  <Route path="user-list" element ={<UserList/>}/>
+</Route>
 
         {/* <Route path="/login" element={<LoginForm />} /> */}
       </Routes>

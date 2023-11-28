@@ -32,44 +32,48 @@ const ForgotPassword = () => {
     <div className="container mt-5">
       <div className="row justify-content-center">
         <div className="col-md-6">
-<div className="border rounded p-3">
-          <form onSubmit={handleSubmit}>
-            <h2 className="mb-3">Forgot Password</h2>
-            <div className="mb-3">
-              <label htmlFor="email" className="form-label">
-                Email
-              </label>
-              <input
-                type="email"
-                className="form-control"
-                id="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-            {isLoader && (
-              <div className="text-center">
-                <>
-                
-                  <button className="btn btn-primary" type="button" disabled="">
-                    <span
-                      className="spinner-border spinner-border-sm"
-                      role="status"
-                      aria-hidden="true"
-                    />
-                    Loading...
-                  </button>
-                </>
-
-                {/* {alert("Please  wait")} */}
+          <div className="border rounded p-3">
+            <form onSubmit={handleSubmit}>
+              <h2 className="mb-3">Forgot Password</h2>
+              <div className="mb-3">
+                <label htmlFor="email" className="form-label">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  className="form-control"
+                  id="email"
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
               </div>
-            )}
-            <button type="submit" className="btn btn-primary">
+              {isLoader && (
+                <div className="text-center">
+                  <>
+                    <button
+                      className="btn btn-primary"
+                      type="button"
+                      disabled=""
+                    >
+                      <span
+                        className="spinner-border spinner-border-sm"
+                        role="status"
+                        aria-hidden="true"
+                      />
+                      Loading...
+                    </button>
+                  </>
+
+                  {/* {alert("Please  wait")} */}
+                </div>
+              )}{!isLoader&&( 
+                 <button type="submit" className="btn btn-primary">
               Submit
-            </button>
-          </form>
+            </button>)}
+         
+            </form>
           </div>
         </div>
       </div>

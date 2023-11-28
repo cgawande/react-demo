@@ -54,9 +54,6 @@ const ResetPassword = () => {
       toast.error(e.response.data.message);
     }
   };
-
-
-
   return (
     <div className="container mt-5">
       <div className="row justify-content-center">
@@ -102,9 +99,12 @@ const ResetPassword = () => {
                 Loading...
               </button>
               )}
-              <button type="submit" className="btn btn-primary">
-                Save Password
-              </button>
+              {!isLoader && (
+                      <button type="submit" className="btn btn-primary">
+                      Save Password
+                    </button>
+              )}
+  
             </form>
           </div>
         </div>
