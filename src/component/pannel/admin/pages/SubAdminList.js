@@ -1,20 +1,29 @@
+import React, { useEffect, useState } from "react";
+import AdminSidebar from "../Sidebar";
+import Header from "../Header";
+import { Api } from "../../../axios/Axios";
+import { debounce } from "lodash";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import register from "../../../redux/register";
 
-import React, { useEffect, useState } from 'react';
-import AdminSidebar from '../Sidebar';
-import Header from '../Header';
-import { Api } from '../../../axios/Axios';
-import { debounce } from 'lodash';
-import { Link } from 'react-router-dom';
-
-function UserList() {
+function SubAdminList() {
   const [users, setUsers] = useState([]);
   const [isLoader, setIsLoader] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalCount, setTotalCount] = useState('');
+  const [totalCount, setTotalCount] = useState("");
   const [limit, setLimit] = useState(3);
 
   // Use lodash's debounce function to delay the invocation of userList
+const dispatch =useDispatch()
+const navigate=useNavigate()
+  const handleSubadmin = ()=>{
+    dispatch(register("sub-admin"))
+    navigate("/register")
+
+  }
+
 
   useEffect(() => {
     delayedUserList(); // Trigger userList when searchTerm changes with a delay of 300 milliseconds
@@ -25,15 +34,17 @@ function UserList() {
   useEffect(() => {
     userList(); // Trigger userList when currentPage changes
   }, [currentPage]);
-  
+
   const userList = async () => {
     setIsLoader(true);
     try {
       let res;
       if (searchTerm) {
-        res = await Api(`/users?page=${currentPage}&limit=${limit}&search=${searchTerm}`);
+        res = await Api(
+          `/sub-admin?page=${currentPage}&limit=${limit}&search=${searchTerm}`
+        );
       } else {
-        res = await Api(`/users?page=${currentPage}&limit=${limit}`);
+        res = await Api(`/sub-admin?page=${currentPage}&limit=${limit}`);
       }
       setUsers(res.data.data.users);
       setTotalCount(res.data.data.totalCount);
@@ -83,7 +94,10 @@ function UserList() {
 
     for (let i = startPage; i <= endPage; i++) {
       pageNumbers.push(
-        <li key={i} className={`page-item ${currentPage === i ? 'active' : ''}`}>
+        <li
+          key={i}
+          className={`page-item ${currentPage === i ? "active" : ""}`}
+        >
           <a className="page-link" onClick={() => paginate(i)} href="#">
             {i}
           </a>
@@ -108,12 +122,13 @@ function UserList() {
           <div className="col-sm-10 p-0 m-0">
             <Header />
             <div className="container mt-4">
-            <h2 className="text-center mb-4">User </h2>
-            <div className='d-flex m-2 justify-content-center p-5'>
-                <div className='btn btn-primary  m-2'> App User </div>
-                <Link to ="/admin/role/sub-admin-list">  <div className='btn btn-outline-dark m-2'> Sub Admin  </div></Link>
-                </div>
-         
+              <div className="d-flex m-2 justify-content-center p-5">
+                <Link to="/admin/role/user-list">
+                  {" "}
+                  <div className="btn btn-outline-dark m-2"> App User </div>
+                </Link>
+                <div className="btn btn-primary  m-2"> Sub Admin </div>
+              </div>
               {isLoader && (
                 <div className="text-center">
                   <button className="btn btn-primary" type="button" disabled="">
@@ -129,23 +144,29 @@ function UserList() {
 
               {!isLoader && (
                 <>
-                  <div className="row g-3 align-items-center">
-                    <div className="col-auto">
-                      <label htmlFor="inputPassword6" className="col-form-label">
-                        Search
-                      </label>
+                  <div className="row justify-content-end align-items-center mt-2">
+                    <div className="col-md-4">
+                      <div className="d-flex">
+                        <label
+                          htmlFor="inputPassword6"
+                          className="col-form-label"
+                        >
+                          Search
+                        </label>
+                        <input
+                          type="text"
+                          id="inputPassword6"
+                          className="form-control"
+                          value={searchTerm}
+                          aria-describedby="passwordHelpInline"
+                          onChange={handleSearch}
+                        />{" "}
+                      </div>
                     </div>
-                    <div className="col-auto">
-                      <input
-                        type="text"
-                        id="inputPassword6"
-                        className="form-control"
-                        value={searchTerm}
-                        aria-describedby="passwordHelpInline"
-                        onChange={handleSearch}
-                      />
+
+                    <div className="col-md-8">
+                      <div className="btn btn-primary" onClick={handleSubadmin}> Craete Sub Admin</div>
                     </div>
-                  
                   </div>
 
                   <div className="table-responsive">
@@ -178,24 +199,56 @@ function UserList() {
                   {/* Pagination */}
                   <nav aria-label="Page navigation example">
                     <ul className="pagination">
-                      <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-                        <a className="page-link" onClick={() => paginate(1)} href="#">
+                      <li
+                        className={`page-item ${
+                          currentPage === 1 ? "disabled" : ""
+                        }`}
+                      >
+                        <a
+                          className="page-link"
+                          onClick={() => paginate(1)}
+                          href="#"
+                        >
                           First
                         </a>
                       </li>
-                      <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-                        <a className="page-link" onClick={() => paginate(currentPage - 1)} href="#">
+                      <li
+                        className={`page-item ${
+                          currentPage === 1 ? "disabled" : ""
+                        }`}
+                      >
+                        <a
+                          className="page-link"
+                          onClick={() => paginate(currentPage - 1)}
+                          href="#"
+                        >
                           Previous
                         </a>
                       </li>
                       {renderPageNumbers()}
-                      <li className={`page-item ${currentPage === totalPageCount ? 'disabled' : ''}`}>
-                        <a className="page-link" onClick={() => paginate(currentPage + 1)} href="#">
+                      <li
+                        className={`page-item ${
+                          currentPage === totalPageCount ? "disabled" : ""
+                        }`}
+                      >
+                        <a
+                          className="page-link"
+                          onClick={() => paginate(currentPage + 1)}
+                          href="#"
+                        >
                           Next
                         </a>
                       </li>
-                      <li className={`page-item ${currentPage === totalPageCount ? 'disabled' : ''}`}>
-                        <a className="page-link" onClick={() => paginate(totalPageCount)} href="#">
+                      <li
+                        className={`page-item ${
+                          currentPage === totalPageCount ? "disabled" : ""
+                        }`}
+                      >
+                        <a
+                          className="page-link"
+                          onClick={() => paginate(totalPageCount)}
+                          href="#"
+                        >
                           Last
                         </a>
                       </li>
@@ -211,4 +264,4 @@ function UserList() {
   );
 }
 
-export default UserList;
+export default SubAdminList;

@@ -1,10 +1,7 @@
-
 import React, { useEffect, useState } from 'react';
 import AdminSidebar from '../Sidebar';
 import Header from '../Header';
 import { Api } from '../../../axios/Axios';
-import { debounce } from 'lodash';
-import { Link } from 'react-router-dom';
 
 function UserList() {
   const [users, setUsers] = useState([]);
@@ -14,26 +11,18 @@ function UserList() {
   const [totalCount, setTotalCount] = useState('');
   const [limit, setLimit] = useState(3);
 
-  // Use lodash's debounce function to delay the invocation of userList
-
   useEffect(() => {
-    delayedUserList(); // Trigger userList when searchTerm changes with a delay of 300 milliseconds
-    // Cleanup function to cancel the debounced function if the component unmounts or searchTerm changes before 300 milliseconds
-    return delayedUserList.cancel;
-  }, [searchTerm]);
+    userList();
+  }, [currentPage, searchTerm]);
 
-  useEffect(() => {
-    userList(); // Trigger userList when currentPage changes
-  }, [currentPage]);
-  
   const userList = async () => {
     setIsLoader(true);
     try {
       let res;
-      if (searchTerm) {
+      if(searchTerm){
         res = await Api(`/users?page=${currentPage}&limit=${limit}&search=${searchTerm}`);
-      } else {
-        res = await Api(`/users?page=${currentPage}&limit=${limit}`);
+      }else{
+       res = await Api(`/users?page=${currentPage}&limit=${limit}`);
       }
       setUsers(res.data.data.users);
       setTotalCount(res.data.data.totalCount);
@@ -43,16 +32,14 @@ function UserList() {
       console.error("Error fetching user data:", error);
     }
   };
-  const delayedUserList = debounce(userList, 500);
-  useEffect(() => {
-    delayedUserList(); // Trigger userList when searchTerm changes with a delay of 300 milliseconds
-    // Cleanup function to cancel the debounced function if the component unmounts or searchTerm changes before 300 milliseconds
-    return delayedUserList.cancel;
-  }, [searchTerm]);
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };
+
+  useEffect(() => {
+    userList(); // Trigger userList when currentPage or searchTerm changes
+  }, [currentPage, searchTerm]);
 
   const indexOfLastUser = currentPage * limit;
   const indexOfFirstUser = indexOfLastUser - limit;
@@ -108,12 +95,7 @@ function UserList() {
           <div className="col-sm-10 p-0 m-0">
             <Header />
             <div className="container mt-4">
-            <h2 className="text-center mb-4">User </h2>
-            <div className='d-flex m-2 justify-content-center p-5'>
-                <div className='btn btn-primary  m-2'> App User </div>
-                <Link to ="/admin/role/sub-admin-list">  <div className='btn btn-outline-dark m-2'> Sub Admin  </div></Link>
-                </div>
-         
+              <h2 className="text-center mb-4">User Information</h2>
               {isLoader && (
                 <div className="text-center">
                   <button className="btn btn-primary" type="button" disabled="">
@@ -145,7 +127,6 @@ function UserList() {
                         onChange={handleSearch}
                       />
                     </div>
-                  
                   </div>
 
                   <div className="table-responsive">

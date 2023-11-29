@@ -29,6 +29,8 @@ import LostAdharForm from "../pannel/user/pages/LostAdhar";
 import AdminDashboard from "../pannel/admin/AdminDashboard";
 import Wallet from "../pannel/admin/pages/Walletebalance";
 import UserList from "../pannel/admin/pages/UserList";
+import RoleManageMent from "../pannel/admin/pages/RoleManageMent";
+import SubAdminList from "../pannel/admin/pages/SubAdminList";
 
 function RoutesNavigation() {
   return (
@@ -67,6 +69,13 @@ function RoutesNavigation() {
   <Route index element={<Navigate replace to="dashboard"/>}/> 
   <Route path ="dashboard" element= {<Wallet/>} /> 
   <Route path="user-list" element ={<UserList/>}/>
+  {/* <Route path="sub-admin-list" element ={<SubAdminList/>} /> */}
+
+  <Route path="role" element={<RoleManageMent/>}>
+    <Route index element={<Navigate replace to ="user-list"/>}></Route>
+  <Route path="user-list" element ={<UserList/>}/>
+  <Route path="sub-admin-list" element ={<SubAdminList/>} />
+  </Route>
 </Route>
 
         {/* <Route path="/login" element={<LoginForm />} /> */}

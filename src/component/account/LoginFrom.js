@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {  useNavigate } from "react-router-dom";
-import { userlogin } from "../redux/login/loginSlice";
+import { adduserdata, userlogin } from "../redux/login/loginSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { Api } from "../axios/Axios";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -15,13 +18,42 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     setLoader(true);
     e.preventDefault();
+    const res = await fetchLoginData();
+    setLoader(false);
+  };
+
+const fetchLoginData =async()=>{
+  try {
     const userData = {
       email: email,
       password: password,
     };
-    await dispatch(userlogin(userData));
-    setLoader(false);
-  };
+    const res = await Api.post("/login",userData)
+    const user = res.data.data;
+    if(res.data && res.data.token && res.data.token.length > 0 ){
+      let userToken =  res.data.token;
+      const expirationDate=new Date();
+      expirationDate.setTime(expirationDate.getTime()+3.33*60*60*1000)
+      Cookies.set("token",userToken,{expires: expirationDate})
+    }
+    await dispatch(adduserdata(res.data.data))
+    toast.success("User Login Successfully... !");
+    if (user) {
+      if (user.role ==="user") {
+        navigate("/user");
+      }
+      else if (user.role === "admin" || user.role === "sub-admin") {
+        navigate("/admin");
+      }else {
+        navigate('/')
+      }
+    }
+  }catch(e){
+    console.log(e)
+    console.log(e.response.data.message)
+    toast.error(e.response.data.message);
+  }
+}
 
   const handleForgotPassword = () => {
     // Handle forgot password logic, such as redirecting to a forgot password page
@@ -35,16 +67,6 @@ const LoginForm = () => {
     // You can add logic to navigate to a sign-up page or display a sign-up form
   };
 
-  useEffect(() => {
-    if (user) {
-      if (user.role == "user") {
-        navigate("/user");
-      }
-      else if (user.role == "admin") {
-        navigate("/admin");
-      }
-    }
-  }, [user]);
 
   return (
     <div className="container mt-5">

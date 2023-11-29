@@ -5,6 +5,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { Api } from "../axios/Axios";
+import { useSelector } from "react-redux";
+import { emptySubAdmin } from "../redux/register";
 // import { Api } from '../axios/Axios';
 
 const RegistrationForm = () => {
@@ -15,7 +17,7 @@ const RegistrationForm = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isLoader, setLoader] = useState(false);
   const navigate = useNavigate();
-
+const role=useSelector((state)=>state.register)
   const validatePassword = () => {
     if (password !== confirmPassword) {
       toast.error("Password and confirm password do not match");
@@ -44,7 +46,15 @@ const RegistrationForm = () => {
       phoneNumber: mobileNumber,
     };
     try {
-      const res = await Api.post("/signup", userData);
+      let res
+      if(role=="sub-admin"){
+        res = await Api.post("/register/sub-admin", userData);
+       dispatchEvent(emptySubAdmin(""))
+      }
+      else{
+     res = await Api.post("/signup", userData);
+      }
+    
       console.log(res.data);
 
       toast.success("User Registarion Successfully... !");

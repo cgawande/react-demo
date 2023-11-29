@@ -27,7 +27,7 @@ const AdminSidebar = () => {
           </Link>
         </li>
         <li className="nav-item">
-          <Link to="/admin/user-list" className="nav-link">
+          <Link to="/admin/role" className="nav-link">
          User List
           </Link>
         </li>
