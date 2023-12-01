@@ -9,7 +9,7 @@ console.log(user);
 if(userToken){
     return(
         <>
-{user?.role?<Outlet/>:<div>....loding</div>}
+<Outlet/>
         </>
     )
 }

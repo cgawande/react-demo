@@ -16,7 +16,7 @@ const Sidebar = () => {
    
       <ul className={styles.sideMenu}>
         <li className="nav-item">
-          <Link to="/userdashboard/wallet-recharge" className="nav-link">
+          <Link to="/user/dashboard/" className="nav-link">
             Wallet Recharge
           </Link>
         </li>
