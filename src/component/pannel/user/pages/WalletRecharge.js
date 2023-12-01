@@ -32,7 +32,6 @@ const WalletRecharge = () => {
           <div className="col-sm-10">
             <UserHeader />
             <div>
-              <form className="row g-3">
                 <div className="col-auto">
                   <label htmlFor="staticEmail2" className="visually-hidden">
                 
@@ -47,11 +46,10 @@ const WalletRecharge = () => {
                   />
                 </div>
                 <div className="col-auto">
-                  <button  onClick={()=> displayRazorpay(paymentAmount)} className="btn btn-primary mb-3">
+                  <button  onClick={displayRazorpay(paymentAmount)} className="btn btn-primary mb-3">
                     Recharge Now
                   </button>
                 </div>
-              </form>
             </div>
           </div>
         </div>
