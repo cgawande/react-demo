@@ -47,20 +47,7 @@ const WalletRecharge = () => {
                   />
                 </div>
                 <div className="col-auto">
-                  <label htmlFor="inputPassword2" className="visually-hidden">
-                    Payment Amount
-                  </label>
-                  <input
-                    type="password"
-                    id="staticEmail2"
-                    onChange={(e)=>{ setPaymentAmount(e.target.value)}}
-                    className="form-control"
-           
-                    placeholder="Password"
-                  />
-                </div>
-                <div className="col-auto">
-                  <button type="submit" onClick={()=> displayRazorpay(paymentAmount)} className="btn btn-primary mb-3">
+                  <button  onClick={()=> displayRazorpay(paymentAmount)} className="btn btn-primary mb-3">
                     Recharge Now
                   </button>
                 </div>
