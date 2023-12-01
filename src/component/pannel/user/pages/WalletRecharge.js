@@ -46,7 +46,7 @@ const WalletRecharge = () => {
                   />
                 </div>
                 <div className="col-auto">
-                  <button  onClick={displayRazorpay(paymentAmount)} className="btn btn-primary mb-3">
+                  <button  onClick={()=>{displayRazorpay(paymentAmount)}} className="btn btn-primary mb-3">
                     Recharge Now
                   </button>
                 </div>

@@ -1,10 +1,12 @@
 import axios from "axios";
 export default async function displayRazorpay(amount) {
-  const data = await axios.post("http://localhost:8088/api/v1/payment", {amount:amount,currency:"INR"}
+  try{
+  const data = await axios.post("https://backendsp.onrender.com/api/v1/payment", {amount:amount,currency:"INR"}
   )
   const resp=data.data.data
+  console.log(data,"res")
   const options = {
-    key: process?.env?.key_id ?? "rzp_test_dv3hsJ5Ue3U5gl",
+    key: "rzp_test_dv3hsJ5Ue3U5gl",
     currency: resp.currency,
     amount: resp.amount,
     name: "SP Services Online",
@@ -45,4 +47,7 @@ export default async function displayRazorpay(amount) {
 
   const paymentObject = new window.Razorpay(options);
   paymentObject.open();
+}catch(err){
+  console.log(err.message)
+}
 }
