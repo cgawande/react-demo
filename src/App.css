@@ -72,3 +72,9 @@ input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+.dropdown-item:active{
+  background-color: black !important;
+}
+.dropdown-item:hover{
+  background-color: black !important;
+}

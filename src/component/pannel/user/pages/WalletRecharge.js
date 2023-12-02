@@ -34,7 +34,9 @@ useEffect(()=>{
       document.body.appendChild(script);
     });
   };
-
+const handlePayClick=()=>{
+  displayRazorpay(paymentAmount,name,email,contact)
+}
   useEffect(() => {
     loadScript("https://checkout.razorpay.com/v1/checkout.js");
   });
