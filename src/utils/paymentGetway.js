@@ -27,28 +27,28 @@ export default async function displayRazorpay(amount, name, email, contact) {
             razorpayPaymentId: response.razorpay_payment_id,
             razorpayOrderId: response.razorpay_order_id,
             razorpaySignature: response.razorpay_signature,
+            amount: amount
           };
 
           const result = await Api.post(
          "/payment/verify",
             option
           );
-          alert(result.data.data.value);
-          let res = await Api.get(
-            `/payments/${response.razorpay_payment_id}`
-          );
-          if (res?.data?.data?.status === "captured") {
-            alert("payment successful");
-            await Api.post(
-              `/transaction/${resp.transactionId}`,
-              { status: "completed" }
-            );
-            await Api.post(
-              `/add-wallet`,
-              { amount: amount }
-            );
+          // let res = await Api.get(
+          //   `/payments/${response.razorpay_payment_id}`
+          // );
+          //if (res?.data?.data?.status === "captured") {
+            // alert("payment successful");
+            // await Api.post(
+            //   `/transaction/${resp.transactionId}`,
+            //   { status: "completed" }
+            // );
+            // await Api.post(
+            //   `/add-wallet`,
+            //   { amount: amount }
+            // );
             window.location.href = "https://sponlineservices.netlify.app/user";
-          }
+          
         }
       },
       prefill: {

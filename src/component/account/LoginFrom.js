@@ -40,8 +40,8 @@ const fetchLoginData =async()=>{
     await dispatch(adduserdata(res.data.data))
     toast.success("User Login Successfully... !");
     if (userdata) { 
-      console.log("userData",user)
       if (user.role ==="user") {
+        console.log("userData",user)
         navigate("/user");
       }
       else if (user.role === "admin" || user.role === "sub-admin") {
