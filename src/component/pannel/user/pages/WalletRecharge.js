@@ -2,9 +2,25 @@ import { useEffect, useState } from "react";
 import Sidebar from "../Sidebar";
 import UserHeader from "../UserHeader";
 import displayRazorpay from "../../../../utils/paymentGetway";
+import { useSelector } from "react-redux";
 
 const WalletRecharge = () => {
-  const [paymentAmount, setPaymentAmount] =useState()
+  const {user} = useSelector((state)=>state.login)
+  const [paymentAmount, setPaymentAmount] = useState();
+  const [name, setName] = useState();
+  const [email, setEmail] = useState();
+  const [contact, setContact] = useState();
+console.log(user)
+console.log("....",user?.fullName)
+useEffect(()=>{
+  if(user?.fullName){
+    setName(user?.fullName)
+    setEmail(user?.email)
+    setContact(user?.phoneNumber)
+  }
+},[user])
+
+
   const loadScript = (src) => {
     return new Promise((resolve) => {
       const script = document.createElement("script");
@@ -31,25 +47,35 @@ const WalletRecharge = () => {
           </div>
           <div className="col-sm-10">
             <UserHeader />
-            <div>
-                <div className="col-auto">
-                  <label htmlFor="staticEmail2" className="visually-hidden">
-                
-                  </label>
-                  <input
-                    type="number"
-                    readOnly=""
-                    className=""
-                    id="staticEmail2"
-                    onChange={(e)=>{ setPaymentAmount(e.target.value)}}
-                    defaultValue="email@example.com"
-                  />
+            <div className="row my-3">
+              <div className="col-sm-2"></div>
+              <div className="col-sm-6">
+                <div className="d-flex align-items-center">
+                <label>Amount</label>
+                <input
+                  type="number"
+                  // readOnly=""
+                  required
+                  style={{width:"200px"}}
+                  className="form-control mx-3"
+                  id="staticEmail2"
+                  placeholder="enter amount"
+                  onChange={(e) => {
+                    setPaymentAmount(e.target.value);
+                  }}
+                  defaultValue="email@example.com"
+                />
+                <button 
+                  onClick={() => {
+                    displayRazorpay(paymentAmount,name,email,contact);
+                  }}
+                  className="btn customBtn "
+                >
+                  Recharge Now
+                </button>
                 </div>
-                <div className="col-auto">
-                  <button  onClick={()=>{displayRazorpay(paymentAmount)}} className="btn btn-primary mb-3">
-                    Recharge Now
-                  </button>
-                </div>
+              </div>
+              <div className="col-sm-2"></div>
             </div>
           </div>
         </div>

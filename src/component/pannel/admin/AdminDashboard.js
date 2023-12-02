@@ -1,9 +1,9 @@
 import Cookies from "js-cookie";
 import { Navigate, Outlet } from "react-router-dom";
-
-const AdminDashboard=()=>{
 let userToken=Cookies.get("token")
+const AdminDashboard=()=>{
 
+            
 if(userToken){
     return(
         <>

@@ -1,10 +1,15 @@
 import axios from "axios";
-export default async function displayRazorpay(amount) {
+
+
+
+
+export default async function displayRazorpay(amount,name,email,contact ) {
   try{
+    console.log(amount,name,email,contact)
   const data = await axios.post("https://backendsp.onrender.com/api/v1/payment", {amount:amount,currency:"INR"}
   )
   const resp=data.data.data
-  console.log(data,"res")
+
   const options = {
     key: "rzp_test_dv3hsJ5Ue3U5gl",
     currency: resp.currency,
@@ -39,15 +44,15 @@ export default async function displayRazorpay(amount) {
       }
     },
     prefill: {
-      name: "chandrakant",
-      email: "abc@gmail.com",
-      contact: "7350262335",
+      name:name,
+      email: email,
+      contact: contact,
     },
   };
 
   const paymentObject = new window.Razorpay(options);
   paymentObject.open();
 }catch(err){
-  console.log(err.message)
+
 }
 }

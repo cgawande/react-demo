@@ -12,7 +12,7 @@ const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoader, setLoader] = useState(false);
-  const { user } = useSelector((state) => state.login);
+  const userdata  = useSelector((state) => state.login);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
@@ -21,6 +21,7 @@ const LoginForm = () => {
     const res = await fetchLoginData();
     setLoader(false);
   };
+
 
 const fetchLoginData =async()=>{
   try {
@@ -38,7 +39,8 @@ const fetchLoginData =async()=>{
     }
     await dispatch(adduserdata(res.data.data))
     toast.success("User Login Successfully... !");
-    if (user) {
+    if (userdata) { 
+      console.log("userData",user)
       if (user.role ==="user") {
         navigate("/user");
       }
@@ -49,9 +51,10 @@ const fetchLoginData =async()=>{
       }
     }
   }catch(e){
-    console.log(e)
-    console.log(e.response.data.message)
-    toast.error(e.response.data.message);
+    // console.log(e)
+    // console.log(e.response.data.message)
+    // toast.error(e.response.data.message);
+    toast.error("Invalid Credential");
   }
 }
 
@@ -71,7 +74,7 @@ const fetchLoginData =async()=>{
   return (
     <div className="container mt-5">
       <div className="row justify-content-center">
-        <div className="col-md-6">
+        <div className="col-md-4">
           <div className="border rounded p-3">
             <form onSubmit={handleSubmit}>
               <h2 className="mb-3">Login</h2>
@@ -117,21 +120,21 @@ const fetchLoginData =async()=>{
               <div className="mb-3">
                 <div className="d-flex justify-content-between">
                   {isLoader && (
-                    <button
-                      className="btn btn-primary"
-                      type="button"
-                      disabled=""
-                    >
+                    <div className="text-center">
+                    <button className="btn bg-black" type="button" disabled="">
                       <span
-                        className="spinner-grow spinner-grow-sm"
+                        className="spinner-border spinner-border-sm text-white"
                         role="status"
+  
                         aria-hidden="true"
                       />
-                      Loading...
+  
+                      <span className='text-white ms-1'>Loading... </span>
                     </button>
+                  </div>
                   )}
                   {!isLoader && (
-                    <button type="submit" className="btn btn-primary me-2">
+                    <button type="submit" className="btn customBtn me-2">
                       Login
                     </button>
                   )}

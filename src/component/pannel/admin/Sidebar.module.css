@@ -5,6 +5,9 @@
     padding: 0;
     margin: 0;
     background-color: #343a40; /* Dark background color */
+    /* position: sticky;
+    top: auto; */
+    position: fixed;
   }
   
   .sideMenu li {

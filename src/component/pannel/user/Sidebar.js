@@ -14,7 +14,7 @@ const Sidebar = () => {
   return (
     <>
    
-      <ul className={styles.sideMenu}>
+      <ul className={`${styles.sideMenu} position-sticky top-0 `}>
         <li className="nav-item">
           <Link to="/user/dashboard/" className="nav-link">
             Wallet Recharge

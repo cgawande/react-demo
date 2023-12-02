@@ -90,17 +90,21 @@ const ResetPassword = () => {
                 />
               </div>
               {isLoader && (
-                <button className="btn btn-primary" type="button" disabled="">
-                <span
-                  className="spinner-grow spinner-grow-sm"
-                  role="status"
-                  aria-hidden="true"
-                />
-                Loading...
-              </button>
+                    <div className="text-center">
+                    <button className="btn bg-black" type="button" disabled="">
+                      <span
+                        className="spinner-border spinner-border-sm text-white"
+                        role="status"
+     
+                        aria-hidden="true"
+                      />
+     
+                      <span className='text-white ms-1'>Loading... </span>
+                    </button>
+                  </div>
               )}
               {!isLoader && (
-                      <button type="submit" className="btn btn-primary">
+                      <button type="submit" className="btn customBtn">
                       Save Password
                     </button>
               )}

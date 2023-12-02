@@ -15,7 +15,7 @@ const AdminSidebar = () => {
   return (
     <>
    
-      <ul className={styles.sideMenu}>
+      <ul className={`${styles.sideMenu}  `}>
         <li className="nav-item">
           <Link to="/userdashboard/wallet-recharge" className="nav-link">
             Wallet Balance

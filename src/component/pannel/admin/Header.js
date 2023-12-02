@@ -1,6 +1,7 @@
 import React from 'react';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
+import style from './Header.module.css'
 const Header = () => {
   // Replace with your actual user data
   const userName = 'Ranjit';
@@ -18,7 +19,7 @@ const navigate=useNavigate()
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light position-sticky top-0">
         <div className="container-fluid">
           <span className="navbar-brand" >
            Ranjit Gawande
@@ -42,7 +43,7 @@ const navigate=useNavigate()
           <div className="d-flex">
             <span className="me-3">Wallet Balance: {walletBalance}</span>
             <span className="me-3">Name: {userName}</span>
-            <button className="btn btn-outline-dark" onClick={()=>handleLogout()}>
+            <button className= {`${style.hoverBtn} btn bg-black text-white`}  onClick={()=>handleLogout()}>
               LogOut
             </button>
           </div>

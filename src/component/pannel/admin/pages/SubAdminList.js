@@ -6,24 +6,75 @@ import { debounce } from "lodash";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import register from "../../../redux/register";
+import { ToastContainer, toast } from "react-toastify";
 
 function SubAdminList() {
   const [users, setUsers] = useState([]);
   const [isLoader, setIsLoader] = useState(false);
+  const [risLoader, setLoader] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalCount, setTotalCount] = useState("");
   const [limit, setLimit] = useState(3);
-
+  const [fullName, setFullName] = useState("");
+  const [mobileNumber, setMobileNumber] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   // Use lodash's debounce function to delay the invocation of userList
-const dispatch =useDispatch()
-const navigate=useNavigate()
-  const handleSubadmin = ()=>{
-    dispatch(register("sub-admin"))
-    navigate("/register")
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const validatePassword = () => {
+    if (password !== confirmPassword) {
+      toast.error("Password and confirm password do not match");
+      return false;
+    }
+    return true;
+  };
 
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
+    if (!validatePassword()) {
+      return;
+    }
+
+    getUserData();
+  };
+
+  const getUserData = async () => {
+    setLoader(true);
+    const userData = {
+      fullName: fullName,
+      email: email,
+      password: password,
+      confirmPassword: confirmPassword,
+      phoneNumber: mobileNumber,
+    };
+    try {
+    const res = await Api.post("/register/sub-admin", userData);
+      toast.success("Sub Admin Registarion Successfully... !");
+      setLoader(false);
+    } catch (e) {
+      setLoader(false);
+      console.log(e);
+      console.log(e.response.data.message);
+      toast.error(e.response.data.message);
+    }
+  };
+
+
+
+
+
+
+
+
+
+  // const handleSubadmin = () => {
+  //   dispatch(register("sub-admin"));
+  //   navigate("/register");
+  // };
 
   useEffect(() => {
     delayedUserList(); // Trigger userList when searchTerm changes with a delay of 300 milliseconds
@@ -98,9 +149,9 @@ const navigate=useNavigate()
           key={i}
           className={`page-item ${currentPage === i ? "active" : ""}`}
         >
-          <a className="page-link" onClick={() => paginate(i)} href="#">
+          <Link className="page-link bg-black text-white" onClick={() => paginate(i)} href="#">
             {i}
-          </a>
+          </Link>
         </li>
       );
     }
@@ -121,40 +172,56 @@ const navigate=useNavigate()
           </div>
           <div className="col-sm-10 p-0 m-0">
             <Header />
-            <div className="container mt-4">
+            <div className="container  mt-4">
               <div className="d-flex m-2 justify-content-center p-5">
                 <Link to="/admin/role/user-list">
                   {" "}
-                  <div className="btn btn-outline-dark m-2"> App User </div>
+                  <div className="btn btn-outline-dark m-2 hoverBtn">
+                    {" "}
+                    App User{" "}
+                  </div>
                 </Link>
-                <div className="btn btn-primary  m-2"> Sub Admin </div>
+                <div className="btn bg-black text-white activeBtnBg m-2">
+                  {" "}
+                  Sub Admin{" "}
+                </div>
               </div>
               {isLoader && (
-                <div className="text-center">
-                  <button className="btn btn-primary" type="button" disabled="">
-                    <span
-                      className="spinner-border spinner-border-sm"
-                      role="status"
-                      aria-hidden="true"
-                    />
-                    Loading...
-                  </button>
-                </div>
+                 <div className="text-center">
+                 <button className="btn bg-black" type="button" disabled="">
+                   <span
+                     className="spinner-border spinner-border-sm text-white"
+                     role="status"
+
+                     aria-hidden="true"
+                   />
+
+                   <span className='text-white ms-1'>Loading... </span>
+                 </button>
+               </div>
               )}
 
               {!isLoader && (
                 <>
-                  <div className="row justify-content-end align-items-center mt-2">
-                    <div className="col-md-4">
-                      <div className="d-flex">
-                        <label
-                          htmlFor="inputPassword6"
-                          className="col-form-label"
-                        >
-                          Search
-                        </label>
+                  <div className="row my-3">
+                    <div className="col-sm-8">
+                    <div className="">
+                      <div
+                        className="btn bg-black text-white hoverBtn"
+                        
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal"
+                      >
+                        {" "}
+                        Craete Sub Admin
+                      </div>
+                    </div>
+                    </div>
+                    <div className="col-sm-4">
+                      <div className="d-flex align-items-center">
                         <input
                           type="text"
+                          placeholder="Search by name or email"
                           id="inputPassword6"
                           className="form-control"
                           value={searchTerm}
@@ -164,12 +231,10 @@ const navigate=useNavigate()
                       </div>
                     </div>
 
-                    <div className="col-md-8">
-                      <div className="btn btn-primary" onClick={handleSubadmin}> Craete Sub Admin</div>
-                    </div>
+               
                   </div>
 
-                  <div className="table-responsive">
+                  <div className="table-responsive card">
                     <table className="table table-bordered table-striped">
                       <thead>
                         <tr>
@@ -204,26 +269,26 @@ const navigate=useNavigate()
                           currentPage === 1 ? "disabled" : ""
                         }`}
                       >
-                        <a
-                          className="page-link"
+                        <Link
+                          className="page-link bg-black text-white"
                           onClick={() => paginate(1)}
                           href="#"
                         >
                           First
-                        </a>
+                        </Link>
                       </li>
                       <li
                         className={`page-item ${
                           currentPage === 1 ? "disabled" : ""
                         }`}
                       >
-                        <a
-                          className="page-link"
+                        <Link
+                          className="page-link bg-black text-white"
                           onClick={() => paginate(currentPage - 1)}
                           href="#"
                         >
                           Previous
-                        </a>
+                        </Link>
                       </li>
                       {renderPageNumbers()}
                       <li
@@ -231,26 +296,26 @@ const navigate=useNavigate()
                           currentPage === totalPageCount ? "disabled" : ""
                         }`}
                       >
-                        <a
-                          className="page-link"
+                        <Link
+                          className="page-link bg-black text-white"
                           onClick={() => paginate(currentPage + 1)}
                           href="#"
                         >
                           Next
-                        </a>
+                        </Link>
                       </li>
                       <li
                         className={`page-item ${
                           currentPage === totalPageCount ? "disabled" : ""
                         }`}
                       >
-                        <a
-                          className="page-link"
+                        <Link
+                          className="page-link bg-black text-white"
                           onClick={() => paginate(totalPageCount)}
                           href="#"
                         >
                           Last
-                        </a>
+                        </Link>
                       </li>
                     </ul>
                   </nav>
@@ -260,8 +325,159 @@ const navigate=useNavigate()
           </div>
         </div>
       </div>
+
+      <>
+ 
+ 
+  {/* Modal */}
+  <div
+    className="modal fade"
+    id="exampleModal"
+    tabIndex={-1}
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div className="modal-dialog">
+      <div className="modal-content">
+        <div className="modal-header">
+          <h5 className="modal-title" id="exampleModalLabel">
+            Modal title
+          </h5>
+          <button
+            type="button"
+            className="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          />
+        </div>
+        <div className="modal-body">
+        <div className="container ">
+      <div className="row justify-content-center">
+        <div className="col-md-12">
+          <div className="border rounded p-3">
+            <form onSubmit={handleSubmit}>
+              <h2 className="mb-4">Registration</h2>
+
+              <div className="mb-3">
+                <label htmlFor="fullName" className="form-label">
+                  Full Name
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="fullName"
+                  placeholder="Enter your full name"
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="mobileNumber" className="form-label">
+                  Mobile Number
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="mobileNumber"
+                  placeholder="Enter your mobile number"
+                  value={mobileNumber}
+                  onChange={(e) => setMobileNumber(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="email" className="form-label">
+                  Email ID
+                </label>
+                <input
+                  type="email"
+                  className="form-control"
+                  id="email"
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="password" className="form-label">
+                  Password
+                </label>
+                <input
+                  type="password"
+                  className="form-control"
+                  id="password"
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="confirmPassword" className="form-label">
+                  Confirm Password
+                </label>
+                <input
+                  type="password"
+                  className="form-control"
+                  id="confirmPassword"
+                  placeholder="Confirm your password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="d-flex justify-content-between">
+                {risLoader && (
+               <div className="text-center">
+               <button className="btn bg-black" type="button" disabled="">
+                 <span
+                   className="spinner-border spinner-border-sm text-white"
+                   role="status"
+
+                   aria-hidden="true"
+                 />
+
+                 <span className='text-white ms-1'>Loading... </span>
+               </button>
+             </div>
+                )}
+                {!risLoader && (
+                  <button type="submit" className="btn customBtn">
+                    Register
+                  </button>
+                )}
+
+                <div>
+             
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <ToastContainer />
+    </div>
+
+        </div>
+      
+      </div>
+    </div>
+  </div>
+</>
+
+
+
+
     </>
   );
+
+
+
+
+  
 }
 
 export default SubAdminList;

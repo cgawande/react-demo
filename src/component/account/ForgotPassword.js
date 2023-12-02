@@ -20,7 +20,8 @@ const ForgotPassword = () => {
       const res = await Api.post("/forgot-password", { email: email });
       console.log(res);
       setLoader(false);
-      toast.success("Check your mail in Inbox for reset password");
+      toast.success("Check your mail in Inbox for reset password",{
+        position: toast.POSITION.TOP_CENTER});
     } catch (e) {
       setLoader(false);
       console.log(e.response.data.message);
@@ -31,7 +32,7 @@ const ForgotPassword = () => {
   return (
     <div className="container mt-5">
       <div className="row justify-content-center">
-        <div className="col-md-6">
+        <div className="col-md-4">
           <div className="border rounded p-3">
             <form onSubmit={handleSubmit}>
               <h2 className="mb-3">Forgot Password</h2>
@@ -50,26 +51,20 @@ const ForgotPassword = () => {
                 />
               </div>
               {isLoader && (
-                <div className="text-center">
-                  <>
-                    <button
-                      className="btn btn-primary"
-                      type="button"
-                      disabled=""
-                    >
-                      <span
-                        className="spinner-border spinner-border-sm"
-                        role="status"
-                        aria-hidden="true"
-                      />
-                      Loading...
-                    </button>
-                  </>
+               <div className="text-center">
+               <button className="btn bg-black" type="button" disabled="">
+                 <span
+                   className="spinner-border spinner-border-sm text-white"
+                   role="status"
 
-                  {/* {alert("Please  wait")} */}
-                </div>
+                   aria-hidden="true"
+                 />
+
+                 <span className='text-white ms-1'>Loading... </span>
+               </button>
+             </div>
               )}{!isLoader&&( 
-                 <button type="submit" className="btn btn-primary">
+                 <button type="submit" className="btn customBtn">
               Submit
             </button>)}
          

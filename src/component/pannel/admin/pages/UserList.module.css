@@ -1,0 +1,8 @@
+.tableBordered tbody tr:nth-child(odd) {
+    font-weight: bold;
+    background-color: #f2f2f2;
+  }
+  
+  .tableBordered th, .table-bordered td {
+    text-align: center;
+  }

@@ -36,3 +36,39 @@
     transform: rotate(360deg);
   }
 }
+
+/* custom css */
+.activeBtnBg{
+  background-color: #495057; 
+}
+.hoverBtn:hover{
+  color: #17a2b8 !important; /* Color on hover */
+}
+/* input:focus  {
+  outline: none !important;
+  border: none !important;
+} */
+.form-control:focus{
+  color: unset !important;
+  background-color: unset !important;
+  border-color: unset !important;
+  outline: 0; 
+  box-shadow: none !important
+}
+.btn-link{
+  color: #17a2b8 !important; /* Color on hover */
+  text-decoration: none !important;
+}
+
+.customBtn{
+  background-color: black !important;
+  color: white !important;
+}
+.customBtn:hover{
+  color: #17a2b8 !important; /* Color on hover */
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

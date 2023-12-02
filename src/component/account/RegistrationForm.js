@@ -46,20 +46,13 @@ const role=useSelector((state)=>state.register)
       phoneNumber: mobileNumber,
     };
     try {
-      let res
-      if(role=="sub-admin"){
-        res = await Api.post("/register/sub-admin", userData);
-       dispatchEvent(emptySubAdmin(""))
-      }
-      else{
-     res = await Api.post("/signup", userData);
-      }
-    
-      console.log(res.data);
-
+    const res = await Api.post("/signup", userData);
       toast.success("User Registarion Successfully... !");
       setLoader(false);
-      navigate("/");
+     setTimeout(()=>{
+
+       navigate("/");
+     },2000)
     } catch (e) {
       setLoader(false);
       console.log(e);
@@ -153,17 +146,21 @@ const role=useSelector((state)=>state.register)
 
               <div className="d-flex justify-content-between">
                 {isLoader && (
-                  <button className="btn btn-primary" type="button" disabled="">
-                    <span
-                      className="spinner-grow spinner-grow-sm"
-                      role="status"
-                      aria-hidden="true"
-                    />
-                    Loading...
-                  </button>
+               <div className="text-center">
+               <button className="btn bg-black" type="button" disabled="">
+                 <span
+                   className="spinner-border spinner-border-sm text-white"
+                   role="status"
+
+                   aria-hidden="true"
+                 />
+
+                 <span className='text-white ms-1'>Loading... </span>
+               </button>
+             </div>
                 )}
                 {!isLoader && (
-                  <button type="submit" className="btn btn-primary">
+                  <button type="submit" className="btn customBtn">
                     Register
                   </button>
                 )}
