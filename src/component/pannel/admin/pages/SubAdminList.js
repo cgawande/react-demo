@@ -15,7 +15,7 @@ function SubAdminList() {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalCount, setTotalCount] = useState("");
-  const [limit, setLimit] = useState(3);
+  const [limit, setLimit] = useState(10);
   const [fullName, setFullName] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
   const [email, setEmail] = useState("");
@@ -54,6 +54,7 @@ function SubAdminList() {
     try {
     const res = await Api.post("/register/sub-admin", userData);
       toast.success("Sub Admin Registarion Successfully... !");
+      userList();
       setLoader(false);
     } catch (e) {
       setLoader(false);
@@ -62,15 +63,6 @@ function SubAdminList() {
       toast.error(e.response.data.message);
     }
   };
-
-
-
-
-
-
-
-
-
   // const handleSubadmin = () => {
   //   dispatch(register("sub-admin"));
   //   navigate("/register");
@@ -91,11 +83,11 @@ function SubAdminList() {
     try {
       let res;
       if (searchTerm) {
-        res = await Api(
+        res = await Api.get(
           `/sub-admin?page=${currentPage}&limit=${limit}&search=${searchTerm}`
         );
       } else {
-        res = await Api(`/sub-admin?page=${currentPage}&limit=${limit}`);
+        res = await Api.get(`/sub-admin?page=${currentPage}&limit=${limit}`);
       }
       setUsers(res.data.data.users);
       setTotalCount(res.data.data.totalCount);
@@ -105,7 +97,7 @@ function SubAdminList() {
       console.error("Error fetching user data:", error);
     }
   };
-  const delayedUserList = debounce(userList, 500);
+  const delayedUserList = debounce(userList, 800);
   useEffect(() => {
     delayedUserList(); // Trigger userList when searchTerm changes with a delay of 300 milliseconds
     // Cleanup function to cancel the debounced function if the component unmounts or searchTerm changes before 300 milliseconds
@@ -445,9 +437,16 @@ function SubAdminList() {
              </div>
                 )}
                 {!risLoader && (
+                  <>
+                  <div className="">
                   <button type="submit" className="btn customBtn">
                     Register
                   </button>
+                  <button    data-bs-dismiss="modal" className="btn text-end mx-2 customBtn">
+                Close
+                </button>
+                </div>
+                </>
                 )}
 
                 <div>

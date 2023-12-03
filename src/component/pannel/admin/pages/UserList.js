@@ -11,7 +11,7 @@ function UserList() {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalCount, setTotalCount] = useState("");
-  const [limit, setLimit] = useState(3);
+  const [limit, setLimit] = useState(10);
 
   // Use lodash's debounce function to delay the invocation of userList
 
@@ -44,7 +44,7 @@ function UserList() {
       console.error("Error fetching user data:", error);
     }
   };
-  const delayedUserList = debounce(userList, 500);
+  const delayedUserList = debounce(userList, 800);
   useEffect(() => {
     delayedUserList(); // Trigger userList when searchTerm changes with a delay of 300 milliseconds
     // Cleanup function to cancel the debounced function if the component unmounts or searchTerm changes before 300 milliseconds
@@ -182,7 +182,7 @@ function UserList() {
                             <td>{user.fullName}</td>
                             <td>{user.phoneNumber}</td>
                             <td>{user.email}</td>
-                            <td>{user?.wallet ?? ""}</td>
+                            <td>{user?.wallet}</td>
                             <td>{user.isActive ? "Active" : "Restrict"}</td>
                             <td>
                               <div className="dropdown text-center">

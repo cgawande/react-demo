@@ -30,6 +30,7 @@ const fetchLoginData =async()=>{
       password: password,
     };
     const res = await Api.post("/login",userData)
+
     const user = res.data.data;
     if(res.data && res.data.token && res.data.token.length > 0 ){
       let userToken =  res.data.token;
@@ -39,9 +40,10 @@ const fetchLoginData =async()=>{
     }
     await dispatch(adduserdata(res.data.data))
     toast.success("User Login Successfully... !");
-    if (userdata) { 
+    if (user) { 
+   
       if (user.role ==="user") {
-        console.log("userData",user)
+        console.log("if user role get ",user)
         navigate("/user");
       }
       else if (user.role === "admin" || user.role === "sub-admin") {
@@ -51,7 +53,7 @@ const fetchLoginData =async()=>{
       }
     }
   }catch(e){
-    // console.log(e)
+    console.log(e)
     // console.log(e.response.data.message)
     // toast.error(e.response.data.message);
     toast.error("Invalid Credential");
@@ -61,7 +63,7 @@ const fetchLoginData =async()=>{
   const handleForgotPassword = () => {
     // Handle forgot password logic, such as redirecting to a forgot password page
     navigate("forgotpassword");
-    console.log("Forgot Password clicked");
+
     // You can add logic to navigate to a forgot password page or display a modal
   };
   const handleSignUp = () => {
