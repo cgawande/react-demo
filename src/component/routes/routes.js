@@ -69,7 +69,7 @@ function RoutesNavigation() {
 <Route path="/admin" element={<AdminDashboard />}>
 
   <Route index element={<Navigate replace to="dashboard"/>}/> 
-  <Route path ="dashboard" element= {<Wallet/>} /> 
+  <Route path ="dashboard" element= {<UserList/>} /> 
   <Route path="user-list" element ={<UserList/>}/>
   {/* <Route path="sub-admin-list" element ={<SubAdminList/>} /> */}
 

@@ -35,6 +35,7 @@ function UserList() {
         );
       } else {
         res = await Api(`/users?page=${currentPage}&limit=${limit}`);
+        console.log(res.data)
       }
       setUsers(res.data.data.users);
       setTotalCount(res.data.data.totalCount);
@@ -106,6 +107,38 @@ function UserList() {
     setCurrentPage(pageNumber);
   };
 
+  const hamdleDelete = async(id)=>{
+    try{
+      console.log(id)
+      const res= await Api.delete(`/users/${id}`)
+      
+      userList(); 
+    }
+    catch(e){
+      console.log(e)
+    }
+  }
+  const handleStatus = async(id)=>{
+    try{
+      console.log(id)
+      const res= await Api.put(`/users/${id}`)
+      
+    }
+    catch(e){
+      console.log(e)
+    }
+  }
+  const hamdleMakeSubAdmin = async(id)=>{
+    try{
+      console.log(id)
+      const res= await Api.post(`/users/${id}`,{role:"sub-admin"})
+      
+      userList(); 
+    }
+    catch(e){
+      console.log(e)
+    }
+  }
   return (
     <>
       <div className="container-fluid p-0">
@@ -183,7 +216,24 @@ function UserList() {
                             <td>{user.phoneNumber}</td>
                             <td>{user.email}</td>
                             <td>{user?.wallet}</td>
-                            <td>{user.isActive ? "Active" : "Restrict"}</td>
+                            <td>
+                            {/* {user.isActive ? "Active" : "Restrict"} */}
+                            {
+                              <div className="form-check form-switch">
+                              <input
+                                className="form-check-input"
+                                type="checkbox"
+                                role="switch"
+                                id="flexSwitchCheckChec"
+                                defaultChecked =  {user.isActive?true : false}
+                                onChange={()=>handleStatus(user._id)}
+                                    />
+                             
+                            </div>
+                            
+                            }
+                            
+                            </td>
                             <td>
                               <div className="dropdown text-center">
                                 <button
@@ -213,12 +263,12 @@ function UserList() {
                                     </Link>
                                   </li>
                                   <li>
-                                    <Link className="dropdown-item hoverBtn" to="#">
+                                    <Link className="dropdown-item hoverBtn" onClick={()=>hamdleDelete(user._id)}>
                                       Delete
                                     </Link>
                                   </li>
                                   <li>
-                                    <Link className="dropdown-item hoverBtn" to="#">
+                                    <Link className="dropdown-item hoverBtn" to="#" onClick={()=>hamdleMakeSubAdmin(user._id)}>
                                       Make Sub Admin
                                     </Link>
                                   </li>

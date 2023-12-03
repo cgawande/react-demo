@@ -21,7 +21,7 @@ const navigate=useNavigate()
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light position-sticky top-0">
         <div className="container-fluid">
-          <span className="navbar-brand" >
+          <span className="navbar-brand" style={{fontWeight:"bold"}} >
            Ranjit Gawande
           </span>
           <button
@@ -41,8 +41,8 @@ const navigate=useNavigate()
             </ul>
           </div>
           <div className="d-flex">
-            <span className="me-3">Wallet Balance: {walletBalance}</span>
-            <span className="me-3">Name: {userName}</span>
+            <span className="me-3" style={{fontWeight:"bold"}}> Total Wallet  Balance : INR {walletBalance}</span>
+            {/* <span className="me-3">Name: {userName}</span> */}
             <button className= {`${style.hoverBtn} btn bg-black text-white`}  onClick={()=>handleLogout()}>
               LogOut
             </button>

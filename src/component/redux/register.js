@@ -16,8 +16,6 @@ const registerSlice=createSlice({
         }
     },
 
-      
-
 })
 
 export const { registerSubAdmin,emptySubAdmin}=registerSlice.actions;

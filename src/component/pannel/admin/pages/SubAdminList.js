@@ -52,14 +52,13 @@ function SubAdminList() {
       phoneNumber: mobileNumber,
     };
     try {
-    const res = await Api.post("/register/sub-admin", userData);
+      const res = await Api.post("/register/sub-admin", userData);
       toast.success("Sub Admin Registarion Successfully... !");
       userList();
       setLoader(false);
     } catch (e) {
       setLoader(false);
-      console.log(e);
-      console.log(e.response.data.message);
+
       toast.error(e.response.data.message);
     }
   };
@@ -141,7 +140,11 @@ function SubAdminList() {
           key={i}
           className={`page-item ${currentPage === i ? "active" : ""}`}
         >
-          <Link className="page-link bg-black text-white" onClick={() => paginate(i)} href="#">
+          <Link
+            className="page-link bg-black text-white"
+            onClick={() => paginate(i)}
+            href="#"
+          >
             {i}
           </Link>
         </li>
@@ -155,6 +158,34 @@ function SubAdminList() {
     setCurrentPage(pageNumber);
   };
 
+  const handleDelete = async (id) => {
+    try {
+      
+      const res = await Api.delete(`/users/${id}`);
+
+      userList();
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const handleStatus = async (id) => {
+    try {
+      console.log(id);
+      const res = await Api.put(`/users/${id}`);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const hamdleMakeUser = async (id) => {
+    try {
+      console.log(id);
+      const res = await Api.post(`/users/${id}`, { role: "user" });
+
+      userList();
+    } catch (e) {
+      console.log(e);
+    }
+  };
   return (
     <>
       <div className="container-fluid p-0">
@@ -179,35 +210,33 @@ function SubAdminList() {
                 </div>
               </div>
               {isLoader && (
-                 <div className="text-center">
-                 <button className="btn bg-black" type="button" disabled="">
-                   <span
-                     className="spinner-border spinner-border-sm text-white"
-                     role="status"
+                <div className="text-center">
+                  <button className="btn bg-black" type="button" disabled="">
+                    <span
+                      className="spinner-border spinner-border-sm text-white"
+                      role="status"
+                      aria-hidden="true"
+                    />
 
-                     aria-hidden="true"
-                   />
-
-                   <span className='text-white ms-1'>Loading... </span>
-                 </button>
-               </div>
+                    <span className="text-white ms-1">Loading... </span>
+                  </button>
+                </div>
               )}
 
               {!isLoader && (
                 <>
                   <div className="row my-3">
                     <div className="col-sm-8">
-                    <div className="">
-                      <div
-                        className="btn bg-black text-white hoverBtn"
-                        
-                        data-bs-toggle="modal"
-                        data-bs-target="#exampleModal"
-                      >
-                        {" "}
-                        Craete Sub Admin
+                      <div className="">
+                        <div
+                          className="btn bg-black text-white hoverBtn"
+                          data-bs-toggle="modal"
+                          data-bs-target="#exampleModal"
+                        >
+                          {" "}
+                          Craete Sub Admin
+                        </div>
                       </div>
-                    </div>
                     </div>
                     <div className="col-sm-4">
                       <div className="d-flex align-items-center">
@@ -222,8 +251,6 @@ function SubAdminList() {
                         />{" "}
                       </div>
                     </div>
-
-               
                   </div>
 
                   <div className="table-responsive card">
@@ -245,7 +272,73 @@ function SubAdminList() {
                             <td>{user.phoneNumber}</td>
                             <td>{user.email}</td>
                             <td>{user?.wallet ?? ""}</td>
-                            <td>{user.isActive ? "Active" : "Restrict"}</td>
+                            <td>
+                              {/* {user.isActive ? "Active" : "Restrict"} */}
+                              {
+                                <div className="form-check form-switch">
+                                  <input
+                                    className="form-check-input"
+                                    type="checkbox"
+                                    role="switch"
+                                    id="flexSwitchCheckChec"
+                                    defaultChecked={
+                                      user.isActive ? true : false
+                                    }
+                                    onChange={() => handleStatus(user._id)}
+                                  />
+                                </div>
+                              }
+                            </td>
+                            <td>
+                              <div className="dropdown text-center">
+                                <button
+                                  className="btn bg-black  dropdown-toggle"
+                                  type="button"
+                                  id="dropdownMenuButton1"
+                                  data-bs-toggle="dropdown"
+                                  aria-expanded="false"
+                                >
+                                  <span className="text-white text-center">
+                                    <i
+                                      className="fa fa-ellipsis-v"
+                                      aria-hidden="true"
+                                    ></i>
+                                  </span>
+                                </button>
+                                <ul
+                                  className="dropdown-menu"
+                                  aria-labelledby="dropdownMenuButton1"
+                                >
+                                  <li>
+                                    <Link
+                                      className="dropdown-item hoverBtn"
+                                      to="#"
+                                    >
+                                      View
+                                    </Link>
+                                  </li>
+                                  <li>
+                                    <Link
+                                      className="dropdown-item hoverBtn"
+                                      onClick={() => handleDelete(user._id)}
+                                    >
+                                      Delete
+                                    </Link>
+                                  </li>
+                                  <li>
+                                    <Link
+                                      className="dropdown-item hoverBtn"
+                                      to="#"
+                                      onClick={() =>
+                                        hamdleMakeUser(user._id)
+                                      }
+                                    >
+                                      Make User
+                                    </Link>
+                                  </li>
+                                </ul>
+                              </div>
+                            </td>
                             {/* Add action button or link here */}
                           </tr>
                         ))}
@@ -319,164 +412,168 @@ function SubAdminList() {
       </div>
 
       <>
- 
- 
-  {/* Modal */}
-  <div
-    className="modal fade"
-    id="exampleModal"
-    tabIndex={-1}
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
-  >
-    <div className="modal-dialog">
-      <div className="modal-content">
-        <div className="modal-header">
-          <h5 className="modal-title" id="exampleModalLabel">
-            Modal title
-          </h5>
-          <button
-            type="button"
-            className="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          />
-        </div>
-        <div className="modal-body">
-        <div className="container ">
-      <div className="row justify-content-center">
-        <div className="col-md-12">
-          <div className="border rounded p-3">
-            <form onSubmit={handleSubmit}>
-              <h2 className="mb-4">Registration</h2>
+        {/* Modal */}
+        <div
+          className="modal fade"
+          id="exampleModal"
+          tabIndex={-1}
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLabel">
+                  Modal title
+                </h5>
+                <button
+                  type="button"
+                  className="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                />
+              </div>
+              <div className="modal-body">
+                <div className="container ">
+                  <div className="row justify-content-center">
+                    <div className="col-md-12">
+                      <div className="border rounded p-3">
+                        <form onSubmit={handleSubmit}>
+                          <h2 className="mb-4">Registration</h2>
 
-              <div className="mb-3">
-                <label htmlFor="fullName" className="form-label">
-                  Full Name
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="fullName"
-                  placeholder="Enter your full name"
-                  value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="mobileNumber" className="form-label">
-                  Mobile Number
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="mobileNumber"
-                  placeholder="Enter your mobile number"
-                  value={mobileNumber}
-                  onChange={(e) => setMobileNumber(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="email" className="form-label">
-                  Email ID
-                </label>
-                <input
-                  type="email"
-                  className="form-control"
-                  id="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="password" className="form-label">
-                  Password
-                </label>
-                <input
-                  type="password"
-                  className="form-control"
-                  id="password"
-                  placeholder="Enter your password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="confirmPassword" className="form-label">
-                  Confirm Password
-                </label>
-                <input
-                  type="password"
-                  className="form-control"
-                  id="confirmPassword"
-                  placeholder="Confirm your password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  required
-                />
-              </div>
+                          <div className="mb-3">
+                            <label htmlFor="fullName" className="form-label">
+                              Full Name
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="fullName"
+                              placeholder="Enter your full name"
+                              value={fullName}
+                              onChange={(e) => setFullName(e.target.value)}
+                              required
+                            />
+                          </div>
+                          <div className="mb-3">
+                            <label
+                              htmlFor="mobileNumber"
+                              className="form-label"
+                            >
+                              Mobile Number
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="mobileNumber"
+                              placeholder="Enter your mobile number"
+                              value={mobileNumber}
+                              onChange={(e) => setMobileNumber(e.target.value)}
+                              required
+                            />
+                          </div>
+                          <div className="mb-3">
+                            <label htmlFor="email" className="form-label">
+                              Email ID
+                            </label>
+                            <input
+                              type="email"
+                              className="form-control"
+                              id="email"
+                              placeholder="Enter your email"
+                              value={email}
+                              onChange={(e) => setEmail(e.target.value)}
+                              required
+                            />
+                          </div>
+                          <div className="mb-3">
+                            <label htmlFor="password" className="form-label">
+                              Password
+                            </label>
+                            <input
+                              type="password"
+                              className="form-control"
+                              id="password"
+                              placeholder="Enter your password"
+                              value={password}
+                              onChange={(e) => setPassword(e.target.value)}
+                              required
+                            />
+                          </div>
+                          <div className="mb-3">
+                            <label
+                              htmlFor="confirmPassword"
+                              className="form-label"
+                            >
+                              Confirm Password
+                            </label>
+                            <input
+                              type="password"
+                              className="form-control"
+                              id="confirmPassword"
+                              placeholder="Confirm your password"
+                              value={confirmPassword}
+                              onChange={(e) =>
+                                setConfirmPassword(e.target.value)
+                              }
+                              required
+                            />
+                          </div>
 
-              <div className="d-flex justify-content-between">
-                {risLoader && (
-               <div className="text-center">
-               <button className="btn bg-black" type="button" disabled="">
-                 <span
-                   className="spinner-border spinner-border-sm text-white"
-                   role="status"
+                          <div className="d-flex justify-content-between">
+                            {risLoader && (
+                              <div className="text-center">
+                                <button
+                                  className="btn bg-black"
+                                  type="button"
+                                  disabled=""
+                                >
+                                  <span
+                                    className="spinner-border spinner-border-sm text-white"
+                                    role="status"
+                                    aria-hidden="true"
+                                  />
 
-                   aria-hidden="true"
-                 />
+                                  <span className="text-white ms-1">
+                                    Loading...{" "}
+                                  </span>
+                                </button>
+                              </div>
+                            )}
+                            {!risLoader && (
+                              <>
+                                <div className="">
+                                  <button
+                                    type="submit"
+                                    className="btn customBtn"
+                                  >
+                                    Register
+                                  </button>
+                                  <button
+                                    data-bs-dismiss="modal"
+                                    className="btn text-end mx-2 customBtn"
+                                  >
+                                    Close
+                                  </button>
+                                </div>
+                              </>
+                            )}
 
-                 <span className='text-white ms-1'>Loading... </span>
-               </button>
-             </div>
-                )}
-                {!risLoader && (
-                  <>
-                  <div className="">
-                  <button type="submit" className="btn customBtn">
-                    Register
-                  </button>
-                  <button    data-bs-dismiss="modal" className="btn text-end mx-2 customBtn">
-                Close
-                </button>
+                            <div></div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                  <ToastContainer />
                 </div>
-                </>
-                )}
-
-                <div>
-             
-                </div>
               </div>
-            </form>
+            </div>
           </div>
         </div>
-      </div>
-      <ToastContainer />
-    </div>
-
-        </div>
-      
-      </div>
-    </div>
-  </div>
-</>
-
-
-
-
+      </>
     </>
   );
-
-
-
-
-  
 }
 
 export default SubAdminList;
