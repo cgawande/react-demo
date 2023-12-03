@@ -1,10 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
+import { Api } from '../../axios/Axios';
+import { useSelector } from 'react-redux';
 const UserHeader = () => {
-  // Replace with your actual user data
-  const userName = 'Ranjit';
-  const walletBalance = '$500.00';
+  const { user } = useSelector((state) => state.login);
+  const [name, setName] = useState();
+  const [walletBalance, setWalletBalance] = useState();
+useEffect(()=>{
+if(user){
+  setName(user.fullName);
+  setWalletBalance(user.wallet);
+}
+},[user])
+
+
+
+
 const navigate=useNavigate()
   const handleLogout = () => {
     // Handle logout logic here
@@ -12,8 +24,6 @@ const navigate=useNavigate()
     setTimeout(()=>{
         navigate("/")
     },2000)
-  
- 
   };
 
   return (
@@ -21,7 +31,7 @@ const navigate=useNavigate()
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
           <span className="navbar-brand" >
-           Ranjit Gawande
+           {name}
           </span>
           <button
             className="navbar-toggler"
@@ -41,7 +51,7 @@ const navigate=useNavigate()
           </div>
           <div className="d-flex">
             <span className="me-3">Wallet Balance: {walletBalance}</span>
-            <span className="me-3">Name: {userName}</span>
+            <span className="me-3">Name: {name}</span>
             <button className="btn btn-outline-dark" onClick={()=>handleLogout()}>
               LogOut
             </button>

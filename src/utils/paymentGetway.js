@@ -1,9 +1,11 @@
 import axios from "axios";
 import { Api } from "../component/axios/Axios";
+import { useDispatch, useSelector } from "react-redux";
 
-export default async function displayRazorpay(amount, name, email, contact) {
+export default async function displayRazorpay(amount, name, email, contact,walletBalance) {
+ 
   try {
-    console.log(amount, name, email, contact);
+
     const data = await Api.post(
       "/payment",
       { amount: amount, currency: "INR" }
@@ -47,8 +49,8 @@ export default async function displayRazorpay(amount, name, email, contact) {
             //   `/add-wallet`,
             //   { amount: amount }
             // );
-            window.location.href = "https://sponlineservices.netlify.app/user";
-          
+          //  window.location.href = "https://sponlineservices.netlify.app/user";
+        
         }
       },
       prefill: {

@@ -2,29 +2,36 @@ import { useEffect, useState } from "react";
 import Sidebar from "../Sidebar";
 import UserHeader from "../UserHeader";
 import displayRazorpay from "../../../../utils/paymentGetway";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { Api } from "../../../axios/Axios";
+import { updateAmount } from "../../../redux/comUpSlice";
 
 const WalletRecharge = () => {
-  const { user } = useSelector((state) => state.login);
-  const [paymentAmount, setPaymentAmount] = useState();
-  const [name, setName] = useState();
-  const [email, setEmail] = useState();
-  const [contact, setContact] = useState();
-  const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
+  const { amount}  = useSelector((state) => state.compUpSlice)
 
-  useEffect(() => {
-    if (user?.fullName) {
-      setName(user?.fullName);
-      setEmail(user?.email);
-      setContact(user?.phoneNumber);
-    }
-  }, [user]);
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+  const [payment, setWalletBalance] = useState();
+
+
+useEffect(()=>{
+  dispatch(updateAmount(payment));
+
+},[amount,payment])
 
   const handlePayment = async () => {
     setIsLoading(true);
+    dispatch(updateAmount(payment));
+ 
+    setIsLoading(true);
     try {
-      await displayRazorpay(paymentAmount, name, email, contact);
-      // handle any post-payment loading states or redirects here
+      if (amount) {
+        dispatch(updateAmount(payment));
+        navigate("/payment-getway")
+        console.log("if amount", amount);
+      }
     } catch (error) {
       console.error("Payment failed:", error);
     } finally {
@@ -53,7 +60,7 @@ const WalletRecharge = () => {
                     className="form-control mx-3"
                     placeholder="enter amount"
                     onChange={(e) => {
-                      setPaymentAmount(e.target.value);
+                      setWalletBalance(Number(e.target.value));
                     }}
                   />
                   <button

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { adduserdata, userlogin } from "../redux/login/loginSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
@@ -12,7 +12,7 @@ const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoader, setLoader] = useState(false);
-  const userdata  = useSelector((state) => state.login);
+  const userdata = useSelector((state) => state.login);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
@@ -22,48 +22,41 @@ const LoginForm = () => {
     setLoader(false);
   };
 
+  const fetchLoginData = async () => {
+    try {
+      const userData = {
+        email: email,
+        password: password,
+      };
+      const res = await Api.post("/login", userData);
 
-const fetchLoginData =async()=>{
-  try {
-    const userData = {
-      email: email,
-      password: password,
-    };
-    const res = await Api.post("/login",userData)
-
-    const user = res.data.data;
-    if(res.data && res.data.token && res.data.token.length > 0 ){
-      let userToken =  res.data.token;
-      const expirationDate=new Date();
-      expirationDate.setTime(expirationDate.getTime()+3.33*60*60*1000)
-      Cookies.set("token",userToken,{expires: expirationDate})
-    }
-    await dispatch(adduserdata(res.data.data))
-    toast.success("User Login Successfully... !");
-    if (user) { 
-   
-      if (user.role ==="user") {
-        console.log("if user role get ",user)
-        navigate("/user");
+      const user = res.data.data;
+      if (res.data && res.data.token && res.data.token.length > 0) {
+        let userToken = res.data.token;
+        const expirationDate = new Date();
+        expirationDate.setTime(
+          expirationDate.getTime() + 3.33 * 60 * 60 * 1000
+        );
+        Cookies.set("token", userToken, { expires: expirationDate });
       }
-      else if (user.role === "admin" || user.role === "sub-admin") {
-        navigate("/admin");
-      }else {
-        navigate('/')
+      await dispatch(adduserdata(res.data.data));
+      toast.success("User Login Successfully... !");
+      if (user) {
+        if (user.role === "user") {
+          navigate("/user");
+        } else if (user.role === "admin" || user.role === "sub-admin") {
+          navigate("/admin");
+        } else {
+          navigate("/");
+        }
       }
+    } catch (e) {
+      toast.error("Invalid Credential");
     }
-  }catch(e){
-    console.log(e)
-    // console.log(e.response.data.message)
-    // toast.error(e.response.data.message);
-    toast.error("Invalid Credential");
-  }
-}
-
+  };
   const handleForgotPassword = () => {
     // Handle forgot password logic, such as redirecting to a forgot password page
     navigate("forgotpassword");
-
     // You can add logic to navigate to a forgot password page or display a modal
   };
   const handleSignUp = () => {
@@ -71,8 +64,6 @@ const fetchLoginData =async()=>{
     // Handle sign up logic, such as navigating to a sign-up page
     // You can add logic to navigate to a sign-up page or display a sign-up form
   };
-
-
   return (
     <div className="container mt-5">
       <div className="row justify-content-center">
@@ -123,17 +114,20 @@ const fetchLoginData =async()=>{
                 <div className="d-flex justify-content-between">
                   {isLoader && (
                     <div className="text-center">
-                    <button className="btn bg-black" type="button" disabled="">
-                      <span
-                        className="spinner-border spinner-border-sm text-white"
-                        role="status"
-  
-                        aria-hidden="true"
-                      />
-  
-                      <span className='text-white ms-1'>Loading... </span>
-                    </button>
-                  </div>
+                      <button
+                        className="btn bg-black"
+                        type="button"
+                        disabled=""
+                      >
+                        <span
+                          className="spinner-border spinner-border-sm text-white"
+                          role="status"
+                          aria-hidden="true"
+                        />
+
+                        <span className="text-white ms-1">Loading... </span>
+                      </button>
+                    </div>
                   )}
                   {!isLoader && (
                     <button type="submit" className="btn customBtn me-2">
@@ -145,7 +139,6 @@ const fetchLoginData =async()=>{
                     <label className="btn btn-link" onClick={handleSignUp}>
                       Create a new account
                     </label>
-            
                   </div>
                 </div>
               </div>

@@ -32,6 +32,7 @@ import UserList from "../pannel/admin/pages/UserList";
 import RoleManageMent from "../pannel/admin/pages/RoleManageMent";
 import SubAdminList from "../pannel/admin/pages/SubAdminList";
 import Payment from "../../utils/Payment"
+import PaymentGateWay from "../../utils/PaymentGateWay";
 
 function RoutesNavigation() {
   return (
@@ -43,7 +44,7 @@ function RoutesNavigation() {
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/otpverify" element={<OTPVerification />} />
         <Route path="/reset/:id/:token" element={<ResetPassword />} />
-        <Route path="/payment-getway" element ={<Payment/>}/>
+        <Route path="/payment-getway" element ={<PaymentGateWay/>}/>
         {/* User Routes */}
         <Route path="/user" element={<UserDashboard />}>
         <Route index element={<Navigate replace to="dashboard" />} />
