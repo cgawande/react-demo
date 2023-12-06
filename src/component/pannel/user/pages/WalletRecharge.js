@@ -6,29 +6,37 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Api } from "../../../axios/Axios";
 import { updateAmount } from "../../../redux/comUpSlice";
+import { ToastContainer, toast } from "react-toastify";
 
 const WalletRecharge = () => {
   const dispatch = useDispatch();
-  const { amount}  = useSelector((state) => state.compUpSlice)
+  const { amount } = useSelector((state) => state.compUpSlice);
 
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [payment, setWalletBalance] = useState();
 
-
-useEffect(()=>{
-  dispatch(updateAmount(payment));
-
-},[amount,payment])
+  useEffect(() => {
+    dispatch(updateAmount(payment));
+  }, [amount, payment]);
 
   const handlePayment = async () => {
     setIsLoading(true);
+    if (payment >= 100) {
+      console.log("useEffect Graeater than 100", payment);
+    } else {
+     alert("minimum amount is INR 100 ")
+     console.log("useEffect than --100", payment);
+     setIsLoading(false)
+     return;
+    }
     dispatch(updateAmount(payment));
- 
+
     setIsLoading(true);
     try {
       if (amount) {
         dispatch(updateAmount(payment));
+        console.log("length", payment.length);
         navigate("/payment-getway")
         console.log("if amount", amount);
       }
@@ -60,9 +68,10 @@ useEffect(()=>{
                     className="form-control mx-3"
                     placeholder="enter amount"
                     onChange={(e) => {
-                      setWalletBalance(Number(e.target.value));
+                      setWalletBalance(e.target.value);
                     }}
                   />
+
                   <button
                     onClick={handlePayment}
                     className="btn customBtn"
@@ -76,6 +85,7 @@ useEffect(()=>{
             </div>
           </div>
         </div>
+        <ToastContainer/>
       </div>
     </>
   );

@@ -21,6 +21,7 @@ function SubAdminList() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [permitionOption, setpermitionOption] = useState([]);
   // Use lodash's debounce function to delay the invocation of userList
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -160,9 +161,7 @@ function SubAdminList() {
 
   const handleDelete = async (id) => {
     try {
-      
       const res = await Api.delete(`/users/${id}`);
-
       userList();
     } catch (e) {
       console.log(e);
@@ -185,6 +184,17 @@ function SubAdminList() {
     } catch (e) {
       console.log(e);
     }
+  };
+
+  let permitionData = [
+    { id: 1, name: "adhar-advance" },
+    { id: 2, name: "pan-card" },
+    { id: 3, name: "Gumasta Nagar" },
+    { id: 4, name: "Sambhar Card" },
+  ];
+  const setPermition = () => {
+    // const res = Api.get("url");
+    return setpermitionOption(permitionData);
   };
   return (
     <>
@@ -329,9 +339,7 @@ function SubAdminList() {
                                     <Link
                                       className="dropdown-item hoverBtn"
                                       to="#"
-                                      onClick={() =>
-                                        hamdleMakeUser(user._id)
-                                      }
+                                      onClick={() => hamdleMakeUser(user._id)}
                                     >
                                       Make User
                                     </Link>
@@ -519,6 +527,10 @@ function SubAdminList() {
                               required
                             />
                           </div>
+                          <Permission
+                            permissionList={permitionOption}
+                            handleClick={setPermition}
+                          />
 
                           <div className="d-flex justify-content-between">
                             {risLoader && (
@@ -565,6 +577,7 @@ function SubAdminList() {
                       </div>
                     </div>
                   </div>
+
                   <ToastContainer />
                 </div>
               </div>
@@ -577,3 +590,83 @@ function SubAdminList() {
 }
 
 export default SubAdminList;
+
+export const Permission = ({ permissionList, handleClick }) => {
+  const [selectedPermissions, setSelectedPermissions] = useState([]);
+  const [selectAll, setSelecteAll] = useState(false);
+
+  useEffect(()=>{
+    if (selectAll) {
+      console.log(permissionList);
+    } else {
+      console.log("hjghgh");
+    }
+  },[selectAll])
+  const handleSelectAllChange = () => {
+
+    setSelecteAll(!selectAll);
+
+
+  };
+
+  return (
+    <div className="container mt-4">
+      <div className="dropdown">
+        <button
+          className="btn btn-secondary dropdown-toggle"
+          type="button"
+          id="dropdownMenuButton"
+          data-bs-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+          onClick={handleClick}
+        >
+          Select Permission
+        </button>
+        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <form>
+            {/* Select All Checkbox */}
+            <div className="form-check" key="select-all">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                id="select-all-checkbox"
+                checked={selectAll}
+                onChange={handleSelectAllChange}
+              />
+              <label className="form-check-label" htmlFor="select-all-checkbox">
+                Select All
+              </label>
+            </div>
+
+            {permissionList.map((item) => (
+              <div
+                className="form-check"
+                key={item.id}
+                // onClick={() => handleCheckboxChange(item.id, item.name)}
+              >
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  id={item.id}
+                />
+                <label className="form-check-label" htmlFor={item.id}>
+                  {item.name}
+                </label>
+              </div>
+            ))}
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// console.log("Welcome to Programiz!");
+// permission
+// //  let res = await axios.get("url")
+// return [{id:1,name:"adhar-advance"},{id:2,name:"pan-card"}]
+// data:[{id:1,name:"adhar-advance"},{id:2,name:"pan-card"}]
+
+// rolePermission
+// data:[{id:"12",userId:1233,permissionId:1},{id:"12",userId:123",permissionId:2}]

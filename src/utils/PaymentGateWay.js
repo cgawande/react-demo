@@ -37,7 +37,7 @@ const PaymentGateWay = () => {
         currency: "INR",
       });
       const resp = data.data.data;
-    
+
       const options = {
         key: "rzp_test_dv3hsJ5Ue3U5gl",
         currency: resp.currency,
@@ -81,6 +81,11 @@ const PaymentGateWay = () => {
           email: email,
           contact: contact,
         },
+        modal: {
+          ondismiss: function() {
+            navigate("/user");
+          },
+        },
       };
 
       const paymentObject = new window.Razorpay(options);
@@ -91,22 +96,24 @@ const PaymentGateWay = () => {
 
   return (
     <>
-    
       {isLoader && (
         <div className="container d-flex justify-content-center align-items-center vh-100">
-        <div className="text-center">
-          <button className="btn bg-black" type="button" disabled="">
-            <span
-              className="spinner-border spinner-border-sm text-white"
-              role="status"
-              aria-hidden="true"
-            />
-            <span className="text-white ms-1">Loading... </span>
-          </button>
-        </div>
+          <div class="d-flex text-primary justify-content-center">
+            <div class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
         </div>
       )}
-     
+      {/* {!isLoader && (
+        <div className="container d-flex justify-content-center align-items-center vh-100">
+          <div class="d-flex text-primary justify-content-center">
+            <div class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        </div>
+      )} */}
     </>
   );
 };
