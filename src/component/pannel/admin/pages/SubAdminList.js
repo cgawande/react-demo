@@ -591,23 +591,40 @@ function SubAdminList() {
 
 export default SubAdminList;
 
+
+
 export const Permission = ({ permissionList, handleClick }) => {
   const [selectedPermissions, setSelectedPermissions] = useState([]);
-  const [selectAll, setSelecteAll] = useState(false);
+  const [selectAll, setSelectAll] = useState(false);
 
-  useEffect(()=>{
+  useEffect(() => {
     if (selectAll) {
-      console.log(permissionList);
+      console.log('All permissions selected:', permissionList);
     } else {
-      console.log("hjghgh");
+      console.log('Select All unchecked');
     }
-  },[selectAll])
+  }, [selectAll]);
+
   const handleSelectAllChange = () => {
-
-    setSelecteAll(!selectAll);
-
-
+    setSelectAll(!selectAll);
+    setSelectedPermissions(selectAll ? [] : permissionList.map((item) => item.id));
   };
+
+  const handleOption = (itemId) => {
+    if (selectAll) {
+      setSelectAll(false);
+    }
+
+    setSelectedPermissions((prevSelected) => {
+      if (prevSelected.includes(itemId)) {
+        return prevSelected.filter((id) => id !== itemId);
+      } else {
+        return [...prevSelected, itemId];
+      }
+    });
+  };
+
+  console.log('Selected Permissions:', selectedPermissions);
 
   return (
     <div className="container mt-4">
@@ -640,15 +657,15 @@ export const Permission = ({ permissionList, handleClick }) => {
             </div>
 
             {permissionList.map((item) => (
-              <div
-                className="form-check"
-                key={item.id}
-                // onClick={() => handleCheckboxChange(item.id, item.name)}
-              >
+              <div className="form-check" key={item.id}>
                 <input
                   className="form-check-input"
                   type="checkbox"
+                  name={item.name}
+                  value={selectedPermissions.includes(item.id)}
+                  checked={selectedPermissions.includes(item.id)}
                   id={item.id}
+                  onChange={() => handleOption(item.id)}
                 />
                 <label className="form-check-label" htmlFor={item.id}>
                   {item.name}
@@ -661,6 +678,7 @@ export const Permission = ({ permissionList, handleClick }) => {
     </div>
   );
 };
+
 
 // console.log("Welcome to Programiz!");
 // permission
