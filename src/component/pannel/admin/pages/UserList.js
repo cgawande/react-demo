@@ -5,6 +5,7 @@ import { Api } from "../../../axios/Axios";
 import { debounce } from "lodash";
 import { Link } from "react-router-dom";
 import style from "./UserList.module.css";
+import { useSelector } from "react-redux";
 function UserList() {
   const [users, setUsers] = useState([]);
   const [isLoader, setIsLoader] = useState(false);
@@ -12,7 +13,12 @@ function UserList() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalCount, setTotalCount] = useState("");
   const [limit, setLimit] = useState(10);
-
+  const [subAdmin, setSubAdmin] = useState(true);
+  const checkRole = useSelector((state) => state.login.user.role);
+  console.log("suv...", checkRole);
+  useEffect(() => {
+    if (checkRole === "sub-admin") setSubAdmin(false);
+  }, [checkRole]);
   // Use lodash's debounce function to delay the invocation of userList
 
   useEffect(() => {
@@ -35,7 +41,6 @@ function UserList() {
         );
       } else {
         res = await Api(`/users?page=${currentPage}&limit=${limit}`);
-        console.log(res.data)
       }
       setUsers(res.data.data.users);
       setTotalCount(res.data.data.totalCount);
@@ -107,43 +112,41 @@ function UserList() {
     setCurrentPage(pageNumber);
   };
 
-  const hamdleDelete = async(id)=>{
-    try{
-      console.log(id)
-      const res= await Api.delete(`/users/${id}`)
-      
-      userList(); 
+  const hamdleDelete = async (id) => {
+    try {
+      const res = await Api.delete(`/users/${id}`);
+
+      userList();
+    } catch (e) {
+      console.log(e);
     }
-    catch(e){
-      console.log(e)
+  };
+  const handleStatus = async (id) => {
+    try {
+      console.log(id);
+      const res = await Api.put(`/users/${id}`);
+    } catch (e) {
+      console.log(e);
     }
-  }
-  const handleStatus = async(id)=>{
-    try{
-      console.log(id)
-      const res= await Api.put(`/users/${id}`)
-      
+  };
+  const hamdleMakeSubAdmin = async (id) => {
+    try {
+      console.log(id);
+      const res = await Api.post(`/users/${id}`, { role: "sub-admin" });
+
+      userList();
+    } catch (e) {
+      console.log(e);
     }
-    catch(e){
-      console.log(e)
-    }
-  }
-  const hamdleMakeSubAdmin = async(id)=>{
-    try{
-      console.log(id)
-      const res= await Api.post(`/users/${id}`,{role:"sub-admin"})
-      
-      userList(); 
-    }
-    catch(e){
-      console.log(e)
-    }
-  }
+  };
   return (
     <>
       <div className="container-fluid p-0">
         <div className="row p-0 m-0">
-          <div className="col-sm-2 p-0 m-0">
+          <div
+            className="col-sm-2 p-0 m-0 bg-black"
+            style={{ height: "100vh" }}
+          >
             <AdminSidebar />
           </div>
           <div className="col-sm-10 p-0 m-0">
@@ -153,15 +156,17 @@ function UserList() {
               <div className="d-flex m-2 justify-content-center p-5">
                 <button className="btn bg-black text-white activeBtnBg hoverBtn  m-2">
                   {" "}
-                  App User{" "}
+                  App User{""}
                 </button>
-                <Link to="/admin/role/sub-admin-list">
-                  {" "}
-                  <div className="btn btn-outline-dark m-2 hoverBtn">
+                {subAdmin && (
+                  <Link to="/admin/role/sub-admin-list">
                     {" "}
-                    Sub Admin{" "}
-                  </div>
-                </Link>
+                    <div className="btn btn-outline-dark m-2 hoverBtn">
+                      {" "}
+                      Sub Admin{" "}
+                    </div>
+                  </Link>
+                )}
               </div>
 
               {isLoader && (
@@ -200,6 +205,7 @@ function UserList() {
                       <thead>
                         <tr>
                           <th>Sr No</th>
+                          <th>CSC ID</th>
                           <th>Name</th>
                           <th>Phone Number</th>
                           <th>Email ID</th>
@@ -212,27 +218,27 @@ function UserList() {
                         {users.map((user, index) => (
                           <tr key={index}>
                             <td>{index + 1}</td>
+                            <td>{user?.cscId ?? ""}</td>
                             <td>{user.fullName}</td>
                             <td>{user.phoneNumber}</td>
                             <td>{user.email}</td>
                             <td>{user?.wallet}</td>
                             <td>
-                            {/* {user.isActive ? "Active" : "Restrict"} */}
-                            {
-                              <div className="form-check form-switch">
-                              <input
-                                className="form-check-input"
-                                type="checkbox"
-                                role="switch"
-                                id="flexSwitchCheckChec"
-                                defaultChecked =  {user.isActive?true : false}
-                                onChange={()=>handleStatus(user._id)}
-                                    />
-                             
-                            </div>
-                            
-                            }
-                            
+                              {/* {user.isActive ? "Active" : "Restrict"} */}
+                              {
+                                <div className="form-check form-switch">
+                                  <input
+                                    className="form-check-input"
+                                    type="checkbox"
+                                    role="switch"
+                                    id="flexSwitchCheckChec"
+                                    defaultChecked={
+                                      user.status === "active" ? true : false
+                                    }
+                                    onChange={() => handleStatus(user.id)}
+                                  />
+                                </div>
+                              }
                             </td>
                             <td>
                               <div className="dropdown text-center">
@@ -263,12 +269,21 @@ function UserList() {
                                     </Link>
                                   </li>
                                   <li>
-                                    <Link className="dropdown-item hoverBtn" onClick={()=>hamdleDelete(user._id)}>
+                                    <Link
+                                      className="dropdown-item hoverBtn"
+                                      onClick={() => hamdleDelete(user.id)}
+                                    >
                                       Delete
                                     </Link>
                                   </li>
                                   <li>
-                                    <Link className="dropdown-item hoverBtn" to="#" onClick={()=>hamdleMakeSubAdmin(user._id)}>
+                                    <Link
+                                      className="dropdown-item hoverBtn"
+                                      to="#"
+                                      onClick={() =>
+                                        hamdleMakeSubAdmin(user.id)
+                                      }
+                                    >
                                       Make Sub Admin
                                     </Link>
                                   </li>

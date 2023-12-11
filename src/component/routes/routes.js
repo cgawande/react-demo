@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import RegistrationForm from "../account/RegistrationForm";
 import LoginForm from "../account/LoginFrom";
@@ -20,7 +20,6 @@ import Dashboard, {
   Profile,
   SambhalCard,
   VoterIdCard,
-
 } from "../pannel/user/Sidebar";
 import WalletRecharge from "../pannel/user/pages/WalletRecharge";
 import UserDashboard from "../pannel/user/UserDashboard";
@@ -31,10 +30,52 @@ import Wallet from "../pannel/admin/pages/Walletebalance";
 import UserList from "../pannel/admin/pages/UserList";
 import RoleManageMent from "../pannel/admin/pages/RoleManageMent";
 import SubAdminList from "../pannel/admin/pages/SubAdminList";
-import Payment from "../../utils/Payment"
+import Payment from "../../utils/Payment";
 import PaymentGateWay from "../../utils/PaymentGateWay";
+import { useSelector } from "react-redux";
 
 function RoutesNavigation() {
+  const [voterIdPermission, setVoterIdPermission] = useState(false);
+  const [adharPermission, setAdharPermission] = useState(false);
+  const [panPermission, setPanPermission] = useState(false);
+  const [gumastaPermission, setGumastaPermission] = useState(false);
+  const [sambhalPermission, setSambhalPermission] = useState(false);
+  const [userListPermission, setUserListPermission] = useState(false);
+  const [adharLostPermission, setAdharLostPermission] = useState(false);
+  const [ayushmanPermission, setayushmanPermission] = useState(false);
+  const [onlyAdmin, setOnlyAdmin] = useState(false);
+  const grantedPermission = useSelector(
+    (state) => state.login.user.PermissionRoles
+  );
+  const checkRole = useSelector((state) => state.login.user.role);
+  useEffect(() => {
+    if (checkRole === "admin") {
+      setAdharPermission(true);
+      setVoterIdPermission(true);
+      setPanPermission(true);
+      setGumastaPermission(true);
+      setSambhalPermission(true);
+      setUserListPermission(true);
+      setAdharLostPermission(true);
+      setayushmanPermission(true);
+      setOnlyAdmin(true);
+    } else {
+      let setPermission = grantedPermission.map(
+        (permissionId) => permissionId.permissionId
+      );
+
+      if (setPermission.includes(1)) {
+        setVoterIdPermission(true);
+      }
+      if (setPermission.includes(2)) {
+        setAdharPermission(true);
+      }
+      if (setPermission.includes(3)) {
+        setPanPermission(true);
+      }
+    }
+  }, [grantedPermission]);
+
   return (
     <>
       <Routes>
@@ -44,10 +85,10 @@ function RoutesNavigation() {
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/otpverify" element={<OTPVerification />} />
         <Route path="/reset/:id/:token" element={<ResetPassword />} />
-        <Route path="/payment-getway" element ={<PaymentGateWay/>}/>
+        <Route path="/payment-getway" element={<PaymentGateWay />} />
         {/* User Routes */}
         <Route path="/user" element={<UserDashboard />}>
-        <Route index element={<Navigate replace to="dashboard" />} />
+          <Route index element={<Navigate replace to="dashboard" />} />
           <Route path="dashboard" element={<WalletRecharge />} />
           <Route path={"lost-adhar-form"} element={<LostAdharForm />}></Route>
           {/* <Route path="driver-download" element={<DriverDownload />} />
@@ -65,20 +106,21 @@ function RoutesNavigation() {
           <Route path="adhar-payment" element={<AdharPayment />} />
           <Route path="adhar-download" element={<AdharDownload />} /> */}
         </Route>
-{/* Admin Routes */}
-<Route path="/admin" element={<AdminDashboard />}>
+        {/* Admin Routes */}
+        <Route path="/admin" element={<AdminDashboard />}>
+          <Route index element={<Navigate replace to="dashboard" />} />
+          <Route path="dashboard" element={<UserList />} />
+          <Route path="user-list" element={<UserList />} />
+          {/* <Route path="sub-admin-list" element ={<SubAdminList/>} /> */}
 
-  <Route index element={<Navigate replace to="dashboard"/>}/> 
-  <Route path ="dashboard" element= {<UserList/>} /> 
-  <Route path="user-list" element ={<UserList/>}/>
-  {/* <Route path="sub-admin-list" element ={<SubAdminList/>} /> */}
-
-  <Route path="role" element={<RoleManageMent/>}>
-    <Route index element={<Navigate replace to ="user-list"/>}></Route>
-  <Route path="user-list" element ={<UserList/>}/>
-  <Route path="sub-admin-list" element ={<SubAdminList/>} />
-  </Route>
-</Route>
+          <Route path="role" element={<RoleManageMent />}>
+            <Route index element={<Navigate replace to="user-list" />}></Route>
+            <Route path="user-list" element={<UserList />} />
+            {onlyAdmin && (
+              <Route path="sub-admin-list" element={<SubAdminList />} />
+            )}
+          </Route>
+        </Route>
 
         {/* <Route path="/login" element={<LoginForm />} /> */}
       </Routes>

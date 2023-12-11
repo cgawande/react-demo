@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { Api } from "../axios/Axios";
 import { useSelector } from "react-redux";
-import { emptySubAdmin } from "../redux/register";
+import { emptySubAdmin } from "../redux/subAdminSlice";
 // import { Api } from '../axios/Axios';
 
 const RegistrationForm = () => {

@@ -31,12 +31,15 @@ const LoginForm = () => {
       const res = await Api.post("/login", userData);
 
       const user = res.data.data;
+      console.log(res.data)
       if (res.data && res.data.token && res.data.token.length > 0) {
         let userToken = res.data.token;
         const expirationDate = new Date();
         expirationDate.setTime(
           expirationDate.getTime() + 3.33 * 60 * 60 * 1000
         );
+        
+ 
         Cookies.set("token", userToken, { expires: expirationDate });
       }
       await dispatch(adduserdata(res.data.data));

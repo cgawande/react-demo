@@ -5,9 +5,9 @@ import { Api } from "../../../axios/Axios";
 import { debounce } from "lodash";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import register from "../../../redux/register";
+// import register from "../../../redux/register";
 import { ToastContainer, toast } from "react-toastify";
-
+import { useForm } from "react-hook-form";
 function SubAdminList() {
   const [users, setUsers] = useState([]);
   const [isLoader, setIsLoader] = useState(false);
@@ -21,7 +21,20 @@ function SubAdminList() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [permitionOption, setpermitionOption] = useState([]);
+  const [roleOption, setRoleOption] = useState([]);
+  const [roleLoader, setRoleLoader] = useState(false);
+  const [access, setAccess] = useState([]);
+  const [edit, setEdit] = useState();
+  const [subAdminId, setSubAdminId] = useState();
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+
+    formState: { errors },
+  } = useForm();
+
   // Use lodash's debounce function to delay the invocation of userList
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -33,7 +46,17 @@ function SubAdminList() {
     return true;
   };
 
-  const handleSubmit = async (e) => {
+  const reset = () => {
+    setFullName("");
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
+    setMobileNumber("");
+    setAccess([]);
+    getPermission();
+    // ... reset other state variables if needed
+  };
+  const registerUser = async (e) => {
     e.preventDefault();
 
     if (!validatePassword()) {
@@ -51,11 +74,16 @@ function SubAdminList() {
       password: password,
       confirmPassword: confirmPassword,
       phoneNumber: mobileNumber,
+      permissions: access ?? [],
     };
+    console.log(userData);
     try {
       const res = await Api.post("/register/sub-admin", userData);
       toast.success("Sub Admin Registarion Successfully... !");
-      userList();
+      window.location.reload();
+      // reset();
+      // userList();
+
       setLoader(false);
     } catch (e) {
       setLoader(false);
@@ -63,6 +91,7 @@ function SubAdminList() {
       toast.error(e.response.data.message);
     }
   };
+
   // const handleSubadmin = () => {
   //   dispatch(register("sub-admin"));
   //   navigate("/register");
@@ -94,7 +123,6 @@ function SubAdminList() {
       setIsLoader(false);
     } catch (error) {
       setIsLoader(false);
-      console.error("Error fetching user data:", error);
     }
   };
   const delayedUserList = debounce(userList, 800);
@@ -163,44 +191,83 @@ function SubAdminList() {
     try {
       const res = await Api.delete(`/users/${id}`);
       userList();
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   };
   const handleStatus = async (id) => {
     try {
-      console.log(id);
       const res = await Api.put(`/users/${id}`);
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   };
   const hamdleMakeUser = async (id) => {
     try {
-      console.log(id);
       const res = await Api.post(`/users/${id}`, { role: "user" });
-
       userList();
+    } catch (e) {}
+  };
+
+  useEffect(() => {
+    getPermission();
+  }, []);
+
+  const getPermission = async () => {
+    setRoleLoader(true);
+    try {
+      const res = await Api.get("/permission");
+      setRoleOption(res.data.data);
+      setRoleLoader(false);
     } catch (e) {
-      console.log(e);
+      setRoleLoader(false);
     }
   };
 
-  let permitionData = [
-    { id: 1, name: "adhar-advance" },
-    { id: 2, name: "pan-card" },
-    { id: 3, name: "Gumasta Nagar" },
-    { id: 4, name: "Sambhar Card" },
-  ];
-  const setPermition = () => {
-    // const res = Api.get("url");
-    return setpermitionOption(permitionData);
+  // handleEdit Functionality Start
+  const fetchEditdetails = async (id) => {
+    setSubAdminId(id);
+    setLoader(true);
+    try {
+      const res = await Api.get(`/user/permission/${id}`);
+      setEdit(res.data.data[0]);
+      setLoader(false);
+    } catch (error) {
+      setLoader(false);
+    }
+  };
+
+  const handleEditdetails = async (e) => {
+    console.log("handleEditdetails");
+    e.preventDefault(); // Prevent the default form submission behavior
+    try {
+      const res = await Api.post(`/user/permission/${subAdminId}`, {
+        permissions: access ?? [],
+         
+      });
+       toast.success("Sub Admin Permission Update Successfully... !");
+      window.location.reload();
+      console.log(res);
+      setLoader(false);
+    } catch (error) {
+      setLoader(false);
+    }
+    // Access form data using FormData
+    // const formData = new FormData(e.target);
+    // const fullName = formData.get("fullName");
+    // const phoneNumber = formData.get("phoneNumber");
+    // const email = formData.get("email");
+    // const cscId = formData.get("cscId");
+    // const wallet = formData.get("wallet");
+    // ...
+    // let  updateDetails= {fullName:fullName,phoneNumber:phoneNumber,email:email,cssId:cscId,wallet:wallet,  permissions: access??[]}
+    // console.log(updateDetails)
+    // Now you can do whatever you want with the form data, such as sending it to the server.
   };
   return (
     <>
       <div className="container-fluid p-0">
         <div className="row p-0 m-0">
-          <div className="col-sm-2 p-0 m-0">
+          <div
+            className="col-sm-2 p-0 m-0 bg-black"
+            style={{ height: "100vh" }}
+          >
             <AdminSidebar />
           </div>
           <div className="col-sm-10 p-0 m-0">
@@ -241,10 +308,10 @@ function SubAdminList() {
                         <div
                           className="btn bg-black text-white hoverBtn"
                           data-bs-toggle="modal"
-                          data-bs-target="#exampleModal"
+                          data-bs-target="#addSubAdminmodal"
                         >
                           {" "}
-                          Craete Sub Admin
+                          Add Sub Admin
                         </div>
                       </div>
                     </div>
@@ -267,6 +334,7 @@ function SubAdminList() {
                     <table className="table table-bordered table-striped">
                       <thead>
                         <tr>
+                          <th>CSC ID</th>
                           <th>Name</th>
                           <th>Phone Number</th>
                           <th>Email ID</th>
@@ -278,6 +346,7 @@ function SubAdminList() {
                       <tbody>
                         {users.map((user, index) => (
                           <tr key={index}>
+                            <td>{user?.cscId ?? ""}</td>
                             <td>{user.fullName}</td>
                             <td>{user.phoneNumber}</td>
                             <td>{user.email}</td>
@@ -292,9 +361,9 @@ function SubAdminList() {
                                     role="switch"
                                     id="flexSwitchCheckChec"
                                     defaultChecked={
-                                      user.isActive ? true : false
+                                      user.status === "active" ? true : false
                                     }
-                                    onChange={() => handleStatus(user._id)}
+                                    onChange={() => handleStatus(user.id)}
                                   />
                                 </div>
                               }
@@ -322,15 +391,17 @@ function SubAdminList() {
                                   <li>
                                     <Link
                                       className="dropdown-item hoverBtn"
-                                      to="#"
+                                      data-bs-target="#editSubAdminmodal"
+                                      data-bs-toggle="modal"
+                                      onClick={() => fetchEditdetails(user.id)}
                                     >
-                                      View
+                                      Edit Details
                                     </Link>
                                   </li>
                                   <li>
                                     <Link
                                       className="dropdown-item hoverBtn"
-                                      onClick={() => handleDelete(user._id)}
+                                      onClick={() => handleDelete(user.id)}
                                     >
                                       Delete
                                     </Link>
@@ -339,7 +410,7 @@ function SubAdminList() {
                                     <Link
                                       className="dropdown-item hoverBtn"
                                       to="#"
-                                      onClick={() => hamdleMakeUser(user._id)}
+                                      onClick={() => hamdleMakeUser(user.id)}
                                     >
                                       Make User
                                     </Link>
@@ -420,13 +491,14 @@ function SubAdminList() {
       </div>
 
       <>
-        {/* Modal */}
+        {/*Add SubAdmin   Modal  Start*/}
         <div
           className="modal fade"
-          id="exampleModal"
+          id="addSubAdminmodal"
           tabIndex={-1}
           aria-labelledby="exampleModalLabel"
           aria-hidden="true"
+          onHide={reset}
         >
           <div className="modal-dialog">
             <div className="modal-content">
@@ -446,7 +518,7 @@ function SubAdminList() {
                   <div className="row justify-content-center">
                     <div className="col-md-12">
                       <div className="border rounded p-3">
-                        <form onSubmit={handleSubmit}>
+                        <form onSubmit={registerUser}>
                           <h2 className="mb-4">Registration</h2>
 
                           <div className="mb-3">
@@ -527,10 +599,18 @@ function SubAdminList() {
                               required
                             />
                           </div>
-                          <Permission
-                            permissionList={permitionOption}
-                            handleClick={setPermition}
-                          />
+                          {/* Api calling for role option  start */}
+
+                          {roleLoader ? (
+                            "Generating Permission Option"
+                          ) : (
+                            <MultiCheckbox
+                              roleOption={roleOption}
+                              setAccess={setAccess}
+                            />
+                          )}
+
+                          {/* Api calling for role option  end */}
 
                           <div className="d-flex justify-content-between">
                             {risLoader && (
@@ -561,7 +641,188 @@ function SubAdminList() {
                                   >
                                     Register
                                   </button>
+                                  <span
+                                    data-bs-dismiss="modal"
+                                    className="btn text-end mx-2 customBtn"
+                                  >
+                                    Close
+                                  </span>
+                                </div>
+                              </>
+                            )}
+
+                            <div></div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+
+                  <ToastContainer />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/*Add SubAdmin   Modal  End*/}
+      </>
+
+      <>
+        {/*Edit SubAdmin   Modal  Start*/}
+
+        <div
+          className="modal fade"
+          id="editSubAdminmodal"
+          tabIndex={-1}
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+          //  onHide={reset}
+        >
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="">
+                  Modal title
+                </h5>
+                <button
+                  type="button"
+                  className="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                />
+              </div>
+              <div className="modal-body">
+                <div className="container ">
+                  <div className="row justify-content-center">
+                    <div className="col-md-12">
+                      <div className="border rounded p-3">
+                        <form onSubmit={handleEditdetails}>
+                          {/* <h2 className="mb-4">Registration</h2> */}
+
+                          <div className="mb-3">
+                            <label htmlFor="fullName" className="form-label">
+                              Full Name
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="fullName"
+                              placeholder="Enter your full name"
+                              {...register("fullName")}
+                              defaultValue={edit?.fullName}
+                              required
+                            />
+                          </div>
+                          <div className="mb-3">
+                            <label
+                              htmlFor="mobileNumber"
+                              className="form-label"
+                            >
+                              Mobile Number
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="mobileNumber"
+                              // placeholder="Enter your mobile number"
+                              // value={mobileNumber}
+                              {...register("phoneNumber")}
+                              defaultValue={edit?.phoneNumber}
+                              onChange={(e) => setMobileNumber(e.target.value)}
+                              required
+                            />
+                          </div>
+                          <div className="mb-3">
+                            <label htmlFor="email" className="form-label">
+                              Email ID
+                            </label>
+                            <input
+                              type="email"
+                              className="form-control"
+                              id="email"
+                              // placeholder="Enter your email"
+                              // value={email}
+                              {...register("email")}
+                              defaultValue={edit?.email}
+                              onChange={(e) => setEmail(e.target.value)}
+                              required
+                            />
+                          </div>
+                          <div className="mb-3">
+                            <label htmlFor="password" className="form-label">
+                              CSC Id
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="password"
+                              // placeholder="Enter your password"
+                              // value={password}
+                              {...register("cscId")}
+                              defaultValue={edit?.cscId}
+                              onChange={(e) => setPassword(e.target.value)}
+                              required
+                            />
+                          </div>
+                          <div className="mb-3">
+                            <label
+                              htmlFor="confirmPassword"
+                              className="form-label"
+                            >
+                              Wallet
+                            </label>
+                            <input
+                              type="number"
+                              className="form-control"
+                              placeholder="enter amount"
+                              {...register("wallet")}
+                              defaultValue={edit?.wallet}
+                              required
+                            />
+                          </div>
+                          {/* previously assign  role  by admin  start */}
+                          {roleLoader ? (
+                            "Generating Permission Option"
+                          ) : (
+                            <EditMultiCheckbox
+                              roleOption={roleOption}
+                              setAccess={setAccess}
+                              preAssignRole={edit?.PermissionRoles}
+                            />
+                          )}
+                          {/* previously assign  role  by admin  End */}
+
+                          <div className="d-flex justify-content-between">
+                            {risLoader && (
+                              <div className="text-center">
+                                <button
+                                  className="btn bg-black"
+                                  type="button"
+                                  disabled=""
+                                >
+                                  <span
+                                    className="spinner-border spinner-border-sm text-white"
+                                    role="status"
+                                    aria-hidden="true"
+                                  />
+
+                                  <span className="text-white ms-1">
+                                    Loading...{" "}
+                                  </span>
+                                </button>
+                              </div>
+                            )}
+                            {!risLoader && (
+                              <>
+                                <div className="">
                                   <button
+                                    type="submit"
+                                    className="btn customBtn"
+                                  >
+                                    Submit
+                                  </button>
+                                  <button
+                                    type="button"
                                     data-bs-dismiss="modal"
                                     className="btn text-end mx-2 customBtn"
                                   >
@@ -584,6 +845,7 @@ function SubAdminList() {
             </div>
           </div>
         </div>
+        {/*Edit SubAdmin   Modal  End*/}
       </>
     </>
   );
@@ -591,100 +853,166 @@ function SubAdminList() {
 
 export default SubAdminList;
 
-
-
-export const Permission = ({ permissionList, handleClick }) => {
-  const [selectedPermissions, setSelectedPermissions] = useState([]);
-  const [selectAll, setSelectAll] = useState(false);
+export const MultiCheckbox = ({ roleOption, setAccess }) => {
+  const [users, setUsers] = useState([]);
+  const [permission, setPermission] = useState([]);
 
   useEffect(() => {
-    if (selectAll) {
-      console.log('All permissions selected:', permissionList);
+    setUsers(roleOption);
+  }, []);
+
+  const handleChange = (e) => {
+    const { name, checked } = e.target;
+    if (name === "allSelect") {
+      let tempUser = users.map((user) => {
+        return { ...user, isChecked: checked };
+      });
+      setUsers(tempUser);
+      setPermission(tempUser);
     } else {
-      console.log('Select All unchecked');
+      let tempUser = users.map((user) =>
+        user.name === name ? { ...user, isChecked: checked } : user
+      );
+      setUsers(tempUser);
+      setPermission(tempUser);
     }
-  }, [selectAll]);
-
-  const handleSelectAllChange = () => {
-    setSelectAll(!selectAll);
-    setSelectedPermissions(selectAll ? [] : permissionList.map((item) => item.id));
   };
 
-  const handleOption = (itemId) => {
-    if (selectAll) {
-      setSelectAll(false);
-    }
-
-    setSelectedPermissions((prevSelected) => {
-      if (prevSelected.includes(itemId)) {
-        return prevSelected.filter((id) => id !== itemId);
-      } else {
-        return [...prevSelected, itemId];
-      }
+  const handlePermition = () => {
+    const arr = permission.filter((user) => {
+      return user?.isChecked == true;
     });
+    setAccess(arr);
   };
 
-  console.log('Selected Permissions:', selectedPermissions);
+  useEffect(() => {
+    if (permission.length > 0) {
+      handlePermition();
+    }
+  }, [permission]);
 
   return (
-    <div className="container mt-4">
-      <div className="dropdown">
-        <button
-          className="btn btn-secondary dropdown-toggle"
-          type="button"
-          id="dropdownMenuButton"
-          data-bs-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-          onClick={handleClick}
-        >
-          Select Permission
-        </button>
-        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <form>
-            {/* Select All Checkbox */}
-            <div className="form-check" key="select-all">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                id="select-all-checkbox"
-                checked={selectAll}
-                onChange={handleSelectAllChange}
-              />
-              <label className="form-check-label" htmlFor="select-all-checkbox">
-                Select All
-              </label>
-            </div>
-
-            {permissionList.map((item) => (
-              <div className="form-check" key={item.id}>
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  name={item.name}
-                  value={selectedPermissions.includes(item.id)}
-                  checked={selectedPermissions.includes(item.id)}
-                  id={item.id}
-                  onChange={() => handleOption(item.id)}
-                />
-                <label className="form-check-label" htmlFor={item.id}>
-                  {item.name}
-                </label>
-              </div>
-            ))}
-          </form>
+    <div className="container my-4" style={{ width: "500px" }}>
+      <form className="form w-100">
+        <h3>Assign Permission</h3>
+        <div className="form-check">
+          <input
+            type="checkbox"
+            className="form-check-input"
+            name="allSelect"
+            // checked={
+            //   users.filter((user) => user?.isChecked !== true).length < 1
+            // }
+            checked={!users.some((user) => user?.isChecked !== true)}
+            onChange={handleChange}
+          />
+          <label className="form-check-label ms-2">All Select</label>
         </div>
-      </div>
+        {users.map((user, index) => (
+          <div className="form-check" key={index}>
+            <input
+              type="checkbox"
+              className="form-check-input"
+              name={user.name}
+              checked={user?.isChecked || false}
+              onChange={handleChange}
+            />
+            <label className="form-check-label ms-2">{user.name}</label>
+          </div>
+        ))}
+      </form>
+      {/* <YTVideo embedId="mGV9r0wgCrI" /> */}
     </div>
   );
 };
 
+export const EditMultiCheckbox = ({ roleOption, setAccess, preAssignRole }) => {
+  const [users, setUsers] = useState([]);
+  const [permission, setPermission] = useState([]);
 
-// console.log("Welcome to Programiz!");
-// permission
-// //  let res = await axios.get("url")
-// return [{id:1,name:"adhar-advance"},{id:2,name:"pan-card"}]
-// data:[{id:1,name:"adhar-advance"},{id:2,name:"pan-card"}]
+  useEffect(() => {
+    // Initialize isChecked property as false for all users
+    const initializedUsers = roleOption.map((user) => ({
+      ...user,
+      isChecked: false,
+    }));
+    setUsers(initializedUsers);
+  }, [roleOption]);
 
-// rolePermission
-// data:[{id:"12",userId:1233,permissionId:1},{id:"12",userId:123",permissionId:2}]
+  useEffect(() => {
+    // Update the pre-checked checkboxes
+    if (preAssignRole && preAssignRole[0]) {
+      console.log("preAssignRole[0]", preAssignRole[0].id);
+      console.log("users", users);
+      const updatedUsers = users.map((user) => {
+        const isPreChecked = preAssignRole.some(
+          (preRole) => preRole.permissionId === user.id
+        );
+       
+        return { ...user, isChecked: isPreChecked };
+      });
+      setUsers(updatedUsers);
+    }
+  }, [preAssignRole]);
+
+  const handleChange = (e) => {
+    const { name, checked } = e.target;
+    let tempUser;
+
+    if (name === "allSelect") {
+      tempUser = users.map((user) => {
+        return { ...user, isChecked: checked };
+      });
+    } else {
+      tempUser = users.map((user) =>
+        user.name === name ? { ...user, isChecked: !user.isChecked } : user
+      );
+    }
+
+    setUsers(tempUser);
+    setPermission(tempUser);
+  };
+
+  const handlePermission = () => {
+    const arr = permission.filter((user) => {
+      return user?.isChecked == true;
+    });
+    setAccess(arr);
+  };
+
+  useEffect(() => {
+    if (permission.length > 0) {
+      handlePermission();
+    }
+  }, [permission]);
+
+  return (
+    <div className="container my-4" style={{ width: "500px" }}>
+      <form className="form w-100">
+        <h3>Update Permission</h3>
+        <div className="form-check">
+          <input
+            type="checkbox"
+            className="form-check-input"
+            name="allSelect"
+            checked={!users.some((user) => user?.isChecked !== true)}
+            onChange={handleChange}
+          />
+          <label className="form-check-label ms-2">All Select</label>
+        </div>
+        {users.map((user, index) => (
+          <div className="form-check" key={index}>
+            <input
+              type="checkbox"
+              className="form-check-input"
+              name={user.name}
+              checked={user?.isChecked || false}
+              onChange={handleChange}
+            />
+            <label className="form-check-label ms-2">{user.name}</label>
+          </div>
+        ))}
+      </form>
+    </div>
+  );
+};
