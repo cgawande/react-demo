@@ -234,14 +234,14 @@ function SubAdminList() {
   };
 
   const handleEditdetails = async (e) => {
+    setLoader(true)
     console.log("handleEditdetails");
     e.preventDefault(); // Prevent the default form submission behavior
     try {
       const res = await Api.post(`/user/permission/${subAdminId}`, {
         permissions: access ?? [],
-         
       });
-       toast.success("Sub Admin Permission Update Successfully... !");
+      toast.success("Sub Admin Permission Update Successfully... !");
       window.location.reload();
       console.log(res);
       setLoader(false);
@@ -498,13 +498,13 @@ function SubAdminList() {
           tabIndex={-1}
           aria-labelledby="exampleModalLabel"
           aria-hidden="true"
-          onHide={reset}
+        
         >
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
                 <h5 className="modal-title" id="exampleModalLabel">
-                  Modal title
+             Register Sub Admin
                 </h5>
                 <button
                   type="button"
@@ -682,7 +682,7 @@ function SubAdminList() {
             <div className="modal-content">
               <div className="modal-header">
                 <h5 className="modal-title" id="">
-                  Modal title
+               View Details  And Edit Permission
                 </h5>
                 <button
                   type="button"
@@ -700,10 +700,10 @@ function SubAdminList() {
                           {/* <h2 className="mb-4">Registration</h2> */}
 
                           <div className="mb-3">
-                            <label htmlFor="fullName" className="form-label">
-                              Full Name
+                            <label htmlFor="fullName" className="form-label fw-bold" >
+                              Full Name : {edit?.fullName}
                             </label>
-                            <input
+                            {/* <input
                               type="text"
                               className="form-control"
                               id="fullName"
@@ -711,16 +711,16 @@ function SubAdminList() {
                               {...register("fullName")}
                               defaultValue={edit?.fullName}
                               required
-                            />
+                            /> */}
                           </div>
                           <div className="mb-3">
                             <label
                               htmlFor="mobileNumber"
-                              className="form-label"
+                              className="form-label fw-bold"
                             >
-                              Mobile Number
+                              Mobile Number:{edit?.phoneNumber}
                             </label>
-                            <input
+                            {/* <input
                               type="text"
                               className="form-control"
                               id="mobileNumber"
@@ -730,13 +730,13 @@ function SubAdminList() {
                               defaultValue={edit?.phoneNumber}
                               onChange={(e) => setMobileNumber(e.target.value)}
                               required
-                            />
+                            /> */}
                           </div>
                           <div className="mb-3">
-                            <label htmlFor="email" className="form-label">
-                              Email ID
+                            <label htmlFor="email" className="form-label fw-bold">
+                              Email ID : {edit?.email}
                             </label>
-                            <input
+                            {/* <input
                               type="email"
                               className="form-control"
                               id="email"
@@ -746,13 +746,13 @@ function SubAdminList() {
                               defaultValue={edit?.email}
                               onChange={(e) => setEmail(e.target.value)}
                               required
-                            />
+                            /> */}
                           </div>
                           <div className="mb-3">
-                            <label htmlFor="password" className="form-label">
-                              CSC Id
+                            <label htmlFor="password" className="form-label fw-bold">
+                              CSC Id : {edit?.cscId}
                             </label>
-                            <input
+                            {/* <input
                               type="text"
                               className="form-control"
                               id="password"
@@ -762,23 +762,23 @@ function SubAdminList() {
                               defaultValue={edit?.cscId}
                               onChange={(e) => setPassword(e.target.value)}
                               required
-                            />
+                            /> */}
                           </div>
                           <div className="mb-3">
                             <label
                               htmlFor="confirmPassword"
-                              className="form-label"
+                              className="form-label fw-bold"
                             >
-                              Wallet
+                              Wallet : {edit?.wallet}
                             </label>
-                            <input
+                            {/* <input
                               type="number"
                               className="form-control"
                               placeholder="enter amount"
                               {...register("wallet")}
                               defaultValue={edit?.wallet}
                               required
-                            />
+                            /> */}
                           </div>
                           {/* previously assign  role  by admin  start */}
                           {roleLoader ? (
@@ -819,7 +819,7 @@ function SubAdminList() {
                                     type="submit"
                                     className="btn customBtn"
                                   >
-                                    Submit
+                                    Update
                                   </button>
                                   <button
                                     type="button"
@@ -948,7 +948,7 @@ export const EditMultiCheckbox = ({ roleOption, setAccess, preAssignRole }) => {
         const isPreChecked = preAssignRole.some(
           (preRole) => preRole.permissionId === user.id
         );
-       
+
         return { ...user, isChecked: isPreChecked };
       });
       setUsers(updatedUsers);
@@ -989,7 +989,7 @@ export const EditMultiCheckbox = ({ roleOption, setAccess, preAssignRole }) => {
   return (
     <div className="container my-4" style={{ width: "500px" }}>
       <form className="form w-100">
-        <h3>Update Permission</h3>
+        <h3>Edit Permission</h3>
         <div className="form-check">
           <input
             type="checkbox"

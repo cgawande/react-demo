@@ -43,13 +43,17 @@ const LoginForm = () => {
         Cookies.set("token", userToken, { expires: expirationDate });
       }
       await dispatch(adduserdata(res.data.data));
-      toast.success("User Login Successfully... !");
+      toast.success(" Login Successfully... !");
       if (user) {
         if (user.role === "user") {
           navigate("/user");
-        } else if (user.role === "admin" || user.role === "sub-admin") {
+        } else if (user.role === "admin") {
           navigate("/admin");
-        } else {
+        }
+        else if ( user.role === "sub-admin") {
+          navigate("/sub-admin");
+        }
+        else {
           navigate("/");
         }
       }

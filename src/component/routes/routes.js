@@ -33,48 +33,13 @@ import SubAdminList from "../pannel/admin/pages/SubAdminList";
 import Payment from "../../utils/Payment";
 import PaymentGateWay from "../../utils/PaymentGateWay";
 import { useSelector } from "react-redux";
+import SubAdminDashboard from "../pannel/sub-admin/SubAdminDashboard";
+import SubAdminLogin from "../pannel/sub-admin/pages/Dashboard";
 
 function RoutesNavigation() {
-  const [voterIdPermission, setVoterIdPermission] = useState(false);
-  const [adharPermission, setAdharPermission] = useState(false);
-  const [panPermission, setPanPermission] = useState(false);
-  const [gumastaPermission, setGumastaPermission] = useState(false);
-  const [sambhalPermission, setSambhalPermission] = useState(false);
-  const [userListPermission, setUserListPermission] = useState(false);
-  const [adharLostPermission, setAdharLostPermission] = useState(false);
-  const [ayushmanPermission, setayushmanPermission] = useState(false);
-  const [onlyAdmin, setOnlyAdmin] = useState(false);
-  const grantedPermission = useSelector(
-    (state) => state.login.user.PermissionRoles
-  );
-  const checkRole = useSelector((state) => state.login.user.role);
-  useEffect(() => {
-    if (checkRole === "admin") {
-      setAdharPermission(true);
-      setVoterIdPermission(true);
-      setPanPermission(true);
-      setGumastaPermission(true);
-      setSambhalPermission(true);
-      setUserListPermission(true);
-      setAdharLostPermission(true);
-      setayushmanPermission(true);
-      setOnlyAdmin(true);
-    } else {
-      let setPermission = grantedPermission.map(
-        (permissionId) => permissionId.permissionId
-      );
 
-      if (setPermission.includes(1)) {
-        setVoterIdPermission(true);
-      }
-      if (setPermission.includes(2)) {
-        setAdharPermission(true);
-      }
-      if (setPermission.includes(3)) {
-        setPanPermission(true);
-      }
-    }
-  }, [grantedPermission]);
+
+
 
   return (
     <>
@@ -116,11 +81,16 @@ function RoutesNavigation() {
           <Route path="role" element={<RoleManageMent />}>
             <Route index element={<Navigate replace to="user-list" />}></Route>
             <Route path="user-list" element={<UserList />} />
-            {onlyAdmin && (
-              <Route path="sub-admin-list" element={<SubAdminList />} />
-            )}
+            <Route path="sub-admin-list" element={<SubAdminList />} />
           </Route>
         </Route>
+
+        {/*  Sub-Admin Routes  start*/}
+        <Route path="/sub-admin" element={<SubAdminDashboard />}>
+          <Route index element={<Navigate replace to="dashboard" />} />
+          <Route path="dashboard" element={<SubAdminLogin />} />
+        </Route>
+        {/*  Sub-Admin Routes  End*/}
 
         {/* <Route path="/login" element={<LoginForm />} /> */}
       </Routes>
