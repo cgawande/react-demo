@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Sidebar from "../Sidebar";
+import Sidebar from "../UserSidebar";
 import UserHeader from "../UserHeader";
 import displayRazorpay from "../../../../utils/paymentGetway";
 import { useDispatch, useSelector } from "react-redux";
@@ -51,7 +51,7 @@ const WalletRecharge = () => {
     <>
       <div className="container-fluid p-0">
         <div className="row p-0 m-0">
-          <div className="col-sm-2 p-0 m-0">
+          <div className="col-sm-2 p-0 m-0" style={{border:"1px solid black", height:"100vh"}}>
             <Sidebar />
           </div>
           <div className="col-sm-10">

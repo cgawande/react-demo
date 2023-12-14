@@ -18,19 +18,19 @@ const SubAdminSidebar = () => {
 
   useEffect(() => {
     let setPermission = grantedPermission.map(
-      (permissionId) => permissionId.permissionId
+      (ele) => ele?.Permission?.name
     );
 
-    if (setPermission.includes(1)) {
+    if (setPermission.includes("voter-card")) {
       setVoterIdPermission(true);
     }
-    if (setPermission.includes(2)) {
+    if (setPermission.includes("aadhar-card")) {
       setAdharPermission(true);
     }
-    if (setPermission.includes(3)) {
+    if (setPermission.includes("pan-card")) {
       setPanPermission(true);
     }
-    if (setPermission.includes(4)) {
+    if (setPermission.includes("aadhar-advance")) {
       setAdharAdvancePermission(true);
     }
   }, [grantedPermission]);
@@ -41,7 +41,7 @@ const SubAdminSidebar = () => {
         {adharPermission && (
           <li className="nav-item">
             <Link to="/dashboard/adhar-advance" className="nav-link">
-              Adhar Card
+              Aadhar Card
             </Link>
           </li>
         )}
@@ -65,7 +65,7 @@ const SubAdminSidebar = () => {
         {adharAdvance && (
           <li className="nav-item">
             <Link to="/dashboard/voter-id-card" className="nav-link">
-              Voter ID Card
+             Aadhar Adavance
             </Link>
           </li>
         )}

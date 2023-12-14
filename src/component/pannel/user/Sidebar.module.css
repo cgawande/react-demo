@@ -1,45 +1,40 @@
 /* Sidebar.module.css */
 
 .sideMenu {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    background-color: #343a40; /* Dark background color */
-  }
-  
-  .sideMenu li {
-    color: white;
-    padding: 15px;
-    text-align: center;
-    border-bottom: 1px solid #4e545b; /* Border color between menu items */
-  }
-  
-  .sideMenu li:last-child {
-    border-bottom: none; /* Remove border for the last menu item */
-  }
-  
-  .sideMenu li:hover {
-    background-color: #495057; /* Darker background color on hover */
-  }
-  
-  .sideMenu a {
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
-  }
-  
-  .sideMenu a:hover {
-    color: #17a2b8; /* Color on hover */
-  }
-  
-  .container-fluid {
-    height: 100vh; /* Make the container take the full height of the viewport */
-  }
-  
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 
-  
-  .sideMenu {
-    position: sticky;
-    top: 0; /* Adjust this value as needed */
-    
-  }
+.sideMenu li {
+  border-bottom: 0.5px solid #4e545b;
+  margin: 10px 0px;
+  /* Default background color */
+}
+
+.sideMenu li:last-child {
+  border-bottom: none; /* Remove border for the last menu item */
+
+}
+.sideMenu li a{
+
+}
+.active {
+  text-decoration: none;
+  background-color: rgb(8, 155, 171);
+  padding: 0px;
+  color: antiquewhite;
+}
+
+.sideMenu li a:active {
+  background-color: rgb(8, 155, 171);
+  color: antiquewhite;
+}
+
+.inactive {
+  text-decoration: none;
+  color: black;
+}
+.test{
+  background-color: red !important;
+}
