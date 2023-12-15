@@ -1,35 +1,10 @@
-import React, { useState } from "react";
-import Sidebar from "../../UserSidebar";
+import React from 'react'
+import UserSidebar from '../../UserSidebar'
 
-
-const NameUpdate = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    fatherName: "",
-    motherName: "",
-    gender: "male",
-    dob: "",
-    address: "",
-    pinCode: "",
-  });
-
-  const handleChange = (e) => {     
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // You can perform any action with the form data here
-    console.log("Form Data:", formData);
-  };
-
+function DownLoadDriver() {
   return (
     <>
-      <div className="container-fluid p-0">
+          <div className="container-fluid p-0">
         <div className="row p-0 m-0">
           <div   className="col-sm-2 p-0 m-0"
             style={{
@@ -38,14 +13,14 @@ const NameUpdate = () => {
               position: "sticky",
               top: 0,
             }}>
-            <Sidebar/>
+            <UserSidebar/>
           </div>
           <div className="col-sm-2 "></div>
           <div className="col-sm-5">
             <div className="container mt-5">
                 <div className="border rounded p-3">
               <h2 className="mb-4">Name Application Details</h2>
-              <form onSubmit={handleSubmit}>
+              <form >
                 <div className="mb-3">
                   <label htmlFor="name" className="form-label">
                     Applicant  Name
@@ -55,8 +30,7 @@ const NameUpdate = () => {
                     className="form-control"
                     id="name"
                     name="name"
-                    value={formData.name}
-                    onChange={handleChange}
+                   
                   />
                 </div>
          
@@ -69,8 +43,7 @@ const NameUpdate = () => {
                     className="form-control"
                     id="pinCode"
                     name="pinCode"
-                    value={formData.pinCode}
-                    onChange={handleChange}
+               
                   />
                 </div>
                 <button type="submit" className="btn btn-primary">
@@ -83,7 +56,7 @@ const NameUpdate = () => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default NameUpdate;
+export default DownLoadDriver

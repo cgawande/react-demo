@@ -25,10 +25,10 @@ const WalletRecharge = () => {
     if (payment >= 100) {
       console.log("useEffect Graeater than 100", payment);
     } else {
-     alert("minimum amount is INR 100 ")
-     console.log("useEffect than --100", payment);
-     setIsLoading(false)
-     return;
+      alert("minimum amount is INR 100 ");
+      console.log("useEffect than --100", payment);
+      setIsLoading(false);
+      return;
     }
     dispatch(updateAmount(payment));
 
@@ -37,7 +37,7 @@ const WalletRecharge = () => {
       if (amount) {
         dispatch(updateAmount(payment));
         console.log("length", payment.length);
-        navigate("/payment-getway")
+        navigate("/payment-getway");
         console.log("if amount", amount);
       }
     } catch (error) {
@@ -51,7 +51,15 @@ const WalletRecharge = () => {
     <>
       <div className="container-fluid p-0">
         <div className="row p-0 m-0">
-          <div className="col-sm-2 p-0 m-0" style={{border:"1px solid black", height:"100vh"}}>
+          <div
+            className="col-sm-2 p-0 m-0"
+            style={{
+              height: "100vh",
+              overflowY: "auto",
+              position: "sticky",
+              top: 0,
+            }}
+          >
             <Sidebar />
           </div>
           <div className="col-sm-10">
@@ -85,7 +93,7 @@ const WalletRecharge = () => {
             </div>
           </div>
         </div>
-        <ToastContainer/>
+        <ToastContainer />
       </div>
     </>
   );

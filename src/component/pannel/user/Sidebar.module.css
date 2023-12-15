@@ -8,33 +8,33 @@
 
 .sideMenu li {
   border-bottom: 0.5px solid #4e545b;
-  margin: 10px 0px;
-  /* Default background color */
+  margin: 10px 0;
 }
 
 .sideMenu li:last-child {
   border-bottom: none; /* Remove border for the last menu item */
-
-}
-.sideMenu li a{
-
-}
-.active {
-  text-decoration: none;
-  background-color: rgb(8, 155, 171);
-  padding: 0px;
-  color: antiquewhite;
 }
 
-.sideMenu li a:active {
-  background-color: rgb(8, 155, 171);
-  color: antiquewhite;
-}
-
-.inactive {
+.sideMenu li a {
+  display: block;
   text-decoration: none;
   color: black;
+  width: 100%;
+  padding: 8px; /* Add padding for better spacing */
 }
-.test{
-  background-color: red !important;
+
+.sideMenu li a:hover {
+  background-color: rgb(8, 155, 171);
+  color: antiquewhite;
+}
+
+.active {
+  background-color: rgb(8, 155, 171);
+  color: antiquewhite;
+}
+
+/* Remove the duplicated .active block */
+.navItem {
+  display: block;
+  width: 100%;
 }
