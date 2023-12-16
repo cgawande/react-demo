@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { Api } from "../../../axios/Axios";
 import { updateAmount } from "../../../redux/comUpSlice";
 import { ToastContainer, toast } from "react-toastify";
-
+import styles from "../Sidebar.module.css"
 const WalletRecharge = () => {
   const dispatch = useDispatch();
   const { amount } = useSelector((state) => state.compUpSlice);
@@ -52,7 +52,7 @@ const WalletRecharge = () => {
       <div className="container-fluid p-0">
         <div className="row p-0 m-0">
           <div
-            className="col-sm-2 p-0 m-0"
+            className={ `${styles["sidebarcss"]} col-sm-2 p-0 m-0`}
             style={{
               height: "100vh",
               overflowY: "auto",
@@ -63,7 +63,7 @@ const WalletRecharge = () => {
             <Sidebar />
           </div>
           <div className="col-sm-10">
-            <UserHeader />
+           <UserHeader /> 
             <div className="row my-3">
               <div className="col-sm-2"></div>
               <div className="col-sm-6">

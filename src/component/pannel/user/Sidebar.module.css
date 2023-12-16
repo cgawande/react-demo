@@ -7,7 +7,7 @@
 }
 
 .sideMenu li {
-  border-bottom: 0.5px solid #4e545b;
+  border-bottom: 0.5px solid #a7abaf;
   margin: 10px 0;
 }
 
@@ -37,4 +37,20 @@
 .navItem {
   display: block;
   width: 100%;
+  padding: 0px 10px;
 }
+
+
+/* .sidebarcss::-webkit-scrollbar {
+  width: 12px;
+  background-color: rgb(122, 41, 199);
+}
+
+
+.sidebarcss::-webkit-scrollbar-track {
+  color: antiquewhite;
+} */
+/* .sidebarcss::-webkit-scrollbar-thumb {
+  background-color: rgb(8, 155, 171) !important;
+ 
+} */

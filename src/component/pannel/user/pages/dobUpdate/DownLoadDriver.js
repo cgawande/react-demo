@@ -1,5 +1,6 @@
 import React from 'react'
 import UserSidebar from '../../UserSidebar'
+import UserHeader from '../../UserHeader'
 
 function DownLoadDriver() {
   return (
@@ -15,9 +16,12 @@ function DownLoadDriver() {
             }}>
             <UserSidebar/>
           </div>
-          <div className="col-sm-2 "></div>
+         
+          <div className="col-sm-10 ">
+          <UserHeader />
+          <div className="row">
           <div className="col-sm-5">
-            <div className="container mt-5">
+            <div className="container mt-5 offset-3">
                 <div className="border rounded p-3">
               <h2 className="mb-4">Name Application Details</h2>
               <form >
@@ -54,6 +58,8 @@ function DownLoadDriver() {
             </div>
           </div>
         </div>
+      </div>
+      </div>
       </div>
     </>
   )

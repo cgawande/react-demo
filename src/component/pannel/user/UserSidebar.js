@@ -19,9 +19,28 @@ const UserSidebar = () => {
   const location = useLocation();
   useEffect(() => {
     // Set the Aadhaar submenu to true when navigating to "user/dob-update"
-    if (location.pathname === "/user/dob-update"||"/user/name-update") {
+    if (location.pathname === "/user/dob-update") {
       setAadhaarSubMenu(true);
-    } else {
+      setShowDobSubMenu(true)
+    } 
+    else if (location.pathname === "/user/name-update") {
+      setAadhaarSubMenu(true);
+      setShowNameSubMenu(true)
+    }
+   else if (location.pathname === "/user/gender-update") {
+      setAadhaarSubMenu(true);
+      setShowGenderSubMenu(true)
+    }
+   else if (location.pathname === "/user/address-update") {
+      setAadhaarSubMenu(true);
+      setShowAddressSubMenu(true)
+    }
+    else if (location.pathname === "/user/find-aadhaar") {
+      setAadhaarSubMenu(true);
+      setFindAadhaarSubMenu(true)
+    }
+
+   else  {
       setAadhaarSubMenu(false);
     }
   }, [location.pathname]); 
@@ -138,7 +157,7 @@ const UserSidebar = () => {
                       </NavLink>
                     </li>
                     <li>
-                      <NavLink to="/dashboard/name-update/payment">
+                      <NavLink to="/dashboard/address-update/payment">
                         <span className={`${styles.subNavItem}`}>Payment</span>
                       </NavLink>
                     </li>
@@ -146,12 +165,17 @@ const UserSidebar = () => {
                 )}
               </li>
               <li className="nav-item">
+              <NavLink to= {"/user/address-update"}
+                      className={({ isActive }) =>
+                      isActive ? `${styles.active}` : `${styles.inactive}`
+                    }>
                 <span
                   className={`${styles.navItem}`}
                   onClick={() => setShowAddressSubMenu(!showAddressSubMenu)}
                 >
                   Address Update
                 </span>
+                </NavLink>
                 {showAddressSubMenu && (
                   <ul className={`${styles.subMenu}`}>
                     <li>

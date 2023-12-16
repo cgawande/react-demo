@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import Sidebar from "../../UserSidebar";
+import UserHeader from "../../UserHeader";
+import { Header } from "antd/es/layout/layout";
 
 
 const DobUpdate = () => {
   const [formData, setFormData] = useState({
     name: "",
     fatherName: "",
-    motherName: "",
+    motherName: "", 
     gender: "male",
     dob: "",
     address: "",
@@ -40,8 +42,11 @@ const DobUpdate = () => {
             }}>
             <Sidebar />
           </div>
-          <div className="col-sm-2 "></div>
-          <div className="col-sm-5">
+    
+          <div className="col-sm-10 ">
+          <UserHeader />
+          <div className="row">
+          <div className="col-sm-5 offset-3">
             <div className="container mt-5">
                 <div className="border rounded p-3">
               <h2 className="mb-4">Dob Application Details</h2>
@@ -119,6 +124,8 @@ const DobUpdate = () => {
               </form>
               </div>
             </div>
+          </div>
+          </div>
           </div>
         </div>
       </div>

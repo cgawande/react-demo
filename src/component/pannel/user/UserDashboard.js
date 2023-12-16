@@ -8,22 +8,24 @@ import UserSidebar from "./UserSidebar";
 const UserDashboard = () => {
   const [isLoader, setLoader] = useState(false);
   const dispatch = useDispatch();
-  useEffect(() => {
-    fetchDetail();
-  }, []);
-  let userToken = Cookies.get("token");
-  const fetchDetail = async () => {
-    setLoader(true);
-    try {
-      const res = await Api.get("/token");
-      dispatch(adduserdata(res.data.data));
-      setLoader(false);
-    } catch (error) {
-      setLoader(false);
+  // useEffect(() => {
+  //   fetchDetail();
+  // }, []);
+  // let userToken = Cookies.get("token");
+  // const fetchDetail = async () => {
+  //   setLoader(true);
+  //   try {
+  //     const res = await Api.get("/token");
+  //     dispatch(adduserdata(res.data.data));
+  //     setLoader(false);
+  //   } catch (error) {
+  //     setLoader(false);
    
-    }
-  };
+  //   }
+  // };
+  let userToken = Cookies.get("token");
   const { user } = useSelector((state) => state.login);
+  
 
 
   if (userToken) {

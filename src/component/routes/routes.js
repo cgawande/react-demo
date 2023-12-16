@@ -37,9 +37,11 @@ import SubAdminDashboard from "../pannel/sub-admin/SubAdminDashboard";
 import SubAdminLogin from "../pannel/sub-admin/pages/Dashboard";
 import DobUpdate from "../pannel/user/pages/dobUpdate/DobUpdate";
 import NameUpdate from "../pannel/user/pages/dobUpdate/NameUpdate";
-import GenderUpdate from "../pannel/user/pages/dobUpdate/GenderUpdate";
+
 import FindAadhaar from "../pannel/user/pages/dobUpdate/FindAadhaar";
 import MainPage from "../pannel/user/pages/MainPage";
+import AddressUpdate from "../pannel/user/pages/dobUpdate/AddressUpdate";
+import GenderUpdate from "../pannel/user/pages/dobUpdate/GenderUpdate";
 
 function RoutesNavigation() {
   return (
@@ -61,6 +63,7 @@ function RoutesNavigation() {
           <Route path={"name-update"} element={<NameUpdate />}></Route>
           <Route path={"gender-update"} element={<GenderUpdate />}></Route>
           <Route path={"find-aadhaar"} element={<FindAadhaar />}></Route>
+          <Route path={"address-update"} element={<AddressUpdate />}></Route>
           <Route path={"download-driver"} element={<FindAadhaar />}></Route>
         </Route>
         {/* Admin Routes */}

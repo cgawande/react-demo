@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Sidebar from "../../UserSidebar";
+import UserHeader from "../../UserHeader";
 
 
 const NameUpdate = () => {
@@ -40,9 +41,12 @@ const NameUpdate = () => {
             }}>
             <Sidebar/>
           </div>
-          <div className="col-sm-2 "></div>
-          <div className="col-sm-5">
-            <div className="container mt-5">
+          
+          <div className="col-sm-10 ">
+          <UserHeader />
+          <div className="row">
+          <div className="col-sm-5 offset-3">
+            <div className="container mt-5 offset-3">
                 <div className="border rounded p-3">
               <h2 className="mb-4">Name Application Details</h2>
               <form onSubmit={handleSubmit}>
@@ -65,7 +69,7 @@ const NameUpdate = () => {
                     Upload Aadhaar
                   </label>                                              
                   <input
-                    type="text"
+                    type="file"
                     className="form-control"
                     id="pinCode"
                     name="pinCode"
@@ -81,6 +85,8 @@ const NameUpdate = () => {
             </div>
           </div>
         </div>
+      </div>
+      </div>
       </div>
     </>
   );

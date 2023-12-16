@@ -35,7 +35,7 @@ const LostAdharForm = () => {
           </div>
           <div className="col-sm-2 "></div>
           <div className="col-sm-5">
-            <div className="container mt-5">
+            <div className="container mt-5 offset-3">
                 <div className="border rounded p-3">
               <h2 className="mb-4">Lost Adhar Application Details</h2>
               <form onSubmit={handleSubmit}>
