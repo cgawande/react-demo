@@ -78,3 +78,14 @@ input[type="number"]::-webkit-outer-spin-button {
 .dropdown-item:hover{
   background-color: black !important;
 }
+
+* {
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow-y: hidden;
+  overflow-x: hidden;
+}

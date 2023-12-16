@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
-
+import styles from "./LoginForm.module.css"
 const OTPVerification = () => {
   const [otp, setOTP] = useState('');
+
+  
+  const {bgColor}=styles
 const navigate=useNavigate()
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -14,6 +17,7 @@ const navigate=useNavigate()
   };
 
   return (
+    <div className={`${bgColor} container-fluid`}>
     <div className="container mt-5">
       <div className="row justify-content-center">
         <div className="col-md-6">
@@ -36,6 +40,7 @@ const navigate=useNavigate()
           </form>
         </div>
       </div>
+    </div>
     </div>
   );
 };

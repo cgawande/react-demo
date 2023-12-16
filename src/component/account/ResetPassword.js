@@ -3,14 +3,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import { Api } from "../axios/Axios";
-
+import styles from "./LoginForm.module.css"
 const ResetPassword = () => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const { id, token } = useParams();
   const [isLoader,setLoader]=useState(false)
   const navigate = useNavigate();
-
+  const {bgColor}=styles
   const passwordsMatch = () => {
     return newPassword === confirmPassword;
   };
@@ -55,6 +55,7 @@ const ResetPassword = () => {
     }
   };
   return (
+    <div className={`${bgColor} container-fluid`}>
     <div className="container mt-5">
       <div className="row justify-content-center">
         <div className="col-md-6">
@@ -114,6 +115,7 @@ const ResetPassword = () => {
         </div>
       </div>
       <ToastContainer />
+    </div>
     </div>
   );
 };

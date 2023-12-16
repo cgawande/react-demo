@@ -1,9 +1,9 @@
 // Dashboard.js
 import React, { useEffect, useState } from "react";
-import { Link, Route, Routes } from "react-router-dom";
+import { NavLink, Route, Routes } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import RoutesNavigation from "../../routes/routes";
-import styles from "./Sidebar.module.css";
+import styles from "./Sidebar.module.css"
 import { useSelector } from "react-redux";
 export const DriverDownload = () => <div>Driver Download Content</div>;
 
@@ -40,45 +40,77 @@ const SubAdminSidebar = () => {
       <ul className={`${styles.sideMenu} `}>
         {adharPermission && (
           <li className="nav-item">
-            <Link to="/dashboard/adhar-advance" className="nav-link">
+            <NavLink to="/dashboard/adhar-advance" 
+            className={({ isActive }) =>
+              isActive ? `${styles.active} ` : `${styles.inactive}`
+            }
+          >
+            <span className={`${styles.navItem}`}>
               Aadhar Card
-            </Link>
+              </span>
+            </NavLink>
           </li>
-        )}
+        )} 
 
         {panPermission && (
           <li className="nav-item">
-            <Link to="/dashboard/pan-card-find" className="nav-link">
+            <NavLink to="/dashboard/pan-card-find"  className={({ isActive }) =>
+              isActive ? `${styles.active} ` : `${styles.inactive}`
+            }
+          >
+            <span className={`${styles.navItem}`}>
               Pan Card Find
-            </Link>
+              </span>
+            </NavLink>
+            
           </li>
         )}
 
         {voterIdPermission && (
           <li className="nav-item">
-            <Link to="/dashboard/voter-id-card" className="nav-link">
+            <NavLink to="/dashboard/voter-id-card" className={({ isActive }) =>
+              isActive ? `${styles.active} ` : `${styles.inactive}`
+            }
+          >
+            <span className={`${styles.navItem}`}>
               Voter ID Card
-            </Link>
+              </span>
+            </NavLink>
           </li>
         )}
         
         {adharAdvance && (
           <li className="nav-item">
-            <Link to="/dashboard/voter-id-card" className="nav-link">
+            <NavLink to="/dashboard/voter-id-card"  className={({ isActive }) =>
+              isActive ? `${styles.active} ` : `${styles.inactive}`
+            }
+          >
+            <span className={`${styles.navItem}`}>
              Aadhar Adavance
-            </Link>
+            </span>
+            </NavLink>
           </li>
         )}
 
         <li className="nav-item">
-          <Link to="/dashboard/profile" className="nav-link">
+          <NavLink to="/dashboard/profile"  className={({ isActive }) =>
+              isActive ? `${styles.active} ` : `${styles.inactive}`
+            }
+          >
+            <span className={`${styles.navItem}`}>
             Profile
-          </Link>
+            </span>
+          </NavLink>
         </li>
-        <li className="nav-item">
-          <Link to="/dashboard/popup-message" className="nav-link">
+        <li className="">
+          <NavLink to="/dashboard/popup-message"  className={({ isActive }) =>
+              isActive ? `${styles.active} ` : `${styles.inactive}`
+            }
+          >
+            <span className={`${styles.navItem}`}>
             Popup Message
-          </Link>
+            </span>
+          </NavLink>
         </li>
       </ul>
     </>

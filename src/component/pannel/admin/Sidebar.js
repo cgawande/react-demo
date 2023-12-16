@@ -1,83 +1,171 @@
 // Dashboard.js
 import React, { useEffect, useState } from "react";
-import { Link, Route, Routes } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import RoutesNavigation from "../../routes/routes";
-import styles from "./Sidebar.module.css";
-import { useSelector } from "react-redux";
+
+import styles from "./Sidebar.module.css"
+import { FaRegAddressCard, FaRegIdCard } from "react-icons/fa";
+import { TiBusinessCard } from "react-icons/ti";
+import { RiWallet3Line } from "react-icons/ri";
+import { IoIosArrowForward } from "react-icons/io";
+import { HiOutlineFolderDownload } from "react-icons/hi";
+
+
 export const DriverDownload = () => <div>Driver Download Content</div>;
 
 const AdminSidebar = () => {
+
+
   return (
     <>
-      <ul className={`${styles.sideMenu}  `}>
-        <li className="nav-item">
-          <Link to="/userdashboard/wallet-recharge" className="nav-link">
-            Wallet Balance
-          </Link>
-        </li>
-        <li className="nav-item" disabled>
-          <Link
-            to="/dashboard/driver-download"
-            className="nav-link nav-link disabled"
-            style={{ pointerEvents: "none", color: "gray" }}
+      <ul className={`${styles.sideMenu} position-sticky top-0`}>
+        <li className={"p-0"}>
+          <NavLink
+            to="/user/dashboard/"
+            className={({ isActive }) =>
+              isActive ? `${styles.active} ` : `${styles.inactive}`
+            }
           >
-            User Create
-          </Link>
+            <span className={`${styles.navItem}`}>
+              <RiWallet3Line className={`${styles.icon}`}/>
+              Wallet Recharge
+            </span>
+          </NavLink>
+        </li>
+
+        <li className="p-0">
+          <NavLink
+            to="/admin/role"
+            className={({ isActive }) =>
+              isActive ? `${styles.active}` : `${styles.inactive}`
+            }
+          >
+            <span className={`${styles.navItem}`}>
+              <HiOutlineFolderDownload className={`${styles.icon}`} />
+              User List
+            </span>
+          </NavLink>
         </li>
         <li className="nav-item">
-          <Link to="/admin/role" className="nav-link">
-            User List
-          </Link>
+          <NavLink
+            to="/dashboard/adhar-advance"
+            style={{ display: "flex", alignItems: "center" }}
+          >
+            <span className={`${styles.navItem}`}>
+              <span className={`${styles.icon}`}>
+                <FaRegAddressCard />
+              </span>{" "}
+              Adhar Advance
+            </span>
+          </NavLink>
         </li>
         <li className="nav-item">
-          <Link to="/dashboard/adhar-advance" className="nav-link">
-            Adhar Card
-          </Link>
+          <span
+            className={`${styles.navItem}`}
+      
+          >
+            <FaRegIdCard className={`${styles.icon}`} />
+            Aadhaar Card
+            <IoIosArrowForward/>
+          </span>
+    
         </li>
 
         <li className="nav-item">
-          <Link> Adhar Lost </Link>
+          <NavLink to="/dashboard/pan-card-find">
+            <span className={`${styles.navItem}`}>
+              <TiBusinessCard className={`${styles.icon}`} />
+              Pan Card Find{" "}
+            </span>
+          </NavLink>
         </li>
         <li className="nav-item">
-          <Link to="/dashboard/pan-card-find" className="nav-link">
-            Pan Card Find
-          </Link>
+          <NavLink to="/dashboard/voter-id-card">
+            <span className={`${styles.navItem}`}>
+              <TiBusinessCard className={`${styles.icon}`} />
+              Voter ID Card{" "}
+            </span>
+          </NavLink>
         </li>
         <li className="nav-item">
-          <Link to="/dashboard/voter-id-card" className="nav-link">
-            Voter ID Card
-          </Link>
+          <NavLink to="/dashboard/ayushman-card">
+            <span className={`${styles.navItem}`}>
+              <TiBusinessCard className={`${styles.icon}`} />
+              Ayushman Card{" "}
+            </span>
+          </NavLink>
         </li>
         <li className="nav-item">
-          <Link to="/dashboard/ayushman-card" className="nav-link">
-            Ayushman Card
-          </Link>
+          <NavLink
+            to="/dashboard/sambhal-card"
+            // className={({ isActive }) =>
+            //   isActive ? `${styles.active}` : `${styles.inactive}`
+            // }
+          >
+            <span className={`${styles.navItem}`}> Sambhal Card</span>
+          </NavLink>
         </li>
         <li className="nav-item">
-          <Link to="/dashboard/sambhal-card" className="nav-link">
-            Sambhal Card
-          </Link>
+          <NavLink
+            to="/dashboard/gumasta-form"
+            // className={({ isActive }) =>
+            //   isActive ? `${styles.active}` : `${styles.inactive}`
+            // }
+          >
+            <span className={`${styles.navItem}`}> Gumasta Form </span>
+          </NavLink>
         </li>
         <li className="nav-item">
-          <Link to="/dashboard/gumasta-form" className="nav-link">
-            Gumasta Form
-          </Link>
+          <NavLink
+            to="/dashboard/forms"
+            className={({ isActive }) =>
+              isActive ? `${styles.active}` : `${styles.inactive}`
+            }
+          >
+            <span className={`${styles.navItem}`}> Forms</span>
+          </NavLink>
         </li>
         <li className="nav-item">
-          <Link to="/dashboard/forms" className="nav-link">
-            Forms
-          </Link>
+          <NavLink
+            to="/dashboard/profile"
+            className={({ isActive }) =>
+              isActive ? `${styles.active}` : `${styles.inactive}`
+            }
+          >
+            <span className={`${styles.navItem}`}> Profile</span>
+          </NavLink>
         </li>
         <li className="nav-item">
-          <Link to="/dashboard/profile" className="nav-link">
-            Profile
-          </Link>
+          <NavLink
+            to="/dashboard/popup-message"
+            className={({ isActive }) =>
+              isActive ? `${styles.active}` : `${styles.inactive}`
+            }
+          >
+            <span className={`${styles.navItem}`}> Popup Message</span>
+          </NavLink>
+        </li>
+
+        {/* Test */}
+        <li className="nav-item">
+          <NavLink
+            to="/dashboard/profile"
+            className={({ isActive }) =>
+              isActive ? `${styles.active}` : `${styles.inactive}`
+            }
+          >
+            <span className={`${styles.navItem}`}> Profile</span>
+          </NavLink>
         </li>
         <li className="nav-item">
-          <Link to="/dashboard/popup-message" className="nav-link">
-            Popup Message
-          </Link>
+          <NavLink
+            to="/dashboard/popup-message"
+            className={({ isActive }) =>
+              isActive ? `${styles.active}` : `${styles.inactive}`
+            }
+          >
+            <span className={`${styles.navItem}`}> Popup Message</span>
+          </NavLink>
         </li>
       </ul>
     </>

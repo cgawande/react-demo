@@ -3,11 +3,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
 import { Api } from "../axios/Axios";
 import { ToastContainer, toast } from "react-toastify";
-
+import styles from "./LoginForm.module.css"
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [isLoader, setLoader] = useState(false);
   const navigate = useNavigate();
+  const {bgColor}=styles
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,6 +31,7 @@ const ForgotPassword = () => {
   };
 
   return (
+    <div className={`${bgColor} container-fluid`}>
     <div className="container mt-5">
       <div className="row justify-content-center">
         <div className="col-md-4">
@@ -73,6 +75,7 @@ const ForgotPassword = () => {
         </div>
       </div>
       <ToastContainer />
+    </div>
     </div>
   );
 };

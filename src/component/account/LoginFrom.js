@@ -7,8 +7,9 @@ import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { Api } from "../axios/Axios";
-
+import styles from "./LoginForm.module.css"
 const LoginForm = () => {
+  const {bgColor}=styles
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoader, setLoader] = useState(false);
@@ -72,6 +73,7 @@ const LoginForm = () => {
     // You can add logic to navigate to a sign-up page or display a sign-up form
   };
   return (
+    <div className={`${bgColor} container-fluid`}>
     <div className="container mt-5">
       <div className="row justify-content-center">
         <div className="col-md-4">
@@ -154,6 +156,7 @@ const LoginForm = () => {
         </div>
       </div>
       <ToastContainer />
+    </div>
     </div>
   );
 };

@@ -8,15 +8,16 @@ import { Api } from "../axios/Axios";
 import { useSelector } from "react-redux";
 import { emptySubAdmin } from "../redux/subAdminSlice";
 // import { Api } from '../axios/Axios';
-
+import styles from "./LoginForm.module.css"
 const RegistrationForm = () => {
-  const [fullName, setFullName] = useState("");
+    const [fullName, setFullName] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isLoader, setLoader] = useState(false);
   const navigate = useNavigate();
+  const {bgColor}=styles
 const role=useSelector((state)=>state.register)
   const validatePassword = () => {
     if (password !== confirmPassword) {
@@ -66,6 +67,7 @@ const role=useSelector((state)=>state.register)
   };
 
   return (
+    <div className={`${bgColor} container-fluid`}>
     <div className="container mt-5">
       <div className="row justify-content-center">
         <div className="col-md-6">
@@ -180,6 +182,7 @@ const role=useSelector((state)=>state.register)
         </div>
       </div>
       <ToastContainer />
+    </div>
     </div>
   );
 };

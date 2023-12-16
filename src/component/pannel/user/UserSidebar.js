@@ -4,6 +4,11 @@ import { NavLink, useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import RoutesNavigation from "../../routes/routes";
 import styles from "./Sidebar.module.css";
+import { FaRegAddressCard, FaRegIdCard } from "react-icons/fa";
+import { TiBusinessCard } from "react-icons/ti";
+import { RiWallet3Line } from "react-icons/ri";
+import { IoIosArrowForward } from "react-icons/io";
+import { HiOutlineFolderDownload } from "react-icons/hi";
 import AdharCard from "./sidebarMenu/AdharCard";
 
 export const DriverDownload = () => <div>Driver Download Content</div>;
@@ -21,29 +26,23 @@ const UserSidebar = () => {
     // Set the Aadhaar submenu to true when navigating to "user/dob-update"
     if (location.pathname === "/user/dob-update") {
       setAadhaarSubMenu(true);
-      setShowDobSubMenu(true)
-    } 
-    else if (location.pathname === "/user/name-update") {
+      setShowDobSubMenu(true);
+    } else if (location.pathname === "/user/name-update") {
       setAadhaarSubMenu(true);
-      setShowNameSubMenu(true)
-    }
-   else if (location.pathname === "/user/gender-update") {
+      setShowNameSubMenu(true);
+    } else if (location.pathname === "/user/gender-update") {
       setAadhaarSubMenu(true);
-      setShowGenderSubMenu(true)
-    }
-   else if (location.pathname === "/user/address-update") {
+      setShowGenderSubMenu(true);
+    } else if (location.pathname === "/user/address-update") {
       setAadhaarSubMenu(true);
-      setShowAddressSubMenu(true)
-    }
-    else if (location.pathname === "/user/find-aadhaar") {
+      setShowAddressSubMenu(true);
+    } else if (location.pathname === "/user/find-aadhaar") {
       setAadhaarSubMenu(true);
-      setFindAadhaarSubMenu(true)
-    }
-
-   else  {
+      setFindAadhaarSubMenu(true);
+    } else {
       setAadhaarSubMenu(false);
     }
-  }, [location.pathname]); 
+  }, [location.pathname]);
   return (
     <>
       <ul className={`${styles.sideMenu} position-sticky top-0`}>
@@ -54,7 +53,10 @@ const UserSidebar = () => {
               isActive ? `${styles.active} ` : `${styles.inactive}`
             }
           >
-            <span className={`${styles.navItem}`}>Wallet Recharge</span>
+            <span className={`${styles.navItem}`}>
+              <RiWallet3Line className={`${styles.icon}`}/>
+              Wallet Recharge
+            </span>
           </NavLink>
         </li>
 
@@ -65,12 +67,23 @@ const UserSidebar = () => {
               isActive ? `${styles.active}` : `${styles.inactive}`
             }
           >
-            <span className={`${styles.navItem}`}>Driver Download</span>
+            <span className={`${styles.navItem}`}>
+              <HiOutlineFolderDownload className={`${styles.icon}`} />
+              Driver Download
+            </span>
           </NavLink>
         </li>
         <li className="nav-item">
-          <NavLink to="/dashboard/adhar-advance">
-            <span className={`${styles.navItem}`}>Adhar Advance</span>
+          <NavLink
+            to="/dashboard/adhar-advance"
+            style={{ display: "flex", alignItems: "center" }}
+          >
+            <span className={`${styles.navItem}`}>
+              <span className={`${styles.icon}`}>
+                <FaRegAddressCard />
+              </span>{" "}
+              Adhar Advance
+            </span>
           </NavLink>
         </li>
         <li className="nav-item">
@@ -78,15 +91,18 @@ const UserSidebar = () => {
             className={`${styles.navItem}`}
             onClick={() => setAadhaarSubMenu(!aadhaarSubMenu)}
           >
+            <FaRegIdCard className={`${styles.icon}`} />
             Aadhaar Card
+            <IoIosArrowForward/>
           </span>
           {aadhaarSubMenu && (
             <ul className={`${styles.subMenu}`}>
               <li className="nav-item">
-                <NavLink to={"/user/dob-update"}
-                className={({ isActive }) =>
-              isActive ? `${styles.active}` : `${styles.inactive}`
-            }
+                <NavLink
+                  to={"/user/dob-update"}
+                  className={({ isActive }) =>
+                    isActive ? `${styles.active}` : `${styles.inactive}`
+                  }
                 >
                   <span
                     className={`${styles.navItem}`}
@@ -129,24 +145,24 @@ const UserSidebar = () => {
                 )}
               </li>
               <li className="nav-item">
-                <NavLink to= {"/user/name-update"}
-                      className={({ isActive }) =>
-                      isActive ? `${styles.active}` : `${styles.inactive}`
-                    }>
-
-                
-                <span
-                  className={`${styles.navItem}`}
-                  onClick={() => setShowNameSubMenu(!showNameSubMenu)}
+                <NavLink
+                  to={"/user/name-update"}
+                  className={({ isActive }) =>
+                    isActive ? `${styles.active}` : `${styles.inactive}`
+                  }
                 >
-                  Name Update
-                </span>
+                  <span
+                    className={`${styles.navItem}`}
+                    onClick={() => setShowNameSubMenu(!showNameSubMenu)}
+                  >
+                    Name Update
+                  </span>
                 </NavLink>
                 {showNameSubMenu && (
                   <ul className={`${styles.subMenu}`}>
                     <li>
                       <NavLink to="/dashboard/name-update/processing">
-                        <span className={`${styles.subNavItem}`}>
+                        <span className={`${styles.subNavItem}`}> 
                           Processing
                         </span>
                       </NavLink>
@@ -165,16 +181,18 @@ const UserSidebar = () => {
                 )}
               </li>
               <li className="nav-item">
-              <NavLink to= {"/user/address-update"}
-                      className={({ isActive }) =>
-                      isActive ? `${styles.active}` : `${styles.inactive}`
-                    }>
-                <span
-                  className={`${styles.navItem}`}
-                  onClick={() => setShowAddressSubMenu(!showAddressSubMenu)}
+                <NavLink
+                  to={"/user/address-update"}
+                  className={({ isActive }) =>
+                    isActive ? `${styles.active}` : `${styles.inactive}`
+                  }
                 >
-                  Address Update
-                </span>
+                  <span
+                    className={`${styles.navItem}`}
+                    onClick={() => setShowAddressSubMenu(!showAddressSubMenu)}
+                  >
+                    Address Update
+                  </span>
                 </NavLink>
                 {showAddressSubMenu && (
                   <ul className={`${styles.subMenu}`}>
@@ -211,13 +229,13 @@ const UserSidebar = () => {
               </li>
               {/* Gender update Start */}
               <li className="nav-item">
-                <NavLink to ={"/user/gender-update"}>
-                <span
-                  className={`${styles.navItem}`}
-                  onClick={() => setShowGenderSubMenu(!showGenderSubMenu)}
-                >
-                  Gender Update
-                </span>
+                <NavLink to={"/user/gender-update"}>
+                  <span
+                    className={`${styles.navItem}`}
+                    onClick={() => setShowGenderSubMenu(!showGenderSubMenu)}
+                  >
+                    Gender Update
+                  </span>
                 </NavLink>
                 {showGenderSubMenu && (
                   <ul className={`${styles.subMenu}`}>
@@ -257,14 +275,14 @@ const UserSidebar = () => {
               {/* Find Aadhaar Start */}
               <li className="nav-item">
                 <NavLink to={"/user/find-aadhaar"}>
-                <span
-                  className={`${styles.navItem}`}
-                  onClick={() =>
-                    setFindAadhaarSubMenu(!showFindAdadhaarSubMenu)
-                  }
-                >
-                  Find Aadhaar
-                </span>
+                  <span
+                    className={`${styles.navItem}`}
+                    onClick={() =>
+                      setFindAadhaarSubMenu(!showFindAdadhaarSubMenu)
+                    }
+                  >
+                    Find Aadhaar
+                  </span>
                 </NavLink>
                 {showFindAdadhaarSubMenu && (
                   <ul className={`${styles.subMenu}`}>
@@ -306,17 +324,26 @@ const UserSidebar = () => {
 
         <li className="nav-item">
           <NavLink to="/dashboard/pan-card-find">
-            <span className={`${styles.navItem}`}> Pan Card Find </span>
+            <span className={`${styles.navItem}`}>
+              <TiBusinessCard className={`${styles.icon}`} />
+              Pan Card Find{" "}
+            </span>
           </NavLink>
         </li>
         <li className="nav-item">
           <NavLink to="/dashboard/voter-id-card">
-            <span className={`${styles.navItem}`}> Voter ID Card </span>
+            <span className={`${styles.navItem}`}>
+              <TiBusinessCard className={`${styles.icon}`} />
+              Voter ID Card{" "}
+            </span>
           </NavLink>
         </li>
         <li className="nav-item">
           <NavLink to="/dashboard/ayushman-card">
-            <span className={`${styles.navItem}`}> Ayushman Card </span>
+            <span className={`${styles.navItem}`}>
+              <TiBusinessCard className={`${styles.icon}`} />
+              Ayushman Card{" "}
+            </span>
           </NavLink>
         </li>
         <li className="nav-item">
