@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import Sidebar from "../../UserSidebar";
-import UserHeader from "../../UserHeader";
-import { Header } from "antd/es/layout/layout";
 
 
-const DobUpdate = () => {
+
+const GenderUpdate = () => {
   const [formData, setFormData] = useState({
     name: "",
     fatherName: "",
@@ -31,25 +29,10 @@ const DobUpdate = () => {
 
   return (
     <>
-      <div className="container-fluid p-0">
-        <div className="row p-0 m-0">
-          <div  className="col-sm-2 p-0 m-0"
-            style={{
-              height: "100vh",
-              overflowY: "auto",
-              position: "sticky",
-              top: 0,
-            }}>
-            <Sidebar />
-          </div>
-    
-          <div className="col-sm-10 ">
-          <UserHeader />
-          <div className="row">
-          <div className="col-sm-5 offset-3">
-            <div className="container mt-5">
+         <div className="row">
+            <div className="container mt-5 offset-3">
                 <div className="border rounded p-3">
-              <h2 className="mb-4">Dob Application Details</h2>
+              <h2 className="mb-4">Gender Update Application Details</h2>
               <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                   <label htmlFor="name" className="form-label">
@@ -125,12 +108,9 @@ const DobUpdate = () => {
               </div>
             </div>
           </div>
-          </div>
-          </div>
-        </div>
-      </div>
+      
     </>
   );
 };
 
-export default DobUpdate;
+export default GenderUpdate;

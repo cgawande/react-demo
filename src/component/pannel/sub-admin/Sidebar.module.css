@@ -59,8 +59,8 @@
  
 } */
 .sideMenu{
-  overflow-y: hidden;
-  overflow-x: hidden;
+  /* overflow-y: hidden;
+  overflow-x: hidden; */
   height: auto;
   scrollbar-width: thin;
 scrollbar-color: green yellow;

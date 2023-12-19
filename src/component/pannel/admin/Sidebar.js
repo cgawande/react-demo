@@ -60,6 +60,8 @@ const AdminSidebar = () => {
           </NavLink>
         </li>
         <li className="nav-item">
+          <NavLink to={"/admin/aadhaar"}
+          className={({isActive})=>isActive ? `${styles["active"]}` : `${styles["inactive"]}`}>
           <span
             className={`${styles.navItem}`}
       
@@ -68,7 +70,7 @@ const AdminSidebar = () => {
             Aadhaar Card
             <IoIosArrowForward/>
           </span>
-    
+    </NavLink>
         </li>
 
         <li className="nav-item">

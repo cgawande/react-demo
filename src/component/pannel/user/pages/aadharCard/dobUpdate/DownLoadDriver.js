@@ -1,24 +1,9 @@
 import React from 'react'
-import UserSidebar from '../../UserSidebar'
-import UserHeader from '../../UserHeader'
+
 
 function DownLoadDriver() {
   return (
     <>
-          <div className="container-fluid p-0">
-        <div className="row p-0 m-0">
-          <div   className="col-sm-2 p-0 m-0"
-            style={{
-              height: "100vh",
-              overflowY: "auto",
-              position: "sticky",
-              top: 0,
-            }}>
-            <UserSidebar/>
-          </div>
-         
-          <div className="col-sm-10 ">
-          <UserHeader />
           <div className="row">
           <div className="col-sm-5">
             <div className="container mt-5 offset-3">
@@ -58,9 +43,6 @@ function DownLoadDriver() {
             </div>
           </div>
         </div>
-      </div>
-      </div>
-      </div>
     </>
   )
 }

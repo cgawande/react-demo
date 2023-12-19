@@ -8,13 +8,14 @@ function SubAdminLogin() {
       <div className="container-fluid p-0">
         <div className="row p-0 m-0">
           <div
-            className="col-sm-2 p-0 m-0 "
+            className="col-sm-2 p-0 m-0 border"
             
             style={{
               height: "100vh",
               overflowY: "auto",
               position: "sticky",
               top: 0,
+              border:"1px soloid black"
             }}
         >
           

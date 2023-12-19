@@ -6,6 +6,9 @@ import { useEffect, useState } from "react";
 import { adduserdata } from "../../redux/login/loginSlice";
 import UserSidebar from "./UserSidebar";
 import { FaRegAddressCard } from "react-icons/fa";
+import { ToastContainer } from "react-toastify";
+import UserHeader from "./UserHeader";
+import styles from "./Sidebar.module.css"
 const UserDashboard = () => {
   const [isLoader, setLoader] = useState(false);
   const dispatch = useDispatch();
@@ -25,28 +28,39 @@ const UserDashboard = () => {
   //   }
   // };
   let userToken = Cookies.get("token");
-  const { user } = useSelector((state) => state.login);
+  // const { user } = useSelector((state) => state.login);
 
 
 
   if (userToken) {
     return (
       <>
+    <>
+      <div className="container-fluid p-0">
+        <div className="row p-0 m-0">
+          <div
+            className={ `${styles["sidebarcss"]} col-sm-2 p-0 m-0`}
+            style={{
+              height: "100vh",
+              overflowY: "auto",
+              position: "sticky",
+              top: 0,
+            }}
+          >
+            <UserSidebar />
+          </div>
+          <div className="col-sm-10">
+           <UserHeader /> 
+            <div className="row my-3">
+              <Outlet/>
+            </div>
+          </div>
+        </div>
+        <ToastContainer />
+      </div>
+    </>
+
  
-      {isLoader?     <div className="container d-flex justify-content-center align-items-center vh-100">
-        <div className="text-center">
-          <button className="btn bg-black" type="button" disabled="">
-            <span
-              className="spinner-border spinner-border-sm text-white"
-              role="status"
-              aria-hidden="true"
-            />
-            <span className="text-white ms-1">Loading... </span>
-          </button>
-        </div>
-        </div>
-      :
-      <Outlet />}
     </>
     );
   } else {
