@@ -7,7 +7,7 @@ const GenderDocVerify = () => {
     const [formData, setFormData] = useState({
       firstName: "",
       phoneNumber: "",
-      aadharNumber: "male",
+      aadharNumber: "",
       adharUpdateDetails: "",
       livePic: null, // Corrected initial value
       aadhaarFile: null,
@@ -28,7 +28,7 @@ const GenderDocVerify = () => {
       e.preventDefault();
       let userdata = new FormData();
       userdata.append("type", "aadhar");
-      userdata.append("updateType", "DOB");
+      userdata.append("updateType", "gender");
       userdata.append("firstName", formData.firstName); // Corrected key
       userdata.append("phoneNumber", formData.phoneNumber); // Corrected key
       userdata.append("aadharNumber", formData.aadharNumber);

@@ -1,37 +1,77 @@
 import React, { useState } from "react";
-
-
+import { Api } from "../../../../../../axios/Axios";
 
 const AddressUpdate = () => {
+
+  const [isLoader, setIsLoader] = useState(false);
+  const [fileAadhar, setAdharFile] = useState([]);
+  const [uploadPic, setUploadPic] = useState([]);
   const [formData, setFormData] = useState({
     name: "",
-    fatherName: "",
-    motherName: "",
-    gender: "male",
-    dob: "",
-    address: "",
-    pinCode: "",
+    phoneNumber: "",
+    aadharNumber: "",
+    aadharUpdateDetails: "",
+    uploadPic: "",
   });
+
+  const handleAadharFile = (e) => {
+    setAdharFile(e.target.files);
+  };
+  const handleLivePic = (e) => {
+    setUploadPic(e.target.files[0]);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
     setFormData({
       ...formData,
       [name]: value,
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // You can perform any action with the form data here
-    console.log("Form Data:", formData);
+    let userdata = new FormData();
+
+    for (let i = 0; i < fileAadhar.length; i++) {
+      userdata.append("files", fileAadhar[i]);
+    }
+
+    userdata.append("type", "aadhar");
+    userdata.append("updateType", "address");
+    userdata.append("applicantName", formData.name);
+    userdata.append("phoneNumber", formData.phoneNumber);
+    userdata.append("aadharNumber", formData.aadharNumber);
+    userdata.append("aadharUpdateDetails", formData.aadharUpdateDetails);
+    userdata.append("uploadPic", uploadPic);
+
+    await getDobData(userdata);
+  };
+
+  const getDobData = async (data) => {
+    setIsLoader(true);
+    try {
+      const res = await Api.post("/product/aadhar", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      console.log("res", res);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoader(false);
+    }
   };
 
   return (
     <>
-       <div className="container mt-5">
-                <div className="border rounded p-3">
-              <h2 className="mb-4">Address Update Application Details</h2>
+      <div className="row">
+        <div className="col-sm-5 offset-3">
+          <div className="container mt-5">
+            <div className="border rounded p-3">
+              <h2 className="mb-4">Address Application Details</h2>
               <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                   <label htmlFor="name" className="form-label">
@@ -47,65 +87,85 @@ const AddressUpdate = () => {
                   />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="fatherName" className="form-label">
-                    Father Name
+                  <label htmlFor="phoneNumber" className="form-label">
+                    Mobile Number
                   </label>
                   <input
                     type="text"
                     className="form-control"
-                    id="fatherName"
-                    name="fatherName"
-                    value={formData.fatherName}
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    value={formData.phoneNumber}
                     onChange={handleChange}
                   />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="motherName" className="form-label">
-                    Mother Name
+                  <label htmlFor="aadharNumber" className="form-label">
+                    AadharNumber
                   </label>
                   <input
                     type="text"
                     className="form-control"
-                    id="motherName"
-                    name="motherName"
-                    value={formData.motherName}
+                    id="aadharNumbere"
+                    name="aadharNumber"
+                    value={formData.aadharNumber}
                     onChange={handleChange}
                   />
                 </div>
-          
+
                 <div className="mb-3">
-                  <label htmlFor="dob" className="form-label">
-                    Date of Birth
+                  <label htmlFor="aadharUpdateDetails" className="form-label">
+                    Aadhar Update Details
                   </label>
                   <input
-                    type="date"
+                    type="text"
                     className="form-control"
-                    id="dob"
-                    name="dob"
-                    value={formData.dob}
+                    name="aadharUpdateDetails"
+                    value={formData.aadharUpdateDetails}
                     onChange={handleChange}
                   />
                 </div>
+                {/* live Pic section Start  */}
+
                 <div className="mb-3">
                   <label htmlFor="address" className="form-label">
-                 upload Aadhaar
+                    Upload your Pic
                   </label>
                   <input
                     type="file"
                     className="form-control"
-                    id="dob"
-                    name="dob"
-                    value={formData.dob}
-                    onChange={handleChange}
+                    // value={formData.dob}
+                    multiple
+                    accept="image/*"
+                    // onChange={handleChange}
+                    onChange={handleLivePic}
                   />
                 </div>
-         
+                {/* live Pic section Start  */}
+                <div className="mb-3">
+                  <label htmlFor="address" className="form-label">
+                    upload Aadhaar
+                  </label>
+                  <input
+                    type="file"
+                    className="form-control"
+                    id="aadhaarFile" // Corrected ID
+                    name="aadhaarFile" // Corrected name
+                    // value={formData.dob}
+                    multiple
+                    accept="image/*"
+                    // onChange={handleChange}
+                    onChange={handleAadharFile}
+                  />
+                </div>
                 <button type="submit" className="btn btn-primary">
-                  Submit
+                  {isLoader ? "Loading" : "Submit"}
                 </button>
               </form>
-              </div>
             </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 };

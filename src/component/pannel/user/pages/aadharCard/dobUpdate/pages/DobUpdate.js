@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Api } from "../../../../../../axios/Axios";
 
-
 const DobUpdate = () => {
-  const [userDob, setUserDob] = useState(" ");
+  const [userDob, setUserDob] = useState("");
   const [isLoader, setIsLoader] = useState(false);
+  const [fileAadhar, setAdharFile] = useState([]);
   const [formData, setFormData] = useState({
     name: "",
     fatherName: "",
@@ -12,32 +12,38 @@ const DobUpdate = () => {
     gender: "male",
     address: "",
     pinCode: "",
-    aadhaarFile: null,
   });
 
-  const handleChange = (e) => {
-    const { name, value, type, files } = e.target;
-    // Check if the input is a file input
+  const handleFile = (e) => {
+    setAdharFile(e.target.files);
+  };
 
-    const fileValue = type === "file" ? files[0] : value;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
 
     setFormData({
       ...formData,
-      [name]: fileValue,
+      [name]: value,
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let userdata = new FormData();
+
+    for (let i = 0; i < fileAadhar.length; i++) {
+      userdata.append("files", fileAadhar[i]);
+    }
+
     userdata.append("type", "aadhar");
     userdata.append("updateType", "DOB");
     userdata.append("applicantName", formData.name);
     userdata.append("applicantFatherName", formData.fatherName);
     userdata.append("applicantMotherName", formData.motherName);
     userdata.append("DOB", userDob);
-    userdata.append("files", formData.aadhaarFile);
-    getDobData(userdata);
+    console.log(userdata);
+    console.log(userDob);
+    await getDobData(userdata);
   };
 
   const getDobData = async (data) => {
@@ -48,97 +54,97 @@ const DobUpdate = () => {
           "Content-Type": "multipart/form-data",
         },
       });
-      console.log("res",res)
-      setIsLoader(false);
+      console.log("res", res);
     } catch (error) {
       console.log("dob aadhar error", error);
+    } finally {
       setIsLoader(false);
     }
   };
 
+
   return (
     <>
-       <div className="row">
-              <div className="col-sm-5 offset-3">
-                <div className="container mt-5">
-                  <div className="border rounded p-3">
-                    <h2 className="mb-4">Dob Application Details</h2>
-                    <form onSubmit={handleSubmit}>
-                      <div className="mb-3">
-                        <label htmlFor="name" className="form-label">
-                          Applicant Name
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="name"
-                          name="name"
-                          value={formData.name}
-                          onChange={handleChange}
-                        />
-                      </div>
-                      <div className="mb-3">
-                        <label htmlFor="fatherName" className="form-label">
-                          Father Name
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="fatherName"
-                          name="fatherName"
-                          value={formData.fatherName}
-                          onChange={handleChange}
-                        />
-                      </div>
-                      <div className="mb-3">
-                        <label htmlFor="motherName" className="form-label">
-                          Mother Name
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="motherName"
-                          name="motherName"
-                          value={formData.motherName}
-                          onChange={handleChange}
-                        />
-                      </div>
-
-                      <div className="mb-3">
-                        <label htmlFor="dob" className="form-label">
-                          Date of Birth
-                        </label>
-                        <input
-                          type="date"
-                          className="form-control"
-                          id="dob"
-                          name="dob"
-                          value={formData.dob}
-                          onChange={(e) => setUserDob()}
-                        />
-                      </div>
-                      <div className="mb-3">
-                        <label htmlFor="address" className="form-label">
-                          upload Aadhaar
-                        </label>
-                        <input
-                          type="file"
-                          className="form-control"
-                          id="aadhaarFile" // Corrected ID
-                          name="aadhaarFile" // Corrected name
-                          value={formData.dob}
-                          onChange={handleChange}
-                        />
-                      </div>
-                      <button type="submit" className="btn btn-primary">
-                         { isLoader ? "Loading" :"Submit" } 
-                        </button>                     
-                  
-                    </form>
-                  </div>
+      <div className="row">
+        <div className="col-sm-5 offset-3">
+          <div className="container mt-5">
+            <div className="border rounded p-3">
+              <h2 className="mb-4">Dob Application Details</h2>
+              <form onSubmit={handleSubmit}>
+                <div className="mb-3">
+                  <label htmlFor="name" className="form-label">
+                    Applicant Name
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                  />
                 </div>
-              </div>
+                <div className="mb-3">
+                  <label htmlFor="fatherName" className="form-label">
+                    Father Name
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="fatherName"
+                    name="fatherName"
+                    value={formData.fatherName}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="motherName" className="form-label">
+                    Mother Name
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="motherName"
+                    name="motherName"
+                    value={formData.motherName}
+                    onChange={handleChange}
+                  />
+                </div>
+
+                <div className="mb-3">
+                  <label htmlFor="dob" className="form-label">
+                    Date of Birth
+                  </label>
+                  <input
+                    type="date"
+                    className="form-control"
+                    onChange={(e) => setUserDob(e.target.value)}
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="address" className="form-label">
+                    upload Aadhaar
+                  </label>
+                  <input
+                    type="file"
+                    className="form-control"
+                    id="aadhaarFile" // Corrected ID
+                    name="aadhaarFile" // Corrected name
+                    // value={formData.dob}
+                    multiple
+                    accept="image/*"
+                    // onChange={handleChange}
+                    onChange={handleFile}
+                  />
+                </div>
+                <button type="submit" className="btn btn-primary">
+                  {isLoader ? "Loading" : "Submit"}
+                </button>
+              </form>
             </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 };

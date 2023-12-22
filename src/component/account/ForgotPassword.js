@@ -35,7 +35,7 @@ const ForgotPassword = () => {
     <div className="container mt-5">
       <div className="row justify-content-center">
         <div className="col-md-4">
-          <div className="border rounded p-3">
+          <div className="border rounded p-3 bg-white">
             <form onSubmit={handleSubmit}>
               <h2 className="mb-3">Forgot Password</h2>
               <div className="mb-3">

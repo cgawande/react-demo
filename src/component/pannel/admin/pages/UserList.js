@@ -21,15 +21,15 @@ function UserList() {
   }, [checkRole]);
   // Use lodash's debounce function to delay the invocation of userList
 
-  useEffect(() => {
-    delayedUserList(); // Trigger userList when searchTerm changes with a delay of 300 milliseconds
-    // Cleanup function to cancel the debounced function if the component unmounts or searchTerm changes before 300 milliseconds
-    return delayedUserList.cancel;
-  }, [searchTerm]);
+  // useEffect(() => {
+  //   delayedUserList(); // Trigger userList when searchTerm changes with a delay of 300 milliseconds
+  //   // Cleanup function to cancel the debounced function if the component unmounts or searchTerm changes before 300 milliseconds
+  //   return delayedUserList.cancel;
+  // }, [searchTerm]);
 
-  useEffect(() => {
-    userList(); // Trigger userList when currentPage changes
-  }, [currentPage]);
+  // useEffect(() => {
+  //   userList(); // Trigger userList when currentPage changes
+  // }, [currentPage]);
 
   const userList = async () => {
     setIsLoader(true);

@@ -79,10 +79,11 @@ function SubAdminList() {
     console.log(userData);
     try {
       const res = await Api.post("/register/sub-admin", userData);
-      toast.success("Sub Admin Registarion Successfully... !");
-      window.location.reload();
-      // reset();
-      // userList();
+      // toast.success("Sub Admin Registarion Successfully... !");
+      alert(" Registration Success")
+      // window.location.reload();
+      reset();
+      userList();
 
       setLoader(false);
     } catch (e) {
@@ -97,15 +98,15 @@ function SubAdminList() {
   //   navigate("/register");
   // };
 
-  useEffect(() => {
-    delayedUserList(); // Trigger userList when searchTerm changes with a delay of 300 milliseconds
-    // Cleanup function to cancel the debounced function if the component unmounts or searchTerm changes before 300 milliseconds
-    return delayedUserList.cancel;
-  }, [searchTerm]);
+  // useEffect(() => {
+  //   delayedUserList(); // Trigger userList when searchTerm changes with a delay of 300 milliseconds
+  //   // Cleanup function to cancel the debounced function if the component unmounts or searchTerm changes before 300 milliseconds
+  //   return delayedUserList.cancel;
+  // }, [searchTerm]);
 
-  useEffect(() => {
-    userList(); // Trigger userList when currentPage changes
-  }, [currentPage]);
+  // useEffect(() => {
+  //   userList(); // Trigger userList when currentPage changes
+  // }, [currentPage]);
 
   const userList = async () => {
     setIsLoader(true);
@@ -219,7 +220,9 @@ function SubAdminList() {
       setRoleLoader(false);
     }
   };
-
+useEffect(()=>{
+toast.dismiss()
+},[])
   // handleEdit Functionality Start
   const fetchEditdetails = async (id) => {
     setSubAdminId(id);
@@ -242,7 +245,7 @@ function SubAdminList() {
         permissions: access ?? [],
       });
       toast.success("Sub Admin Permission Update Successfully... !");
-      window.location.reload();
+      // window.location.reload();
       console.log(res);
       setLoader(false);
     } catch (error) {
@@ -300,7 +303,7 @@ function SubAdminList() {
                       aria-hidden="true"
                     />
 
-                    <span className="text-white ms-1">Loading... </span>
+                    <span className="text-white ms-1">   Loading... </span>
                   </button>
                 </div>
               )}
@@ -632,7 +635,7 @@ function SubAdminList() {
                                   />
 
                                   <span className="text-white ms-1">
-                                    Loading...{" "}
+                               Loading...{" "}
                                   </span>
                                 </button>
                               </div>

@@ -1,43 +1,74 @@
 import React, { useState } from "react";
+import { Api } from "../../../../../../axios/Axios";
 
 
+const NameDocVerify = () => {
+    
+  const [isLoader, setIsLoader] = useState(false);
+  const [fileAadhar, setAdharFile] = useState([]);
 
-const NameUpdate = () => {
   const [formData, setFormData] = useState({
     name: "",
-    fatherName: "",
-    motherName: "",
-    gender: "male",
-    dob: "",
-    address: "",
-    pinCode: "",
+
   });
 
-  const handleChange = (e) => {     
+  const handleAadharFile = (e) => {
+    setAdharFile(e.target.files);
+  };
+
+
+  const handleChange = (e) => {
     const { name, value } = e.target;
+
     setFormData({
       ...formData,
       [name]: value,
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // You can perform any action with the form data here
-    console.log("Form Data:", formData);
+    let userdata = new FormData();
+
+    for (let i = 0; i < fileAadhar.length; i++) {
+      userdata.append("files", fileAadhar[i]);
+    }
+
+    userdata.append("type", "aadhar");
+    userdata.append("updateType", "name");
+    userdata.append("applicantName", formData.name);
+
+
+    await getDobData(userdata);
+  };
+
+  const getDobData = async (data) => {
+    setIsLoader(true);
+    try {
+      const res = await Api.post("/product/aadhar", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      console.log("res", res);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoader(false);
+    }
   };
 
   return (
     <>
-           <div className="row">
-          <div className="col-sm-5 offset-3">
-            <div className="container mt-5 offset-3">
-                <div className="border rounded p-3">
+      <div className="row">
+        <div className="col-sm-5 offset-3">
+          <div className="container mt-5">
+            <div className="border rounded p-3">
               <h2 className="mb-4">Name Application Details</h2>
               <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                   <label htmlFor="name" className="form-label">
-                    Applicant  Name
+                    Applicant Name
                   </label>
                   <input
                     type="text"
@@ -48,30 +79,35 @@ const NameUpdate = () => {
                     onChange={handleChange}
                   />
                 </div>
-         
+        
+     
+             
                 <div className="mb-3">
-                  <label htmlFor="pinCode" className="form-label">
-                    Upload Aadhaar
-                  </label>                                              
+                  <label htmlFor="address" className="form-label">
+                    upload Aadhaar
+                  </label>
                   <input
                     type="file"
                     className="form-control"
-                    id="pinCode"
-                    name="pinCode"
-                    value={formData.pinCode}
-                    onChange={handleChange}
+                    id="aadhaarFile" // Corrected ID
+                    name="aadhaarFile" // Corrected name
+                    // value={formData.dob}
+                    multiple
+                    accept="image/*"
+                    // onChange={handleChange}
+                    onChange={handleAadharFile}
                   />
                 </div>
                 <button type="submit" className="btn btn-primary">
-                  Submit
+                  {isLoader ? "Loading" : "Submit"}
                 </button>
               </form>
-              </div>
             </div>
           </div>
         </div>
+      </div>
     </>
   );
 };
 
-export default NameUpdate;
+export default NameDocVerify
