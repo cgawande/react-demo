@@ -1,129 +1,22 @@
-/* Sidebar.module.css */
-
-.sideMenu {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.sideMenu li {
-  border-bottom: 0.5px solid #a7abaf;
-  margin: 10px 0;
-}
-
-.sideMenu li:last-child {
-  border-bottom: none; /* Remove border for the last menu item */
-}
-
-.sideMenu li a {
-  display: block;
-  text-decoration: none;
-  color: black;
-  width: 100%;
-  padding: 8px; /* Add padding for better spacing */
-}
-
-.sideMenu li a:hover {
-  background-color: rgb(8, 155, 171);
-  color: antiquewhite;
-}
-
-.active {
-  background-color: rgb(8, 155, 171);
-  color: antiquewhite;
-}
-
-/* Remove the duplicated .active block */
-.navItem {
-  display: block;
-  width: 100%;
-  padding: 0px 10px;
-  cursor: pointer;
-}
-
-.icon {
-  color:red;
-}
-
-/* .sidebarcss::-webkit-scrollbar {
-  width: 12px;
-  background-color: rgb(122, 41, 199);
-}
 
 
-.sidebarcss::-webkit-scrollbar-track {
-  color: antiquewhite;
-} */
-/* .sidebarcss::-webkit-scrollbar-thumb {
-  background-color: rgb(8, 155, 171) !important;
- 
-} */
-.sideMenu{
-  overflow-y: hidden;
-  overflow-x: hidden;
-  height: auto;
-  scrollbar-width: thin;
-scrollbar-color: green yellow;
-  display: block;
-}
 
-/* .sideMenu::-webkit-scrollbar {
-  width: 5px;
-  height: 8px;
-}
 
-.sideMenu::-webkit-scrollbar-thumb {
-  background: red;
-} */
 
-/* .inner-container{
-  height: 800px;
-} */
-/* .sideMenu {
-  --scrollbarBG: #CFD8DC;
-  --thumbBG: #90A4AE;
-}
-.sideMenu::-webkit-scrollbar {
-  width: 11px;
-}
-.sideMenu {
-  scrollbar-width: thin;
-  scrollbar-color: var(--thumbBG) var(--scrollbarBG);
-}
-.sideMenu::-webkit-scrollbar-track {
-  background: var(--scrollbarBG);
-}
-.sideMenu::-webkit-scrollbar-thumb {
-  background-color: var(--thumbBG) ;
-  border-radius: 6px;
-  border: 3px solid var(--scrollbarBG);
-}
- */
- ::-webkit-scrollbar {
-  width: 8px;
-  height:20px;
-  /* scrollbar-width: thin; */
-  /* overflow-y: hidden;
-  overflow-x: hidden; */
-}
 
-/* Track */
-::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px grey; 
-  border-radius: 10px;
-}
- 
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: rgb(176, 228, 248); 
-  border-radius: 10px;
-}
 
-/* Handle on hover */
-/* ::-webkit-scrollbar-thumb:hover {
-  background: #b30000; 
-} */
-/* html {
-  --scrollbarBG: #CFD8DC;
-  --thumbBG: #90A4AE;
-} */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

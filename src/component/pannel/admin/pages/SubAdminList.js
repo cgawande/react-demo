@@ -31,7 +31,6 @@ function SubAdminList() {
     register,
     handleSubmit,
     watch,
-
     formState: { errors },
   } = useForm();
 
@@ -265,22 +264,7 @@ toast.dismiss()
   };
   return (
     <>
-      <div className="container-fluid p-0">
-        <div className="row p-0 m-0">
-          <div
-            className="col-sm-2 p-0 m-0 "
-            style={{
-              height: "100vh",
-              overflowY: "auto",
-              position: "sticky",
-              top: 0,
-            }}
-          >
-            <AdminSidebar />
-          </div>
-          <div className="col-sm-10 p-0 m-0">
-            <Header />
-            <div className="container  mt-4">
+ <div className="container  mt-4">
               <div className="d-flex m-2 justify-content-center p-5">
                 <Link to="/admin/role/user-list">
                   {" "}
@@ -494,9 +478,6 @@ toast.dismiss()
                 </>
               )}
             </div>
-          </div>
-        </div>
-      </div>
 
       <>
         {/*Add SubAdmin   Modal  Start*/}

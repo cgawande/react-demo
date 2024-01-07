@@ -3,6 +3,7 @@ import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import { Api } from '../../axios/Axios';
 import { useSelector } from 'react-redux';
+import styles from "./Sidebar.module.css"
 const UserHeader = () => {
   const { user } = useSelector((state) => state.login);
   const [name, setName] = useState();
@@ -28,9 +29,9 @@ const navigate=useNavigate()
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg navbar-light ">
         <div className="container-fluid">
-          <span className="navbar-brand" style={{fontWeight:"bold"}}>
+          <span className=  {`userName me-3 navbar-brand `}>
            {name}
           </span>
           <button
@@ -49,11 +50,16 @@ const navigate=useNavigate()
             
             </ul>
           </div>
-          <div className="d-flex">
-            <span className="me-3" style={{fontWeight:"bold"}}>Wallet Balance: INR {walletBalance}</span>
-            <span className="me-3">Name: {name}</span>
-            <button className="btn btn-outline-dark" onClick={()=>handleLogout()}>
-              LogOut
+          <div className="d-flex align-items-center">
+            <span className="me-3 text-white ">Wallet Balance: INR {walletBalance}</span>
+          
+            <button className="btn btn-outline-white text-white"
+            style={{
+              border:"1px solid white"
+            
+            }}
+            onClick={()=>handleLogout()}>
+              Logout
             </button>
           </div>
         </div>

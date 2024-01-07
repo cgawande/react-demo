@@ -59,7 +59,7 @@ const FindAadharDocVerify = () => {
       <div className="row">
               <div className="col-sm-5 offset-3">
                 <div className="container my-5">
-                  <div className="border rounded p-3">
+                  <div className="border card shadow rounded p-3">
                     <h2 className="mb-4">Document Verify Form</h2>
                     <form onSubmit={handleSubmit}>
                       <div className="mb-3">

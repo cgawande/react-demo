@@ -1,91 +1,164 @@
-import React, { useState, useEffect } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
-import styles from "../Sidebar.module.css";
-const AdharCard = () => {
-  const [adharSubMenu, setAdharSubMenu] = useState(false);
-  const [dobUpdate, setDobUpdate] = useState(false);
+import React, { useEffect, useState } from "react";
+import { Api } from "../../../axios/Axios";
+import Header from "../../admin/Header";
+import AdminSidebar from "../../admin/Sidebar";
+import { Link } from "react-router-dom";
+function AadharCard() {
+  const [users, setUsers] = useState([]);
+  const [isLoader, setIsLoader] = useState(false);
 
-  const navigate = useNavigate();
-
-  const handleMenu = () => {
-    setAdharSubMenu(!adharSubMenu);
+  useEffect(() => {
+    getUserList();
+  
+  }, [users]);
+  const getUserList = async () => {
+    setIsLoader(true);
+    try {
+      const res = await Api.get(`/product`);
+      setUsers(res.data.data);
+ console.log("list",res.data.data)
+      setIsLoader(false);
+    } catch (error) {
+      setIsLoader(false);
+      console.error("Error fetching user data:", error);
+    }
   };
 
-  const handleDobUpdate = () => {
-    setDobUpdate(!dobUpdate);
-  };
 
-  const handleSubMenuClick = () => {
-    navigate("/user/lost-adhar-form");
-  };
+  const hamdleDelete = async (id) => {
+    try {
+      const res = await Api.delete(`/users/${id}`);
 
+      getUserList();
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const handleStatus = async (id) => {
+    try {
+      console.log(id);
+      const res = await Api.put(`/users/${id}`);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const hamdleMakeSubAdmin = async (id) => {
+    try {
+      console.log(id);
+      const res = await Api.post(`/users/${id}`, { role: "sub-admin" });
+
+      getUserList();
+    } catch (e) {
+      console.log(e);
+    }
+  };
   return (
     <>
-      <ul>
-        <li onClick={handleMenu}>Adhar Card
-      {adharSubMenu && (
-        <ul style={{ listStyleType: "none" }}>
-          <li className="nav-link" style={{ whiteSpace: "nowrap" }}>
-            <NavLink
-              to="/user/lost-adhar-form"
-              className={({ isActive }) =>
-                isActive ? `${styles.active}` : `${styles.inactive}`
-              }
-            >
-              Address Update
-            </NavLink>
-            {/* <Link to="/user/lost-adhar-form">Address Update</Link> */}
-          </li>
-          <ul>
-            <li
-              className="nav-link"
-              onClick={() => {
-                handleDobUpdate();
-              }}
-            >
-              <Link to="/user/dob-update"> DOB update </Link>
-              {dobUpdate ? (
-                <i className="bi bi-arrow-up"></i>
-              ) : (
-                <i className="bi bi-arrow-down"></i>
-              )}
-            </li>
-            {dobUpdate && (
-              <>
-                <NavLink to="/user/Document verify">
-                  {" "}
-                  <li className="nav-link">Document verify</li>
-                </NavLink>
-                <li className="nav-link" onClick={handleSubMenuClick}>
-                  Processing Request
-                </li>
-                <li className="nav-link" onClick={handleSubMenuClick}>
-                  Processing
-                </li>
-                <li className="nav-link" onClick={handleSubMenuClick}>
-                  Download Slip
-                </li>
-              </>
-            )}
-          </ul>
-          <NavLink to="/user/name-update">
-            <li className="nav-link">Name Update</li>
-          </NavLink>
-          <li className="nav-link" onClick={handleSubMenuClick}>
-            Gender Update
-          </li>
-          <li className="nav-link" onClick={handleSubMenuClick}>
-            Find Adhar
-          </li>
-          <li className="nav-link" onClick={handleSubMenuClick}>
-            Download
-          </li>
-        </ul>
-      )}
-        </li>
-      </ul>
+      <div className="container-fluid p-0">
+        <div className="row p-0 m-0">
+          <div
+            className="col-sm-2 p-0 m-0"
+            style={{
+              height: "100vh",
+              overflowY: "auto",
+              position: "sticky",
+              top: 0,
+            }}
+          >
+            <AdminSidebar />
+          </div>
+          <div className="col-sm-10 p-0 m-0">
+            <Header />
+            <div className="container mt-4">
+              <h2 className="text-center mb-4">User </h2>
+              <div className={`table-responsive card`}>
+                    <table className="table table-bordered table-striped">
+                      <thead>
+                        <tr>
+                          <th>Sr No</th>
+                          <th>CSC ID</th>
+                          <th>Name</th>
+                          <th>Update Type</th>
+                          <th>Date</th>
+                          <th>Status</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {users.map((user, index) => (
+                          <tr key={index}>
+                            <td>{index + 1}</td>
+                            <td>{user?.cscId ?? ""}</td>
+                            <td>{user.applicantName}</td>
+                            <td>{user.updateType}</td>
+                            <td>{user.createdAt}</td>
+                            <td>{user?.status}</td>
+                        
+                            <td>
+                              <div className="dropdown text-center">
+                                <button
+                                  className="btn bg-black  dropdown-toggle"
+                                  type="button"
+                                  id="dropdownMenuButton1"
+                                  data-bs-toggle="dropdown"
+                                  aria-expanded="false"
+                                >
+                                  <span className="text-white text-center">
+                                    <i
+                                      className="fa fa-ellipsis-v"
+                                      aria-hidden="true"
+                                    ></i>
+                                  </span>
+                                </button>
+                                <ul
+                                  className="dropdown-menu"
+                                  aria-labelledby="dropdownMenuButton1"
+                                >
+                                  <li>
+                                    <Link
+
+                                      className="dropdown-item hoverBtn"
+                                      to="#"
+                                    >
+                                      View
+                                    </Link>
+                                  </li>
+                                  <li>
+                                    <Link
+                                      className="dropdown-item hoverBtn"
+                                      onClick={() => hamdleDelete(user.id)}
+                                    >
+                                      Delete
+                                    </Link>
+                                  </li>
+                                  <li>
+                                    <Link
+                                      className="dropdown-item hoverBtn"
+                                      to="#"
+                                      onClick={() =>
+                                        hamdleMakeSubAdmin(user.id)
+                                      }
+                                    >
+                                      Make Sub Admin
+                                    </Link>
+                                  </li>
+                                </ul>
+                              </div>
+                            </td>
+
+                            {/* Add action button or link here */}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+            </div>
+      
+          </div>
+        </div>
+      </div>
     </>
   );
-};
+}
 
-export default AdharCard;
+export default AadharCard;

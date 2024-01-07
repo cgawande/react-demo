@@ -141,231 +141,206 @@ function UserList() {
   };
   return (
     <>
-      <div className="container-fluid p-0">
-        <div className="row p-0 m-0">
-          <div
-            className="col-sm-2 p-0 m-0"
-            style={{
-              height: "100vh",
-              overflowY: "auto",
-              position: "sticky",
-              top: 0,
-            }}
-          >
-            <AdminSidebar />
-          </div>
-          <div className="col-sm-10 p-0 m-0">
-            <Header />
-            <div className="container mt-4">
-              <h2 className="text-center mb-4">User </h2>
-              <div className="d-flex m-2 justify-content-center p-5">
-                <button className="btn bg-black text-white activeBtnBg hoverBtn  m-2">
-                  {" "}
-                  App User{""}
-                </button>
-                {subAdmin && (
-                  <Link to="/admin/role/sub-admin-list">
-                    {" "}
-                    <div className="btn btn-outline-dark m-2 hoverBtn">
-                      {" "}
-                      Sub Admin{" "}
-                    </div>
-                  </Link>
-                )}
+      <div className="container mt-4">
+        <h2 className="text-center mb-4">User </h2>
+        <div className="d-flex m-2 justify-content-center p-5">
+          <button className="btn bg-black text-white activeBtnBg hoverBtn  m-2">
+            {" "}
+            App User{""}
+          </button>
+          {subAdmin && (
+            <Link to="/admin/role/sub-admin-list">
+              {" "}
+              <div className="btn btn-outline-dark m-2 hoverBtn">
+                {" "}
+                Sub Admin{" "}
               </div>
-
-              {isLoader && (
-                <div className="text-center">
-                  <button className="btn bg-black" type="button" disabled="">
-                    <span
-                      className="spinner-border spinner-border-sm text-white"
-                      role="status"
-                      aria-hidden="true"
-                    />
-
-                    <span className="text-white ms-1">Loading... </span>
-                  </button>
-                </div>
-              )}
-
-              {!isLoader && (
-                <>
-                  <div className="row">
-                    <div className="col-sm-8"></div>
-                    <div className="col-sm-4">
-                      <div className="d-flex align-items-center">
-                        <input
-                          type="text"
-                          id="inputPassword6"
-                          className="form-control m-2"
-                          value={searchTerm}
-                          placeholder="search by name or email"
-                          onChange={handleSearch}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className={`table-responsive card`}>
-                    <table className="table table-bordered table-striped">
-                      <thead>
-                        <tr>
-                          <th>Sr No</th>
-                          <th>CSC ID</th>
-                          <th>Name</th>
-                          <th>Phone Number</th>
-                          <th>Email ID</th>
-                          <th>Wallet Balance</th>
-                          <th>Status</th>
-                          <th>Action</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {users.map((user, index) => (
-                          <tr key={index}>
-                            <td>{index + 1}</td>
-                            <td>{user?.cscId ?? ""}</td>
-                            <td>{user.fullName}</td>
-                            <td>{user.phoneNumber}</td>
-                            <td>{user.email}</td>
-                            <td>{user?.wallet}</td>
-                            <td>
-                              {/* {user.isActive ? "Active" : "Restrict"} */}
-                              {
-                                <div className="form-check form-switch">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                    role="switch"
-                                    id="flexSwitchCheckChec"
-                                    defaultChecked={
-                                      user.status === "active" ? true : false
-                                    }
-                                    onChange={() => handleStatus(user.id)}
-                                  />
-                                </div>
-                              }
-                            </td>
-                            <td>
-                              <div className="dropdown text-center">
-                                <button
-                                  className="btn bg-black  dropdown-toggle"
-                                  type="button"
-                                  id="dropdownMenuButton1"
-                                  data-bs-toggle="dropdown"
-                                  aria-expanded="false"
-                                >
-                                  <span className="text-white text-center">
-                                    <i
-                                      className="fa fa-ellipsis-v"
-                                      aria-hidden="true"
-                                    ></i>
-                                  </span>
-                                </button>
-                                <ul
-                                  className="dropdown-menu"
-                                  aria-labelledby="dropdownMenuButton1"
-                                >
-                                  <li>
-                                    <Link
-                                      className="dropdown-item hoverBtn"
-                                      to="#"
-                                    >
-                                      View
-                                    </Link>
-                                  </li>
-                                  <li>
-                                    <Link
-                                      className="dropdown-item hoverBtn"
-                                      onClick={() => hamdleDelete(user.id)}
-                                    >
-                                      Delete
-                                    </Link>
-                                  </li>
-                                  <li>
-                                    <Link
-                                      className="dropdown-item hoverBtn"
-                                      to="#"
-                                      onClick={() =>
-                                        hamdleMakeSubAdmin(user.id)
-                                      }
-                                    >
-                                      Make Sub Admin
-                                    </Link>
-                                  </li>
-                                </ul>
-                              </div>
-                            </td>
-
-                            {/* Add action button or link here */}
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-
-                  {/* Pagination */}
-                  <nav aria-label="Page navigation example">
-                    <ul className="pagination ">
-                      <li
-                        className={`page-item  ${
-                          currentPage === 1 ? "disabled" : ""
-                        }`}
-                      >
-                        <a
-                          className="page-link bg-black text-white"
-                          onClick={() => paginate(1)}
-                          href="#"
-                        >
-                          First
-                        </a>
-                      </li>
-                      <li
-                        className={`page-item ${
-                          currentPage === 1 ? "disabled" : ""
-                        }`}
-                      >
-                        <a
-                          className="page-link bg-black text-white"
-                          onClick={() => paginate(currentPage - 1)}
-                          href="#"
-                        >
-                          Previous
-                        </a>
-                      </li>
-                      {renderPageNumbers()}
-                      <li
-                        className={`page-item ${
-                          currentPage === totalPageCount ? "disabled" : ""
-                        }`}
-                      >
-                        <a
-                          className="page-link bg-black text-white"
-                          onClick={() => paginate(currentPage + 1)}
-                          href="#"
-                        >
-                          Next
-                        </a>
-                      </li>
-                      <li
-                        className={`page-item ${
-                          currentPage === totalPageCount ? "disabled" : ""
-                        }`}
-                      >
-                        <a
-                          className="page-link bg-black text-white"
-                          onClick={() => paginate(totalPageCount)}
-                          href="#"
-                        >
-                          Last
-                        </a>
-                      </li>
-                    </ul>
-                  </nav>
-                </>
-              )}
-            </div>
-          </div>
+            </Link>
+          )}
         </div>
+
+        {isLoader && (
+          <div className="text-center">
+            <button className="btn bg-black" type="button" disabled="">
+              <span
+                className="spinner-border spinner-border-sm text-white"
+                role="status"
+                aria-hidden="true"
+              />
+
+              <span className="text-white ms-1">Loading... </span>
+            </button>
+          </div>
+        )}
+
+        {!isLoader && (
+          <>
+            <div className="row">
+              <div className="col-sm-8"></div>
+              <div className="col-sm-4">
+                <div className="d-flex align-items-center">
+                  <input
+                    type="text"
+                    id="inputPassword6"
+                    className="form-control m-2"
+                    value={searchTerm}
+                    placeholder="search by name or email"
+                    onChange={handleSearch}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className={`table-responsive card`}>
+              <table className="table table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>Sr No</th>
+                    <th>CSC ID</th>
+                    <th>Name</th>
+                    <th>Phone Number</th>
+                    <th>Email ID</th>
+                    <th>Wallet Balance</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {users.map((user, index) => (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td>{user?.cscId ?? ""}</td>
+                      <td>{user.fullName}</td>
+                      <td>{user.phoneNumber}</td>
+                      <td>{user.email}</td>
+                      <td>{user?.wallet}</td>
+                      <td>
+                        {/* {user.isActive ? "Active" : "Restrict"} */}
+                        {
+                          <div className="form-check form-switch">
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                              role="switch"
+                              id="flexSwitchCheckChec"
+                              defaultChecked={
+                                user.status === "active" ? true : false
+                              }
+                              onChange={() => handleStatus(user.id)}
+                            />
+                          </div>
+                        }
+                      </td>
+                      <td>
+                        <div className="dropdown text-center">
+                          <button
+                            className="btn bg-black  dropdown-toggle"
+                            type="button"
+                            id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                          >
+                            <span className="text-white text-center">
+                              <i
+                                className="fa fa-ellipsis-v"
+                                aria-hidden="true"
+                              ></i>
+                            </span>
+                          </button>
+                          <ul
+                            className="dropdown-menu"
+                            aria-labelledby="dropdownMenuButton1"
+                          >
+                            <li>
+                              <Link className="dropdown-item hoverBtn" to="#">
+                                View
+                              </Link>
+                            </li>
+                            <li>
+                              <Link
+                                className="dropdown-item hoverBtn"
+                                onClick={() => hamdleDelete(user.id)}
+                              >
+                                Delete
+                              </Link>
+                            </li>
+                            <li>
+                              <Link
+                                className="dropdown-item hoverBtn"
+                                to="#"
+                                onClick={() => hamdleMakeSubAdmin(user.id)}
+                              >
+                                Make Sub Admin
+                              </Link>
+                            </li>
+                          </ul>
+                        </div>
+                      </td>
+
+                      {/* Add action button or link here */}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Pagination */}
+            <nav aria-label="Page navigation example">
+              <ul className="pagination ">
+                <li
+                  className={`page-item  ${
+                    currentPage === 1 ? "disabled" : ""
+                  }`}
+                >
+                  <a
+                    className="page-link bg-black text-white"
+                    onClick={() => paginate(1)}
+                    href="#"
+                  >
+                    First
+                  </a>
+                </li>
+                <li
+                  className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
+                >
+                  <a
+                    className="page-link bg-black text-white"
+                    onClick={() => paginate(currentPage - 1)}
+                    href="#"
+                  >
+                    Previous
+                  </a>
+                </li>
+                {renderPageNumbers()}
+                <li
+                  className={`page-item ${
+                    currentPage === totalPageCount ? "disabled" : ""
+                  }`}
+                >
+                  <a
+                    className="page-link bg-black text-white"
+                    onClick={() => paginate(currentPage + 1)}
+                    href="#"
+                  >
+                    Next
+                  </a>
+                </li>
+                <li
+                  className={`page-item ${
+                    currentPage === totalPageCount ? "disabled" : ""
+                  }`}
+                >
+                  <a
+                    className="page-link bg-black text-white"
+                    onClick={() => paginate(totalPageCount)}
+                    href="#"
+                  >
+                    Last
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </>
+        )}
       </div>
     </>
   );

@@ -5,7 +5,7 @@ const AddressUpdate = () => {
 
   const [isLoader, setIsLoader] = useState(false);
   const [fileAadhar, setAdharFile] = useState([]);
-  const [uploadPic, setUploadPic] = useState([]);
+  // const [uploadPic, setUploadPic] = useState([]);
   const [formData, setFormData] = useState({
     name: "",
     phoneNumber: "",
@@ -17,9 +17,9 @@ const AddressUpdate = () => {
   const handleAadharFile = (e) => {
     setAdharFile(e.target.files);
   };
-  const handleLivePic = (e) => {
-    setUploadPic(e.target.files[0]);
-  };
+  // const handleLivePic = (e) => {
+  //   setUploadPic(e.target.files[0]);
+  // };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -44,8 +44,7 @@ const AddressUpdate = () => {
     userdata.append("phoneNumber", formData.phoneNumber);
     userdata.append("aadharNumber", formData.aadharNumber);
     userdata.append("aadharUpdateDetails", formData.aadharUpdateDetails);
-    userdata.append("uploadPic", uploadPic);
-
+    // userdata.append("uploadPic", uploadPic);
     await getDobData(userdata);
   };
 
@@ -70,7 +69,7 @@ const AddressUpdate = () => {
       <div className="row">
         <div className="col-sm-5 offset-3">
           <div className="container mt-5">
-            <div className="border rounded p-3">
+            <div className="border card shadow rounded p-3">
               <h2 className="mb-4">Address Application Details</h2>
               <form onSubmit={handleSubmit}>
                 <div className="mb-3">
@@ -127,20 +126,20 @@ const AddressUpdate = () => {
                 </div>
                 {/* live Pic section Start  */}
 
-                <div className="mb-3">
+                {/* <div className="mb-3">
                   <label htmlFor="address" className="form-label">
                     Upload your Pic
                   </label>
                   <input
                     type="file"
                     className="form-control"
-                    // value={formData.dob}
+                  
                     multiple
                     accept="image/*"
-                    // onChange={handleChange}
+                
                     onChange={handleLivePic}
                   />
-                </div>
+                </div> */}
                 {/* live Pic section Start  */}
                 <div className="mb-3">
                   <label htmlFor="address" className="form-label">

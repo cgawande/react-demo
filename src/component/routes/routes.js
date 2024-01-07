@@ -58,7 +58,21 @@ import AddressProcessing from "../pannel/user/pages/aadharCard/addressUpdate/pag
 import AddressDownloadSlip from "../pannel/user/pages/aadharCard/addressUpdate/pages/DownLoadSlip";
 import AdharCard from "../pannel/user/sidebarMenu/AdharCard";
 import AdvanceAadhar from "../pannel/user/pages/advanceAadhar/pages/AdvanceAadhar";
-
+import AadharCard from "../pannel/admin/pages/AdharCard";
+import VoterDocVerify from "../pannel/user/pages/votaerCard/dobUpdate/pages/VoterDocumentVerify";
+import VoterDobDocVerify from "../pannel/user/pages/votaerCard/dobUpdate/pages/VoterDocumentVerify";
+import VoterDobProcessing from "../pannel/user/pages/votaerCard/dobUpdate/pages/VoterProcessing";
+import VoterDobDownloadSlip from "../pannel/user/pages/votaerCard/dobUpdate/pages/VoterDownLoadSlip";
+import VoterDobUpdate from "../pannel/user/pages/votaerCard/dobUpdate/pages/VoterDobUpdate";
+import VoterNameUpdate from "../pannel/user/pages/votaerCard/nameUpdate/pages/NameUpdate";
+import VoterNameDocVerify from "../pannel/user/pages/votaerCard/nameUpdate/pages/DocumentVerify";
+import VoterNameProcessing from "../pannel/user/pages/votaerCard/nameUpdate/pages/Processing";
+import VoterNameProcessingReq from "../pannel/user/pages/votaerCard/nameUpdate/pages/ProcessingReq";
+import VoterNameDownloadSlip from "../pannel/user/pages/votaerCard/nameUpdate/pages/DownLoadSlip";
+import VoterGenderUpdate from "../pannel/user/pages/votaerCard/genderUpdate/pages/GenderUpdate";
+import VoterGenderDownloadSlip from "../pannel/user/pages/votaerCard/genderUpdate/pages/DownLoadSlip";
+import VoterGenderProcessing from "../pannel/user/pages/votaerCard/genderUpdate/pages/Processing";
+import VoterGenderProcessingReq from "../pannel/user/pages/votaerCard/genderUpdate/pages/ProcessingReq";
 
 function RoutesNavigation() {
   return (
@@ -78,7 +92,7 @@ function RoutesNavigation() {
           <Route path={"lost-adhar-form"} element={<LostAdharForm />} />
           <Route path={"aadhar-advance"} element={<AdvanceAadhar />} />
           {/* <Route path={"download-driver"} element={<Fin />}></Route> */}
-          {/* dob-update routes Start */}
+          {/* Adhar dob-update routes Start */}
           <Route
             path={"dob-update/pro-req"}
             element={<WalletRecharge />}
@@ -87,9 +101,71 @@ function RoutesNavigation() {
           <Route path={"dob-update/proccessing"} element={<Processing />} />
           <Route path={"dob-update/download-slip"} element={<DownloadSlip />} />
           <Route path={"dob-update"} element={<DobUpdate />} />
-          {/* dob-update End */}
+          {/* Adhar dob-update End */}
 
-          {/* name-update Start*/}
+          {/* Voter dob-update routes Start */}
+          <Route
+            path={"dob-update/pro-req"}
+            element={<WalletRecharge />}
+          ></Route>
+          <Route
+            path={"voter-dob-update/doc-verify"}
+            element={<VoterDobDocVerify />}
+          ></Route>
+          <Route
+            path={"voter-dob-update/proccessing"}
+            element={<VoterDobProcessing />}
+          />
+          <Route
+            path={"dob-update/download-slip"}
+            element={<VoterDobDownloadSlip />}
+          />
+          <Route path={"voter-dob-update"} element={<VoterDobUpdate />} />
+          {/* Voter dob-update End */}
+
+          {/* Voter name-update Start*/}
+          <Route path={"name-update"} element={<VoterNameUpdate />}></Route>
+          <Route
+            path={"voter-name-update/doc-verify"}
+            element={<VoterNameDocVerify />}
+          ></Route>
+          <Route
+            path={"voter-name-update/proccessing"}
+            element={<VoterNameProcessing />}
+          />
+          <Route
+            path={"voter-name-update/pro-req"}
+            element={<VoterNameProcessingReq />}
+          />
+          <Route
+            path={"voter-name-update/download-slip"}
+            element={<VoterNameDownloadSlip />}
+          />
+          <Route path={"name-update"} element={<DobUpdate />} />
+          {/* Voter Name Update Route End */}
+
+          {/* Voter gender-update Start*/}
+          <Route path={"voter-gender-update"} element={<VoterGenderUpdate />}></Route>
+          <Route
+            path={"voter-gender-update/doc-verify"}
+            element={<VoterDobDocVerify/>}
+          ></Route>
+          <Route
+            path={"voter-gender-update/proccessing"}
+            element={<VoterGenderProcessing />}
+          />
+          <Route
+            path={"gender-update/pro-req"}
+            element={<VoterGenderProcessingReq />}
+          />
+          <Route
+            path={"voter-gender-update/download-slip"}
+            element={<VoterGenderDownloadSlip />}
+          />
+
+          {/* VOter gendere Update Route End */}
+
+          {/*Aadhar name-update Start*/}
           <Route path={"name-update"} element={<NameUpdate />}></Route>
           <Route
             path={"name-update/doc-verify"}
@@ -105,10 +181,10 @@ function RoutesNavigation() {
             element={<NameDownloadSlip />}
           />
           <Route path={"name-update"} element={<DobUpdate />} />
-          {/* Name Update Route End */}
-          
-            {/* gender-update Start*/}
-            <Route path={"gender-update"} element={<GenderUpdate />}></Route>
+          {/* Aadhar Name Update Route End */}
+
+          {/* gender-update Start*/}
+          <Route path={"gender-update"} element={<GenderUpdate />}></Route>
           <Route
             path={"gender-update/doc-verify"}
             element={<GenderDocVerify />}
@@ -117,16 +193,19 @@ function RoutesNavigation() {
             path={"gender-update/proccessing"}
             element={<GenderProcessing />}
           />
-          <Route path={"gender-update/pro-req"} element={<GenderProcessingReq />} />
+          <Route
+            path={"gender-update/pro-req"}
+            element={<GenderProcessingReq />}
+          />
           <Route
             path={"gender-update/download-slip"}
             element={<NameDownloadSlip />}
           />
-        
+
           {/*gendere Update Route End */}
 
-             {/* find-aadharupdate Start*/}
-             <Route path={"find-aadhar"} element={<FindAadhaar />}></Route>
+          {/* find-aadharupdate Start*/}
+          <Route path={"find-aadhar"} element={<FindAadhaar />}></Route>
           <Route
             path={"find-aadhar/doc-verify"}
             element={<FindAadharDocVerify />}
@@ -140,7 +219,7 @@ function RoutesNavigation() {
             path={"find-aadhar/download-slip"}
             element={<FindAadhaarDownloadSlip />}
           />
-        
+
           {/*gfind-aadharUpdate Route End */}
 
           {/* address-update Start*/}
@@ -158,14 +237,15 @@ function RoutesNavigation() {
             path={"address-update/download-slip"}
             element={<AddressDownloadSlip />}
           />
-     
+
           {/* address Update Route End */}
         </Route>
+
         {/* Admin Routes */}
         <Route path="/admin" element={<AdminDashboard />}>
           <Route index element={<Navigate replace to="dashboard" />} />
           <Route path="dashboard" element={<UserList />} />
-          <Route path="aadhaar" element={<AdharCard />} />
+          <Route path="aadhaar" element={<AadharCard />} />
           <Route path="user-list" element={<UserList />} />
           {/* <Route path="sub-admin-list" element ={<SubAdminList/>} /> */}
 

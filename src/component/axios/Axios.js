@@ -8,8 +8,8 @@ const getAuthToken = () => {
 
 // Create an instance of Axios with a custom configuration
 export const Api = axios.create({
-  // baseURL: 'https://backendsp.onrender.com/api/v1',
-  baseURL: 'http://localhost:8088/api/v1',
+  baseURL: 'https://backendsp.onrender.com/api/v1',
+  // baseURL: 'http://localhost:8088/api/v1',
    // Set your base URL here
   // You can also add other default configurations if needed
   headers: {

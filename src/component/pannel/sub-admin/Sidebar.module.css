@@ -127,3 +127,13 @@ html {
   --scrollbarBG: #CFD8DC;
   --thumbBG: #90A4AE;
 }
+
+.sidebarBg {
+  height: "100vh";
+  overflow-y: auto;
+  position: "sticky";
+  top: 0;
+  /* background-color: #3498db;  */
+  background-color: #3498db;
+  /* border: 1px solid white; */
+}

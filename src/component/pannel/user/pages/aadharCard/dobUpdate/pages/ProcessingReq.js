@@ -51,7 +51,7 @@ const ProcessingReq=()=>{
  <div className="row">
               <div className="col-sm-5 offset-3">
                 <div className="container my-5">
-                  <div className="border rounded p-3">
+                  <div className="border  rounded p-3">
                     <h2 className="mb-4">Payment Form</h2>
                     <WalletRecharge/>
                     <form onSubmit={handleSubmit}>

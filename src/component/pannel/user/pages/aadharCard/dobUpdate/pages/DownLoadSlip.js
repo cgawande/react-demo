@@ -23,7 +23,7 @@ const DownloadSlip = () => {
      <div className="row">
               <div className="col-sm-5 offset-3">
                 <div className="container my-5">
-                  <div className="border rounded p-3">
+                  <div className="border card shadow rounded p-3">
                     <h2 className="mb-4">Download Slip</h2>
 
                     <button type="submit" className="btn btn-primary">

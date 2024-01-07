@@ -36,7 +36,14 @@ const UserSidebar = () => {
   const [showAddressSubMenu, setShowAddressSubMenu] = useState(false);
   const [showGenderSubMenu, setShowGenderSubMenu] = useState(false);
   const [showFindAdadhaarSubMenu, setFindAadhaarSubMenu] = useState(false);
-
+  // state for voter card start
+    const [voterSubMenu, setVoterSubMenu] = useState(false);
+  const [showVDobSubMenu, setShowVDobSubMenu] = useState(false);
+  const [showVNameSubMenu, setShowVNameSubMenu] = useState(false);
+  const [showVAddressSubMenu, setShowVAddressSubMenu] = useState(false);
+  const [showVGenderSubMenu, setShowVGenderSubMenu] = useState(false);
+  const [showFindVoterSubMenu, setFindVoterSubMenu] = useState(false);
+  // state for voter card end
   const isDobUpdate = () => {
     setAadhaarSubMenu(true);
     setShowDobSubMenu(!showDobSubMenu);
@@ -82,19 +89,75 @@ const UserSidebar = () => {
     setFindAadhaarSubMenu(!showFindAdadhaarSubMenu);
   };
 
+// state for voter card
+const isVDobUpdate = () => {
+  setVoterSubMenu(true);
+  setShowVDobSubMenu(!showDobSubMenu);
+  setShowVNameSubMenu(false);
+  setShowVAddressSubMenu(false);
+  setShowVGenderSubMenu(false);
+  setFindVoterSubMenu(false);
+};
+
+const isVNamebUpdate = () => {
+  setVoterSubMenu(true);
+  setShowVDobSubMenu(false);
+  setShowVNameSubMenu(!showNameSubMenu);
+  setShowVAddressSubMenu(false);
+  setShowVGenderSubMenu(false);
+  setFindVoterSubMenu(false);
+};
+
+const isVAddress = () => {
+  setVoterSubMenu(true);
+  setShowVDobSubMenu(false);
+  setShowVNameSubMenu(false);
+  setShowVAddressSubMenu(!showAddressSubMenu);
+  setShowVGenderSubMenu(false);
+  setFindVoterSubMenu(false);
+};
+
+const isVGender = () => {
+setVoterSubMenu(true);
+  setShowVDobSubMenu(false);
+  setShowVNameSubMenu(false);
+  setShowVAddressSubMenu(false);
+  setShowVGenderSubMenu(!showGenderSubMenu);
+  setFindVoterSubMenu(false);
+};
+
+const isVFindAadhar = () => {
+  setVoterSubMenu(true);
+  setShowVDobSubMenu(false);
+  setShowVNameSubMenu(false);
+  setShowVAddressSubMenu(false);
+  setShowVGenderSubMenu(false);
+  setFindVoterSubMenu(!showFindAdadhaarSubMenu);
+};
+
+
+  // useEffect(() => {
+  //   setAadhaarSubMenu(!aadhaarSubMenu);
+  // }, [aadhaarSubMenu]);
   return (
     <>
-      <ul className={`${styles.sideMenu} position-sticky top-0`}>
+      <ul className={`sideMenu`}>
         <li className={"p-0"}>
           <SidebarNavItem to="/user/dashboard/">
-            <RiWallet3Line className={`${styles.icon}`} />
+            <RiWallet3Line className="icon" />
+            Dashboard
+          </SidebarNavItem>
+        </li>
+        <li className={"p-0"}>
+          <SidebarNavItem to="/user/dashboard/">
+            <RiWallet3Line className={`icon`} />
             Wallet Recharge
           </SidebarNavItem>
         </li>
 
         <li className="p-0">
           <SidebarNavItem to="/user/download-driver">
-            <HiOutlineFolderDownload className={`${styles.icon}`} />
+            <HiOutlineFolderDownload className={`icon`} />
             Driver Download
           </SidebarNavItem>
         </li>
@@ -102,44 +165,46 @@ const UserSidebar = () => {
           <NavLink
             to={"/user/aadhar-advance"}
             className={({ isActive }) =>
-              isActive ? `${styles.active}` : `${styles.inactive}`
+              isActive ? `active` : `inactive`
             }
           >
-            <span className={`${styles.navItem}`}>Aadhar Advance</span>
+            <span className="navItem">Aadhar Advance</span>
           </NavLink>
         </li>
         <li className="nav-item">
-          <span
-            className={`${styles.navItem}`}
-            onClick={() => setAadhaarSubMenu(!aadhaarSubMenu)}
-          >
-            <FaRegIdCard className={`${styles.icon}`} />
-            Aadhaar Card
-            <IoIosArrowForward />
-          </span>
+          
+            <span
+              className="navItem"
+              onClick={() => setAadhaarSubMenu(!aadhaarSubMenu)}
+            >
+              <FaRegIdCard className={`icon`} />
+            <span className="text-white"> Aadhaar Card </span> 
+               <IoIosArrowForward className={`icon`} />
+            </span>
+       
           {aadhaarSubMenu && (
-            <ul className={`${styles.subMenu}`}>
+            <ul className={`subMenu`}>
               <li className="nav-item">
                 <NavLink
                   to={"/user/dob-update"}
                   className={({ isActive }) =>
-                    isActive ? `${styles.active}` : `${styles.inactive}`
+                    isActive ? `active` : `inactive`
                   }
                 >
                   <span
-                    className={`${styles.navItem}`}
+                    className={`navItem`}
                     onClick={() => isDobUpdate()}
                   >
                     DOB Update
                   </span>
                 </NavLink>
                 {showDobSubMenu && (
-                  <ul className={`${styles.subMenu}`}>
+                  <ul className={`subMenu`}>
                     <li>
                       <NavLink
                         to="/user/dob-update/doc-verify"
                         className={({ isActive }) =>
-                          isActive ? `${styles.active}` : `${styles.inactive}`
+                          isActive ? "active" : "inactive"
                         }
                       >
                         <span className={`${styles.subNavItem}`}>
@@ -151,7 +216,7 @@ const UserSidebar = () => {
                       <NavLink
                         to="/user/dob-update/pro-req"
                         className={({ isActive }) =>
-                          isActive ? `${styles.active}` : `${styles.inactive}`
+                          isActive ? "active" : "inactive"
                         }
                       >
                         <span className={`${styles.subNavItem}`}>
@@ -163,7 +228,7 @@ const UserSidebar = () => {
                       <NavLink
                         to="/user/dob-update/proccessing"
                         className={({ isActive }) =>
-                          isActive ? `${styles.active}` : `${styles.inactive}`
+                          isActive ? "active" : "inactive"
                         }
                       >
                         <span className={`${styles.subNavItem}`}>
@@ -175,7 +240,7 @@ const UserSidebar = () => {
                       <NavLink
                         to="/user/dob-update/download-slip"
                         className={({ isActive }) =>
-                          isActive ? `${styles.active}` : `${styles.inactive}`
+                          isActive ? "active" : "inactive"
                         }
                       >
                         <span className={`${styles.subNavItem}`}>
@@ -190,11 +255,11 @@ const UserSidebar = () => {
                 <NavLink
                   to={"/user/name-update"}
                   className={({ isActive }) =>
-                    isActive ? `${styles.active}` : `${styles.inactive}`
+                    isActive ? "active" : "inactive"
                   }
                 >
                   <span
-                    className={`${styles.navItem}`}
+                    className="navItem"
                     onClick={() => isNamebUpdate()}
                   >
                     Name Update
@@ -206,7 +271,7 @@ const UserSidebar = () => {
                       <NavLink
                         to="/user/name-update/doc-verify"
                         className={({ isActive }) =>
-                          isActive ? `${styles.active}` : `${styles.inactive}`
+                          isActive ? "active" : "inactive"
                         }
                       >
                         <span className={`${styles.subNavItem}`}>
@@ -218,7 +283,7 @@ const UserSidebar = () => {
                       <NavLink
                         to="/user/name-update/pro-req"
                         className={({ isActive }) =>
-                          isActive ? `${styles.active}` : `${styles.inactive}`
+                          isActive ? "active" : "inactive"
                         }
                       >
                         <span className={`${styles.subNavItem}`}>
@@ -230,7 +295,7 @@ const UserSidebar = () => {
                       <NavLink
                         to="/user/name-update/proccessing"
                         className={({ isActive }) =>
-                          isActive ? `${styles.active}` : `${styles.inactive}`
+                          isActive ? "active" : "inactive"
                         }
                       >
                         <span className={`${styles.subNavItem}`}>
@@ -242,7 +307,7 @@ const UserSidebar = () => {
                       <NavLink
                         to="/user/name-update/download-slip"
                         className={({ isActive }) =>
-                          isActive ? `${styles.active}` : `${styles.inactive}`
+                          isActive ? "active" : "inactive"
                         }
                       >
                         <span className={`${styles.subNavItem}`}>
@@ -257,11 +322,11 @@ const UserSidebar = () => {
                 <NavLink
                   to={"/user/address-update"}
                   className={({ isActive }) =>
-                    isActive ? `${styles.active}` : `${styles.inactive}`
+                    isActive ? "active" : "inactive"
                   }
                 >
                   <span
-                    className={`${styles.navItem}`}
+                    className="navItem"
                     onClick={() => isAddress()}
                   >
                     Address Update
@@ -273,7 +338,7 @@ const UserSidebar = () => {
                       <NavLink
                         to="/user/address-update/doc-verify"
                         className={({ isActive }) =>
-                          isActive ? `${styles.active}` : `${styles.inactive}`
+                          isActive ? "active" : "inactive"
                         }
                       >
                         <span className={`${styles.subNavItem}`}>
@@ -285,7 +350,7 @@ const UserSidebar = () => {
                       <NavLink
                         to="/user/address-update/pro-req"
                         className={({ isActive }) =>
-                          isActive ? `${styles.active}` : `${styles.inactive}`
+                          isActive ? "active" : "inactive"
                         }
                       >
                         <span className={`${styles.subNavItem}`}>
@@ -297,7 +362,7 @@ const UserSidebar = () => {
                       <NavLink
                         to="/user/address-update/proccessing"
                         className={({ isActive }) =>
-                          isActive ? `${styles.active}` : `${styles.inactive}`
+                          isActive ? "active" : "inactive"
                         }
                       >
                         <span className={`${styles.subNavItem}`}>
@@ -309,7 +374,7 @@ const UserSidebar = () => {
                       <NavLink
                         to="/user/address-update/download-slip"
                         className={({ isActive }) =>
-                          isActive ? `${styles.active}` : `${styles.inactive}`
+                          isActive ? "active" : "inactive"
                         }
                       >
                         <span className={`${styles.subNavItem}`}>
@@ -325,23 +390,23 @@ const UserSidebar = () => {
                 <NavLink
                   to={"/user/gender-update"}
                   className={({ isActive }) =>
-                    isActive ? `${styles.active}` : `${styles.inactive}`
+                    isActive ? "active" : "inactive"
                   }
                 >
                   <span
-                    className={`${styles.navItem}`}
+                    className="navItem"
                     onClick={() => isGender(!showGenderSubMenu)}
                   >
                     Gender Update
                   </span>
                 </NavLink>
                 {showGenderSubMenu && (
-                  <ul className={`${styles.subMenu}`}>
+                  <ul className={"subMenu"}>
                     <li>
                       <NavLink
                         to="/user/gender-update/doc-verify"
                         className={({ isActive }) =>
-                          isActive ? `${styles.active}` : `${styles.inactive}`
+                          isActive ? "active" : "inactive"
                         }
                       >
                         <span className={`${styles.subNavItem}`}>
@@ -353,7 +418,7 @@ const UserSidebar = () => {
                       <NavLink
                         to="/user/gender-update/pro-req"
                         className={({ isActive }) =>
-                          isActive ? `${styles.active}` : `${styles.inactive}`
+                          isActive ? "active" : "inactive"
                         }
                       >
                         <span className={`${styles.subNavItem}`}>
@@ -365,7 +430,7 @@ const UserSidebar = () => {
                       <NavLink
                         to="/user/gender-update/proccessing"
                         className={({ isActive }) =>
-                          isActive ? `${styles.active}` : `${styles.inactive}`
+                          isActive ? "active" : "inactive"
                         }
                       >
                         <span className={`${styles.subNavItem}`}>
@@ -377,7 +442,7 @@ const UserSidebar = () => {
                       <NavLink
                         to="/user/gender-update/download-slip"
                         className={({ isActive }) =>
-                          isActive ? `${styles.active}` : `${styles.inactive}`
+                          isActive ? "active" : "inactive"
                         }
                       >
                         <span className={`${styles.subNavItem}`}>
@@ -395,11 +460,11 @@ const UserSidebar = () => {
                 <NavLink
                   to={"/user/find-aadhar"}
                   className={({ isActive }) =>
-                    isActive ? `${styles.active}` : `${styles.inactive}`
+                    isActive ? "active" : "inactive"
                   }
                 >
                   <span
-                    className={`${styles.navItem}`}
+                    className="navItem"
                     onClick={() => isFindAadhar()}
                   >
                     Find Aadhaar
@@ -411,7 +476,7 @@ const UserSidebar = () => {
                       <NavLink
                         to="/user/find-aadhar/doc-verify"
                         className={({ isActive }) =>
-                          isActive ? `${styles.active}` : `${styles.inactive}`
+                          isActive ? "active" : "inactive"
                         }
                       >
                         <span className={`${styles.subNavItem}`}>
@@ -423,7 +488,7 @@ const UserSidebar = () => {
                       <NavLink
                         to="/user/find-aadhar/pro-req"
                         className={({ isActive }) =>
-                          isActive ? `${styles.active}` : `${styles.inactive}`
+                          isActive ? "active" : "inactive"
                         }
                       >
                         <span className={`${styles.subNavItem}`}>
@@ -435,7 +500,7 @@ const UserSidebar = () => {
                       <NavLink
                         to="/user/find-aadhar/proccessing"
                         className={({ isActive }) =>
-                          isActive ? `${styles.active}` : `${styles.inactive}`
+                          isActive ? "active" : "inactive"
                         }
                       >
                         <span className={`${styles.subNavItem}`}>
@@ -447,7 +512,7 @@ const UserSidebar = () => {
                       <NavLink
                         to="/user/find-aadhar/download-slip"
                         className={({ isActive }) =>
-                          isActive ? `${styles.active}` : `${styles.inactive}`
+                          isActive ? "active" : "inactive"
                         }
                       >
                         <span className={`${styles.subNavItem}`}>
@@ -462,27 +527,386 @@ const UserSidebar = () => {
             </ul>
           )}
         </li>
+{/* code for voter card start */}
 
-        <li className="nav-item">
+<li className="nav-item">
+          
+          <span
+            className="navItem"
+            onClick={() => setVoterSubMenu(!voterSubMenu)}
+          >
+            <FaRegIdCard className={`icon`} />
+          <span className="text-white"> Voter Card </span> 
+             <IoIosArrowForward className={`icon`} />
+          </span>
+     
+        {voterSubMenu && (
+          <ul className={`subMenu`}>
+            <li className="nav-item">
+              <NavLink
+                to={"/user/dob-update"}
+                className={({ isActive }) =>
+                  isActive ? `active` : `inactive`
+                }
+              >
+                <span
+                  className={`navItem`}
+                  onClick={() => isVDobUpdate()}
+                >
+                  DOB Update
+                </span>
+              </NavLink>
+              {showVDobSubMenu && (
+                <ul className={`subMenu`}>
+                  <li>
+                    <NavLink
+                      to="/user/dob-update/doc-verify"
+                      className={({ isActive }) =>
+                        isActive ? "active" : "inactive"
+                      }
+                    >
+                      <span className={`${styles.subNavItem}`}>
+                        Document Verify
+                      </span>
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/user/dob-update/pro-req"
+                      className={({ isActive }) =>
+                        isActive ? "active" : "inactive"
+                      }
+                    >
+                      <span className={`${styles.subNavItem}`}>
+                        Processing Request
+                      </span>
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/user/dob-update/proccessing"
+                      className={({ isActive }) =>
+                        isActive ? "active" : "inactive"
+                      }
+                    >
+                      <span className={`${styles.subNavItem}`}>
+                        Processing
+                      </span>
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/user/dob-update/download-slip"
+                      className={({ isActive }) =>
+                        isActive ? "active" : "inactive"
+                      }
+                    >
+                      <span className={`${styles.subNavItem}`}>
+                        Download Slip
+                      </span>
+                    </NavLink>
+                  </li>
+                </ul>
+              )}
+            </li>
+            <li className="nav-item">
+              <NavLink
+                to={"/user/name-update"}
+                className={({ isActive }) =>
+                  isActive ? "active" : "inactive"
+                }
+              >
+                <span
+                  className="navItem"
+                  onClick={() => isVNamebUpdate()}
+                >
+                  Name Update
+                </span>
+              </NavLink>
+              {showVNameSubMenu && (
+                <ul className={`${styles.subMenu}`}>
+                  <li>
+                    <NavLink
+                      to="/user/name-update/doc-verify"
+                      className={({ isActive }) =>
+                        isActive ? "active" : "inactive"
+                      }
+                    >
+                      <span className={`${styles.subNavItem}`}>
+                        Document Verify
+                      </span>
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/user/name-update/pro-req"
+                      className={({ isActive }) =>
+                        isActive ? "active" : "inactive"
+                      }
+                    >
+                      <span className={`${styles.subNavItem}`}>
+                        Processing Request
+                      </span>
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/user/name-update/proccessing"
+                      className={({ isActive }) =>
+                        isActive ? "active" : "inactive"
+                      }
+                    >
+                      <span className={`${styles.subNavItem}`}>
+                        Processing
+                      </span>
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/user/name-update/download-slip"
+                      className={({ isActive }) =>
+                        isActive ? "active" : "inactive"
+                      }
+                    >
+                      <span className={`${styles.subNavItem}`}>
+                        Download Slip
+                      </span>
+                    </NavLink>
+                  </li>
+                </ul>
+              )}
+            </li>
+            <li className="nav-item">
+              <NavLink
+                to={"/user/address-update"}
+                className={({ isActive }) =>
+                  isActive ? "active" : "inactive"
+                }
+              >
+                <span
+                  className="navItem"
+                  onClick={() => isVAddress()}
+                >
+                  Address Update
+                </span>
+              </NavLink>
+              {showVAddressSubMenu && (
+                <ul className={`${styles.subMenu}`}>
+                  <li>
+                    <NavLink
+                      to="/user/address-update/doc-verify"
+                      className={({ isActive }) =>
+                        isActive ? "active" : "inactive"
+                      }
+                    >
+                      <span className={`${styles.subNavItem}`}>
+                        Document Verify
+                      </span>
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/user/address-update/pro-req"
+                      className={({ isActive }) =>
+                        isActive ? "active" : "inactive"
+                      }
+                    >
+                      <span className={`${styles.subNavItem}`}>
+                        Processing Request
+                      </span>
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/user/address-update/proccessing"
+                      className={({ isActive }) =>
+                        isActive ? "active" : "inactive"
+                      }
+                    >
+                      <span className={`${styles.subNavItem}`}>
+                        Processing
+                      </span>
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/user/address-update/download-slip"
+                      className={({ isActive }) =>
+                        isActive ? "active" : "inactive"
+                      }
+                    >
+                      <span className={`${styles.subNavItem}`}>
+                        Download Slip
+                      </span>
+                    </NavLink>
+                  </li>
+                </ul>
+              )}
+            </li>
+            {/* Gender update Start */}
+            <li className="nav-item">
+              <NavLink
+                to={"/user/gender-update"}
+                className={({ isActive }) =>
+                  isActive ? "active" : "inactive"
+                }
+              >
+                <span
+                  className="navItem"
+                  onClick={() => isVGender(!showVGenderSubMenu)}
+                >
+                  Gender Update
+                </span>
+              </NavLink>
+              {showGenderSubMenu && (
+                <ul className={"subMenu"}>
+                  <li>
+                    <NavLink
+                      to="/user/gender-update/doc-verify"
+                      className={({ isActive }) =>
+                        isActive ? "active" : "inactive"
+                      }
+                    >
+                      <span className={`${styles.subNavItem}`}>
+                        Document Verify
+                      </span>
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/user/gender-update/pro-req"
+                      className={({ isActive }) =>
+                        isActive ? "active" : "inactive"
+                      }
+                    >
+                      <span className={`${styles.subNavItem}`}>
+                        Processing Request
+                      </span>
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/user/gender-update/proccessing"
+                      className={({ isActive }) =>
+                        isActive ? "active" : "inactive"
+                      }
+                    >
+                      <span className={`${styles.subNavItem}`}>
+                        Processing
+                      </span>
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/user/gender-update/download-slip"
+                      className={({ isActive }) =>
+                        isActive ? "active" : "inactive"
+                      }
+                    >
+                      <span className={`${styles.subNavItem}`}>
+                        Download Slip
+                      </span>
+                    </NavLink>
+                  </li>
+                </ul>
+              )}
+            </li>
+            {/* Gender Update End */}
+
+            {/* Find Aadhaar Start */}
+            <li className="nav-item">
+              <NavLink
+                to={"/user/find-aadhar"}
+                className={({ isActive }) =>
+                  isActive ? "active" : "inactive"
+                }
+              >
+                <span
+                  className="navItem"
+                  onClick={() => isVFindAadhar()}
+                >
+                  Find Aadhaar
+                </span>
+              </NavLink>
+              {showFindVoterSubMenu && (
+                <ul className={`${styles.subMenu}`}>
+                  <li>
+                    <NavLink
+                      to="/user/find-aadhar/doc-verify"
+                      className={({ isActive }) =>
+                        isActive ? "active" : "inactive"
+                      }
+                    >
+                      <span className={`${styles.subNavItem}`}>
+                        Document Verify
+                      </span>
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/user/find-aadhar/pro-req"
+                      className={({ isActive }) =>
+                        isActive ? "active" : "inactive"
+                      }
+                    >
+                      <span className={`${styles.subNavItem}`}>
+                        Processing Request
+                      </span>
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/user/find-aadhar/proccessing"
+                      className={({ isActive }) =>
+                        isActive ? "active" : "inactive"
+                      }
+                    >
+                      <span className={`${styles.subNavItem}`}>
+                        Processing
+                      </span>
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/user/find-aadhar/download-slip"
+                      className={({ isActive }) =>
+                        isActive ? "active" : "inactive"
+                      }
+                    >
+                      <span className={`${styles.subNavItem}`}>
+                        Download Slip
+                      </span>
+                    </NavLink>
+                  </li>
+                </ul>
+              )}
+            </li>
+            {/* Find Aadhaar End */}
+          </ul>
+        )}
+      </li>
+
+{/* code for voter card end  */}
+        {/* <li className="nav-item">
           <NavLink to="/dashboard/pan-card-find">
-            <span className={`${styles.navItem}`}>
-              <TiBusinessCard className={`${styles.icon}`} />
+            <span className="navItem">
+              <TiBusinessCard className="icon" />
               Pan Card Find{" "}
             </span>
           </NavLink>
         </li>
         <li className="nav-item">
           <NavLink to="/dashboard/voter-id-card">
-            <span className={`${styles.navItem}`}>
-              <TiBusinessCard className={`${styles.icon}`} />
+            <span className="navItem">
+              <TiBusinessCard className="icon" />
               Voter ID Card{" "}
             </span>
           </NavLink>
         </li>
         <li className="nav-item">
           <NavLink to="/dashboard/ayushman-card">
-            <span className={`${styles.navItem}`}>
-              <TiBusinessCard className={`${styles.icon}`} />
+            <span className="navItem">
+              <TiBusinessCard className="icon" />
               Ayushman Card{" "}
             </span>
           </NavLink>
@@ -491,72 +915,72 @@ const UserSidebar = () => {
           <NavLink
             to="/dashboard/sambhal-card"
             // className={({ isActive }) =>
-            //   isActive ? `${styles.active}` : `${styles.inactive}`
+            //   isActive ? "active" : "inactive"
             // }
           >
-            <span className={`${styles.navItem}`}> Sambhal Card</span>
+            <span className="navItem"> Sambhal Card</span>
           </NavLink>
         </li>
         <li className="nav-item">
           <NavLink
             to="/dashboard/gumasta-form"
-            // className={({ isActive }) =>
-            //   isActive ? `${styles.active}` : `${styles.inactive}`
-            // }
+            className={({ isActive }) =>
+              isActive ? "active" : "inactive"
+            }
           >
-            <span className={`${styles.navItem}`}> Gumasta Form </span>
+            <span className="navItem"> Gumasta Form </span>
           </NavLink>
         </li>
         <li className="nav-item">
           <NavLink
             to="/dashboard/forms"
             className={({ isActive }) =>
-              isActive ? `${styles.active}` : `${styles.inactive}`
+              isActive ? "active" : "inactive"
             }
           >
-            <span className={`${styles.navItem}`}> Forms</span>
+            <span className="navItem"> Forms</span>
           </NavLink>
         </li>
         <li className="nav-item">
           <NavLink
             to="/dashboard/profile"
             className={({ isActive }) =>
-              isActive ? `${styles.active}` : `${styles.inactive}`
+              isActive ? "active" : "inactive"
             }
           >
-            <span className={`${styles.navItem}`}> Profile</span>
+            <span className="navItem"> Profile</span>
           </NavLink>
         </li>
         <li className="nav-item">
           <NavLink
             to="/dashboard/popup-message"
             className={({ isActive }) =>
-              isActive ? `${styles.active}` : `${styles.inactive}`
+              isActive ? "active" : "inactive"
             }
           >
-            <span className={`${styles.navItem}`}> Popup Message</span>
+            <span className="navItem"> Popup Message</span>
           </NavLink>
-        </li>
+        </li> */}
 
         {/* Test */}
         <li className="nav-item">
           <NavLink
             to="/dashboard/profile"
             className={({ isActive }) =>
-              isActive ? `${styles.active}` : `${styles.inactive}`
+              isActive ? "active" : "inactive"
             }
           >
-            <span className={`${styles.navItem}`}> Profile</span>
+            <span className="navItem"> Profile</span>
           </NavLink>
         </li>
         <li className="nav-item">
           <NavLink
             to="/dashboard/popup-message"
             className={({ isActive }) =>
-              isActive ? `${styles.active}` : `${styles.inactive}`
+              isActive ? "active" : "inactive"
             }
           >
-            <span className={`${styles.navItem}`}> Popup Message</span>
+            <span className="navItem"> Popup Message</span>
           </NavLink>
         </li>
       </ul>

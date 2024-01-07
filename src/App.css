@@ -38,33 +38,33 @@
 }
 
 /* custom css */
-.activeBtnBg{
-  background-color: #495057; 
+.activeBtnBg {
+  background-color: #495057;
 }
-.hoverBtn:hover{
+.hoverBtn:hover {
   color: #17a2b8 !important; /* Color on hover */
 }
 /* input:focus  {
   outline: none !important;
   border: none !important;
 } */
-.form-control:focus{
+.form-control:focus {
   color: unset !important;
   background-color: unset !important;
   border-color: unset !important;
-  outline: 0; 
-  box-shadow: none !important
+  outline: 0;
+  box-shadow: none !important;
 }
-.btn-link{
+.btn-link {
   color: #17a2b8 !important; /* Color on hover */
   text-decoration: none !important;
 }
 
-.customBtn{
+.customBtn {
   background-color: black !important;
   color: white !important;
 }
-.customBtn:hover{
+.customBtn:hover {
   color: #17a2b8 !important; /* Color on hover */
 }
 input[type="number"]::-webkit-inner-spin-button,
@@ -72,20 +72,165 @@ input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-.dropdown-item:active{
+.dropdown-item:active {
   background-color: black !important;
 }
-.dropdown-item:hover{
+.dropdown-item:hover {
   background-color: black !important;
 }
 
 * {
-  margin:0;
-  padding:0;
+  margin: 0;
+  padding: 0;
   /* box-sizing: border-box; */
 }
 
+.form-label {
+  font-weight: bold;
+}
 /* body {
   overflow-y: hidden;
   overflow-x: hidden;
 } */
+.removeNumberIcon {
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+}
+
+/* Sidebar.module.css */
+
+/* Sidebar.module.css */
+
+.sideMenu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sideMenu li {
+  border-bottom: 0.5px solid #a7abaf;
+  margin: 10px 0;
+}
+
+.sideMenu li:last-child {
+  border-bottom: none; /* Remove border for the last menu item */
+}
+
+/* Remove the duplicated .active block */
+.navItem {
+  display: block;
+  width: 100%;
+  padding: 0px 10px;
+  cursor: pointer;
+}
+
+.icon {
+  color: white;
+  margin: 0px 5px;
+}
+
+.sideMenu {
+  overflow-y: hidden;
+  overflow-x: hidden;
+  height: auto;
+  scrollbar-width: thin;
+  scrollbar-color: green yellow;
+  display: block;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 20px;
+  scrollbar-width: thin;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(176, 228, 248);
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+/* ::-webkit-scrollbar-thumb:hover {
+  background: #b30000; 
+} */
+html {
+  --scrollbarBG: #cfd8dc;
+  --thumbBG: #90a4ae;
+}
+
+.sidebarBg {
+
+  /* overflow-y: auto; */
+  position: "sticky" !important;
+  top: 0 !important;
+  /* background-color: #3498db;  */
+  background-color: #3498db;
+  /* border: 1px solid white; */
+  height: 100vh;
+}
+
+
+/* header Css start */
+.themeBg {
+  background-color: #3498db !important;
+}
+
+.sideMenu li a:hover {
+  /* Active Sidebar Color */
+  background-color: #2980b9; /* Slightly darker blue for the active class */
+  font-weight: bold;
+  /* Text Color for Active Sidebar Item */
+  color: #ffffff; /* White text color for better visibility on the active background */
+
+  /* Border Left for Active Sidebar Item */
+  border-left: 4px solid #ffffff;
+}
+
+.sideMenu li a {
+  display: block;
+  text-decoration: none;
+  color: #f0f0f0ef;
+  width: 100%;
+  padding: 8px; /* Add padding for better spacing */
+}
+
+.sideMenu li a:hover {
+  /* Active Sidebar Color */
+  /* background-color: #2980b9;  */
+  font-weight: bold;
+  /* Text Color for Active Sidebar Item */
+  color: #ffffff; /* White text color for better visibility on the active background */
+
+  /* Border Left for Active Sidebar Item */
+  border-left: 4px solid #ffffff;
+}
+
+.active {
+  /* Active Sidebar Color */
+  background-color: #2980b9; /* Slightly darker blue for the active class */
+  font-weight: bold;
+  /* Text Color for Active Sidebar Item */
+  color: #ffffff; /* White text color for better visibility on the active background */
+
+  /* Border Left for Active Sidebar Item */
+  border-left: 4px solid #ffffff;
+}
+.userName {
+  color: white !important;
+}

@@ -7,7 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { Api } from "../../../axios/Axios";
 import { updateAmount } from "../../../redux/comUpSlice";
 import { ToastContainer, toast } from "react-toastify";
-import styles from "../Sidebar.module.css"
+import styles from "../Sidebar.module.css";
+import axios from "axios";
 const WalletRecharge = () => {
   const dispatch = useDispatch();
   const { amount } = useSelector((state) => state.compUpSlice);
@@ -15,10 +16,19 @@ const WalletRecharge = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [payment, setWalletBalance] = useState();
+  const [balance, setBalance] = useState();
 
   useEffect(() => {
     dispatch(updateAmount(payment));
   }, [amount, payment]);
+  useEffect(() => {
+    getbalance();
+  }, [balance]);
+
+  const getbalance = async () => {
+    const res =await Api.get("/wallet");
+    setBalance(res.data.balance);
+  };
 
   const handlePayment = async () => {
     setIsLoading(true);
@@ -50,32 +60,35 @@ const WalletRecharge = () => {
   return (
     <>
       <div className="row my-3">
-              <div className="col-sm-2"></div>
-              <div className="col-sm-6">
-                <div className="d-flex align-items-center">
-                  <label>Amount</label>
-                  <input
-                    type="number"
-                    required
-                    style={{ width: "200px" }}
-                    className="form-control mx-3"
-                    placeholder="enter amount"
-                    onChange={(e) => {
-                      setWalletBalance(e.target.value);
-                    }}
-                  />
 
-                  <button
-                    onClick={handlePayment}
-                    className="btn customBtn"
-                    disabled={isLoading}
-                  >
-                    {isLoading ? "Processing..." : "Recharge Now"}
-                  </button>
-                </div>
-              </div>
-              <div className="col-sm-2"></div>
-            </div>
+        <div className="col-sm-6">
+          <div className="d-flex align-items-center">
+            <label className="form-label">Amount</label>
+            <input
+              type="number"
+              required
+              style={{ width: "200px" }}
+              className="form-control removeNumberIcon mx-3"
+              placeholder="enter amount"
+              onChange={(e) => {
+                setWalletBalance(e.target.value);
+              }}
+            />
+
+            <button
+              onClick={handlePayment}
+              className="btn btn-primary"
+              disabled={isLoading}
+            >
+
+              {isLoading ? "Processing..." : "Recharge Now"}
+            </button>         
+          </div>
+        </div>
+        <div className="col-sm-6">
+        <label className="form-label">Your available balance is : {balance}</label>
+        </div>
+      </div>
     </>
   );
 };

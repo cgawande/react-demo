@@ -68,8 +68,8 @@ const DobUpdate = () => {
       <div className="row">
         <div className="col-sm-5 offset-3">
           <div className="container mt-5">
-            <div className="border rounded p-3">
-              <h2 className="mb-4">Dob Application Details</h2>
+            <div className="border card shadow rounded p-3">
+              <h2 className="mb-4 card-heading">Dob Application Details</h2>
               <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                   <label htmlFor="name" className="form-label">
@@ -145,6 +145,8 @@ const DobUpdate = () => {
           </div>
         </div>
       </div>
+
+   
     </>
   );
 };
