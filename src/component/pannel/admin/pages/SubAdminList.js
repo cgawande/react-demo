@@ -286,7 +286,6 @@ toast.dismiss()
                       role="status"
                       aria-hidden="true"
                     />
-
                     <span className="text-white ms-1">   Loading... </span>
                   </button>
                 </div>

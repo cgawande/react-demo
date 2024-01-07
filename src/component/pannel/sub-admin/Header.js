@@ -13,10 +13,6 @@ if(user){
   setWalletBalance(user.wallet);
 }
 },[user])
-
-
-
-
 const navigate=useNavigate()
   const handleLogout = () => {
     // Handle logout logic here
@@ -28,9 +24,9 @@ const navigate=useNavigate()
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg navbar-light">
         <div className="container-fluid">
-          <span className="navbar-brand" style={{fontWeight:"bold"}}>
+          <span className="navbar-brand userName" style={{fontWeight:"bold"}}>
            {name}
           </span>
           <button
@@ -49,10 +45,12 @@ const navigate=useNavigate()
             
             </ul>
           </div>
-          <div className="d-flex">
-            <span className="me-3" style={{fontWeight:"bold"}}>Wallet Balance: INR {walletBalance}</span>
-            {/* <span className="me-3">Profile</span> */}
-            <button className="btn btn-outline-dark" onClick={()=>handleLogout()}>
+          <div className="d-flex align-items-center">
+            <span className="me-3 text-white" >Wallet Balance: INR {walletBalance}</span>
+         
+            <button className="btn  text-white" onClick={()=>handleLogout()}
+            style={{ border:"1px solid white"}}
+            >
               LogOut
             </button>
           </div>
@@ -61,6 +59,5 @@ const navigate=useNavigate()
     </>
   );
 };
-
 
 export default Header;

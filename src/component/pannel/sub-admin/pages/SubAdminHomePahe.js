@@ -3,10 +3,10 @@ import { Api } from "../../../axios/Axios";
 import Header from "../../admin/Header";
 import AdminSidebar from "../../admin/Sidebar";
 import { Link } from "react-router-dom";
-import UserList from "./UserList";
+
 import { get } from "react-hook-form";
-function AadharCard() {
-  const [users, setUsers] = useState([]);
+function SubAdminHomePage() {
+ const [users, setUsers] = useState([]);
   const [subAdmin, setSubAdmin] = useState([]);
   const [selectedSubAdmin, setSelectedSubAdmin] = useState("");
   const [isLoader, setIsLoader] = useState(false);
@@ -260,5 +260,5 @@ function AadharCard() {
     </>
   );
 }
-
-export default AadharCard;
+ 
+export default SubAdminHomePage;

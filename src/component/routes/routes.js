@@ -73,6 +73,7 @@ import VoterGenderUpdate from "../pannel/user/pages/votaerCard/genderUpdate/page
 import VoterGenderDownloadSlip from "../pannel/user/pages/votaerCard/genderUpdate/pages/DownLoadSlip";
 import VoterGenderProcessing from "../pannel/user/pages/votaerCard/genderUpdate/pages/Processing";
 import VoterGenderProcessingReq from "../pannel/user/pages/votaerCard/genderUpdate/pages/ProcessingReq";
+import SubAdminHomePage from "../pannel/sub-admin/pages/SubAdminHomePahe";
 
 function RoutesNavigation() {
   return (
@@ -259,7 +260,7 @@ function RoutesNavigation() {
         {/*  Sub-Admin Routes  start*/}
         <Route path="/sub-admin" element={<SubAdminDashboard />}>
           <Route index element={<Navigate replace to="dashboard" />} />
-          <Route path="dashboard" element={<SubAdminLogin />} />
+          <Route path="dashboard" element={<SubAdminHomePage/>} />
         </Route>
         {/*  Sub-Admin Routes  End*/}
 
