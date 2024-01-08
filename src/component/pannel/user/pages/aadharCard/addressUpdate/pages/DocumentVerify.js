@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Api } from "../../../../../../axios/Axios";
-
+import { ToastContainer, toast } from "react-toastify";
+import { Navigate } from "react-router-dom";
 
 
 
@@ -48,7 +49,6 @@ const AddressDocVerify = () => {
     userdata.append("aadharNumber", formData.aadharNumber);
     userdata.append("aadharUpdateDetails", formData.aadharUpdateDetails);
     userdata.append("uploadPic", uploadPic);
-
     await getDobData(userdata);
   };
 
@@ -60,9 +60,13 @@ const AddressDocVerify = () => {
           "Content-Type": "multipart/form-data",
         },
       });
+      toast.success("Documents Submitted SuccesFully  ",{
+        position: toast.POSITION.TOP_CENTER});
+        Navigate("/user/address-update/proccessing")
       console.log("res", res);
     } catch (error) {
-      console.log(error);
+      console.log(error.response)
+      // console.log("error",error);
     } finally {
       setIsLoader(false);
     }

@@ -128,6 +128,9 @@ function AadharCard() {
     }
   };
   // selected the user assing for subadmin End
+const handleView =(ele)=>{
+  console.log(ele)
+}
 
   return (
     <>
@@ -225,7 +228,9 @@ function AadharCard() {
                         aria-labelledby="dropdownMenuButton1"
                       >
                         <li>
-                          <Link className="dropdown-item hoverBtn" to="#">
+                          <Link className="dropdown-item hoverBtn" to="#"
+                          onClick={()=>handleView(user)}
+                          >
                             View
                           </Link>
                         </li>

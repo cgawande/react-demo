@@ -133,40 +133,7 @@ function SubAdminHomePage() {
     <>
       <div className="row">
         <div className="col-sm-4">
-          {/* Other JSX elements in your component */}
-          <div className="">
-            <label htmlFor="searchInput">Search Sub-Admin:</label>
-            <input
-              type="text"
-              className="form-control"
-              id="searchInput"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="subAdminSelect">Select Sub-Admin:</label>
-            <select
-              className="form-control"
-              id="subAdminSelect"
-              value={selectedSubAdmin}
-              onChange={(e) => {
-                setSelectedSubAdmin(e.target.value);
-                setAssignSubAdmin(true);
-              }}
-            >
-              <option value="">Select Sub-Admin</option>
-              {filteredSubAdmin.map((subAdminItem) => (
-                <option key={subAdminItem.id} value={subAdminItem.fullName}>
-                  {subAdminItem.fullName}
-                </option>
-              ))}
-            </select>
-          </div>
-          {/* Other JSX elements in your component */}
-          <button className="btn btn-primary" onClick={selectedUserFun}>
-            Assign
-          </button>
+           
         </div>
       </div>
 

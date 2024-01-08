@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Api } from "../../../../../../axios/Axios";
-
+import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 const AddressUpdate = () => {
-
   const [isLoader, setIsLoader] = useState(false);
   const [fileAadhar, setAdharFile] = useState([]);
   // const [uploadPic, setUploadPic] = useState([]);
@@ -13,6 +13,8 @@ const AddressUpdate = () => {
     aadharUpdateDetails: "",
     uploadPic: "",
   });
+
+  const navigate = useNavigate();
 
   const handleAadharFile = (e) => {
     setAdharFile(e.target.files);
@@ -56,9 +58,17 @@ const AddressUpdate = () => {
           "Content-Type": "multipart/form-data",
         },
       });
-      console.log("res", res);
+      toast.success("Application Submit Next Step for Document Verification", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+      setTimeout(() => {
+        navigate("/user/address-update/doc-verify");
+      }, 1500);
     } catch (error) {
-      console.log(error);
+      console.log("error",error); 
+      toast.error(`${error.response.data.message}`,{
+        position: toast.POSITION.TOP_CENTER});
+      
     } finally {
       setIsLoader(false);
     }
@@ -164,6 +174,7 @@ const AddressUpdate = () => {
             </div>
           </div>
         </div>
+        <ToastContainer />
       </div>
     </>
   );

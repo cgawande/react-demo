@@ -74,6 +74,7 @@ import VoterGenderDownloadSlip from "../pannel/user/pages/votaerCard/genderUpdat
 import VoterGenderProcessing from "../pannel/user/pages/votaerCard/genderUpdate/pages/Processing";
 import VoterGenderProcessingReq from "../pannel/user/pages/votaerCard/genderUpdate/pages/ProcessingReq";
 import SubAdminHomePage from "../pannel/sub-admin/pages/SubAdminHomePahe";
+import DobProcessingReq from "../pannel/user/pages/aadharCard/dobUpdate/pages/ProcessingReq";
 
 function RoutesNavigation() {
   return (
@@ -96,7 +97,7 @@ function RoutesNavigation() {
           {/* Adhar dob-update routes Start */}
           <Route
             path={"dob-update/pro-req"}
-            element={<WalletRecharge />}
+            element={< DobProcessingReq/>}
           ></Route>
           <Route path={"dob-update/doc-verify"} element={<DocVerify />}></Route>
           <Route path={"dob-update/proccessing"} element={<Processing />} />
@@ -104,68 +105,7 @@ function RoutesNavigation() {
           <Route path={"dob-update"} element={<DobUpdate />} />
           {/* Adhar dob-update End */}
 
-          {/* Voter dob-update routes Start */}
-          <Route
-            path={"dob-update/pro-req"}
-            element={<WalletRecharge />}
-          ></Route>
-          <Route
-            path={"voter-dob-update/doc-verify"}
-            element={<VoterDobDocVerify />}
-          ></Route>
-          <Route
-            path={"voter-dob-update/proccessing"}
-            element={<VoterDobProcessing />}
-          />
-          <Route
-            path={"dob-update/download-slip"}
-            element={<VoterDobDownloadSlip />}
-          />
-          <Route path={"voter-dob-update"} element={<VoterDobUpdate />} />
-          {/* Voter dob-update End */}
-
-          {/* Voter name-update Start*/}
-          <Route path={"name-update"} element={<VoterNameUpdate />}></Route>
-          <Route
-            path={"voter-name-update/doc-verify"}
-            element={<VoterNameDocVerify />}
-          ></Route>
-          <Route
-            path={"voter-name-update/proccessing"}
-            element={<VoterNameProcessing />}
-          />
-          <Route
-            path={"voter-name-update/pro-req"}
-            element={<VoterNameProcessingReq />}
-          />
-          <Route
-            path={"voter-name-update/download-slip"}
-            element={<VoterNameDownloadSlip />}
-          />
-          <Route path={"name-update"} element={<DobUpdate />} />
-          {/* Voter Name Update Route End */}
-
-          {/* Voter gender-update Start*/}
-          <Route path={"voter-gender-update"} element={<VoterGenderUpdate />}></Route>
-          <Route
-            path={"voter-gender-update/doc-verify"}
-            element={<VoterDobDocVerify/>}
-          ></Route>
-          <Route
-            path={"voter-gender-update/proccessing"}
-            element={<VoterGenderProcessing />}
-          />
-          <Route
-            path={"gender-update/pro-req"}
-            element={<VoterGenderProcessingReq />}
-          />
-          <Route
-            path={"voter-gender-update/download-slip"}
-            element={<VoterGenderDownloadSlip />}
-          />
-
-          {/* VOter gendere Update Route End */}
-
+         
           {/*Aadhar name-update Start*/}
           <Route path={"name-update"} element={<NameUpdate />}></Route>
           <Route
@@ -241,6 +181,74 @@ function RoutesNavigation() {
 
           {/* address Update Route End */}
         </Route>
+
+
+ {/* Voter dob-update routes Start */}
+ <Route
+            path={"dob-update/pro-req"}
+            element={<WalletRecharge />}
+          ></Route>
+          <Route
+            path={"voter-dob-update/doc-verify"}
+            element={<VoterDobDocVerify />}
+          ></Route>
+          <Route
+            path={"voter-dob-update/proccessing"}
+            element={<VoterDobProcessing />}
+          />
+          <Route
+            path={"dob-update/download-slip"}
+            element={<VoterDobDownloadSlip />}
+          />
+          <Route path={"voter-dob-update"} element={<VoterDobUpdate />} />
+          {/* Voter dob-update End */}
+
+          {/* Voter name-update Start*/}
+          <Route path={"name-update"} element={<VoterNameUpdate />}></Route>
+          <Route
+            path={"voter-name-update/doc-verify"}
+            element={<VoterNameDocVerify />}
+          ></Route>
+          <Route
+            path={"voter-name-update/proccessing"}
+            element={<VoterNameProcessing />}
+          />
+          <Route
+            path={"voter-name-update/pro-req"}
+            element={<VoterNameProcessingReq />}
+          />
+          <Route
+            path={"voter-name-update/download-slip"}
+            element={<VoterNameDownloadSlip />}
+          />
+          <Route path={"name-update"} element={<DobUpdate />} />
+          {/* Voter Name Update Route End */}
+
+          {/* Voter gender-update Start*/}
+          <Route path={"voter-gender-update"} element={<VoterGenderUpdate />}></Route>
+          <Route
+            path={"voter-gender-update/doc-verify"}
+            element={<VoterDobDocVerify/>}
+          ></Route>
+          <Route
+            path={"voter-gender-update/proccessing"}
+            element={<VoterGenderProcessing />}
+          />
+          <Route
+            path={"gender-update/pro-req"}
+            element={<VoterGenderProcessingReq />}
+          />
+          <Route
+            path={"voter-gender-update/download-slip"}
+            element={<VoterGenderDownloadSlip />}
+          />
+
+          {/* VOter gendere Update Route End */}
+
+
+
+
+
 
         {/* Admin Routes */}
         <Route path="/admin" element={<AdminDashboard />}>
