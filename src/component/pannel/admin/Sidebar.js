@@ -28,7 +28,7 @@ const AdminSidebar = () => {
           </NavLink>
         </li>
 
-        <li className={"p-0"}>
+        {/* <li className={"p-0"}>
           <NavLink
             to="/user/dashboard/"
             className={({ isActive }) => (isActive ? `active ` : `inactive`)}
@@ -38,7 +38,7 @@ const AdminSidebar = () => {
               Wallet Recharge
             </span>
           </NavLink>
-        </li>
+        </li> */}
 
         <li className="p-0">
           <NavLink
@@ -51,7 +51,7 @@ const AdminSidebar = () => {
             </span>
           </NavLink>
         </li>
-        <li className="nav-item">
+        {/* <li className="nav-item">
           <NavLink
             to="/dashboard/adhar-advance"
             style={{ display: "flex", alignItems: "center" }}
@@ -63,7 +63,7 @@ const AdminSidebar = () => {
               Adhar Advance
             </span>
           </NavLink>
-        </li>
+        </li> */}
         <li className="nav-item">
           <NavLink
             to={"/admin/aadhaar"}
@@ -72,36 +72,37 @@ const AdminSidebar = () => {
             <span className={`navItem`}>
               <FaRegIdCard className={`icon`} />
               Aadhaar Card
-              <IoIosArrowForward />
+          
             </span>
           </NavLink>
         </li>
 
-        <li className="nav-item">
+        {/* <li className="nav-item">
           <NavLink to="/dashboard/pan-card-find">
             <span className={`navItem`}>
               <TiBusinessCard className={`icon`} />
               Pan Card Find{" "}
             </span>
           </NavLink>
-        </li>
-        <li className="nav-item">
+        </li> */}
+
+        {/* <li className="nav-item">
           <NavLink to="/dashboard/voter-id-card">
             <span className={`navItem`}>
               <TiBusinessCard className={`icon`} />
               Voter ID Card{" "}
             </span>
           </NavLink>
-        </li>
-        <li className="nav-item">
+        </li> */}
+        {/* <li className="nav-item">
           <NavLink to="/dashboard/ayushman-card">
             <span className={`navItem`}>
               <TiBusinessCard className={`icon`} />
               Ayushman Card{" "}
             </span>
           </NavLink>
-        </li>
-        <li className="nav-item">
+        </li> */}
+        {/* <li className="nav-item">
           <NavLink
             to="/dashboard/sambhal-card"
             // className={({ isActive }) =>
@@ -110,8 +111,8 @@ const AdminSidebar = () => {
           >
             <span className={`navItem`}> Sambhal Card</span>
           </NavLink>
-        </li>
-        <li className="nav-item">
+        </li> */}
+        {/* <li className="nav-item">
           <NavLink
             to="/dashboard/gumasta-form"
             // className={({ isActive }) =>
@@ -120,23 +121,16 @@ const AdminSidebar = () => {
           >
             <span className={`navItem`}> Gumasta Form </span>
           </NavLink>
-        </li>
-        <li className="nav-item">
+        </li> */}
+        {/* <li className="nav-item">
           <NavLink
             to="/dashboard/forms"
             className={({ isActive }) => (isActive ? `active` : `inactive`)}
           >
             <span className={`navItem`}> Forms</span>
           </NavLink>
-        </li>
-        <li className="nav-item">
-          <NavLink
-            to="/dashboard/profile"
-            className={({ isActive }) => (isActive ? `active` : `inactive`)}
-          >
-            <span className={`navItem`}> Profile</span>
-          </NavLink>
-        </li>
+        </li> */}
+   
         <li className="nav-item">
           <NavLink
             to="/dashboard/popup-message"
@@ -155,14 +149,7 @@ const AdminSidebar = () => {
             <span className={`navItem`}> Profile</span>
           </NavLink>
         </li>
-        <li className="nav-item">
-          <NavLink
-            to="/dashboard/popup-message"
-            className={({ isActive }) => (isActive ? `active` : `inactive`)}
-          >
-            <span className={`navItem`}> Popup Message</span>
-          </NavLink>
-        </li>
+       
       </ul>
     </>
   );
