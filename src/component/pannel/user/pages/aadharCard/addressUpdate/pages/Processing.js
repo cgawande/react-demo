@@ -60,6 +60,7 @@ otp: "",
                           placeholder="Enter six digit otp"
                           value={formData.otp}
                           onChange={handleChange}
+                        
                         />
                       </div>
 

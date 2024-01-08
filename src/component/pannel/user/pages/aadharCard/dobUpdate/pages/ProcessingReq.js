@@ -6,8 +6,6 @@ import { useNavigate } from "react-router-dom";
 
 const DobProcessingReq = () => {
   const [amount, setAmount] = useState();
-
-
   const handleChange = (e) => {
 setAmount(e.target.value)
   };
@@ -58,7 +56,7 @@ const navigate=useNavigate()
                 </div>
 
                 <button type="submit" className="btn btn-primary">
-                  Mavke Payment
+                  Make Payment
                 </button>
               </form>
             </div>

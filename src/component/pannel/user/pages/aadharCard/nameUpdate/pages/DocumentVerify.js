@@ -79,6 +79,7 @@ const NameDocVerify = () => {
                     Applicant Name
                   </label>
                   <input
+                   required
                     type="text"
                     className="form-control"
                     id="name"
@@ -92,6 +93,7 @@ const NameDocVerify = () => {
                     Mobile Number
                   </label>
                   <input
+                   required
                     type="text"
                     className="form-control"
                     id="phoneNumber"
@@ -105,6 +107,7 @@ const NameDocVerify = () => {
                     AadharNumber
                   </label>
                   <input
+                   required
                     type="text"
                     className="form-control"
                     id="aadharNumbere"
@@ -119,6 +122,7 @@ const NameDocVerify = () => {
                     Aadhar Update Details
                   </label>
                   <input
+                   required
                     type="text"
                     className="form-control"
                     name="aadharUpdateDetails"
@@ -133,6 +137,7 @@ const NameDocVerify = () => {
                     Upload your Pic
                   </label>
                   <input
+                   required
                     type="file"
                     className="form-control"
                     // value={formData.dob}
@@ -148,6 +153,7 @@ const NameDocVerify = () => {
                     upload Aadhaar
                   </label>
                   <input
+                   required
                     type="file"
                     className="form-control"
                     id="aadhaarFile" // Corrected ID

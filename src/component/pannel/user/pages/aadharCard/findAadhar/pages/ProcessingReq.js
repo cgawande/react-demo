@@ -31,7 +31,7 @@ const navigate=useNavigate()
       });
       toast("Success")
       setTimeout(()=>{
-        navigate("/user/find-aadhar/proccessing")
+        navigate("/user/gender-update/proccessing")
       },1500)
    
       console.log("dob aadhar resr", res.data);
@@ -62,7 +62,7 @@ const navigate=useNavigate()
                 </div>
 
                 <button type="submit" className="btn btn-primary">
-                  Mavke Payment
+                  Make Payment
                 </button>
               </form>
             </div>
@@ -72,5 +72,5 @@ const navigate=useNavigate()
       </div>
     </>
   );
-};
+}
 export default FindAadharProcessingReq

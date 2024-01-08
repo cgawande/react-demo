@@ -67,6 +67,7 @@ const GenderDocVerify = () => {
                           First Name
                         </label>
                         <input
+                         
                           type="text"
                           className="form-control"
                           id="firstName"
@@ -124,9 +125,10 @@ const GenderDocVerify = () => {
                            
                       <div className="mb-3">
                         <label htmlFor="address" className="form-label">
-                        Upload Live Pic
+                        Upload Your Pic
                         </label>
                         <input
+                         required
                           type="file"
                           multiple
                           className="form-control"
@@ -144,6 +146,7 @@ const GenderDocVerify = () => {
                         <input
                           type="file"
                           multiple
+                          required
                           className="form-control"
                           id="aadhaarFile" // Corrected ID
                           name="aadhaarFile" // Corrected name

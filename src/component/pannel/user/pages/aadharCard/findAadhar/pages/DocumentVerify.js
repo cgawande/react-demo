@@ -124,11 +124,12 @@ const FindAadharDocVerify = () => {
                            
                       <div className="mb-3">
                         <label htmlFor="address" className="form-label">
-                        Upload Live Pic
+                        Upload  Pic
                         </label>
                         <input
                           type="file"
                           multiple
+                          required
                           className="form-control"
                           id="aadhaarFile" // Corrected ID
                           name="aadhaarFile" // Corrected name
@@ -144,6 +145,7 @@ const FindAadharDocVerify = () => {
                         <input
                           type="file"
                           multiple
+                          required
                           className="form-control"
                           id="aadhaarFile" // Corrected ID
                           name="aadhaarFile" // Corrected name

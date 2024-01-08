@@ -1,20 +1,19 @@
 import React, { useState } from "react";
 import { Api } from "../../../../../../axios/Axios";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const GenderUpdate = () => {
   const [isLoader, setIsLoader] = useState(false);
   const [fileAadhar, setAdharFile] = useState([]);
-
   const [formData, setFormData] = useState({
     name: "",
     gender: "",
-
   });
 
   const handleAadharFile = (e) => {
     setAdharFile(e.target.files);
   };
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,12 +37,10 @@ const GenderUpdate = () => {
     userdata.append("applicantName", formData.name);
     userdata.append("gender", formData.gender);
 
-
-  
-
     await getDobData(userdata);
   };
 
+  const navigate = useNavigate();
   const getDobData = async (data) => {
     setIsLoader(true);
     try {
@@ -53,7 +50,16 @@ const GenderUpdate = () => {
         },
       });
       console.log("res", res);
+      toast.success("Application Submit Next Step for Document Verification", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+      setTimeout(() => {
+        navigate("/user/gender-update/doc-verify");
+      }, 1500);
     } catch (error) {
+      toast.error(error.response.data.message, {
+        position: toast.POSITION.TOP_CENTER,
+      });
       console.log(error);
     } finally {
       setIsLoader(false);
@@ -73,6 +79,7 @@ const GenderUpdate = () => {
                     Applicant Name
                   </label>
                   <input
+                    required
                     type="text"
                     className="form-control"
                     id="name"
@@ -88,7 +95,7 @@ const GenderUpdate = () => {
                   <div>
                     <input
                       type="radio"
-                      id="male"
+                      required
                       name="gender"
                       value="male"
                       onChange={handleChange}
@@ -97,6 +104,7 @@ const GenderUpdate = () => {
                   </div>
                   <div>
                     <input
+                      required
                       type="radio"
                       id="female"
                       name="gender"
@@ -112,6 +120,7 @@ const GenderUpdate = () => {
                     upload Aadhaar
                   </label>
                   <input
+                    required
                     type="file"
                     className="form-control"
                     id="aadhaarFile" // Corrected ID

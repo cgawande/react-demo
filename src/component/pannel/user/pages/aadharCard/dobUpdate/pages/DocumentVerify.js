@@ -6,15 +6,20 @@ import { Api } from "../../../../../../axios/Axios";
 
 const DocVerify = () => {
     const [userDob, setUserDob] = useState(" ");
+    const [fileAadhar, setAdharFile] = useState([]);
+    const [uploadPic, setUploadPic] = useState([]);
     const [formData, setFormData] = useState({
       firstName: "",
       phoneNumber: "",
       aadharNumber: "male",
       adharUpdateDetails: "",
-      livePic: null, // Corrected initial value
-      aadhaarFile: null,
     });
   
+    
+  const handleFile = (e) => {
+    setAdharFile(e.target.files);
+  };
+
     const handleChange = (e) => {
       const { name, value, type, files } = e.target;
   
@@ -28,24 +33,32 @@ const DocVerify = () => {
   
     const handleSubmit = (e) => {
       e.preventDefault();
+   
+
       let userdata = new FormData();
       userdata.append("type", "aadhar");
       userdata.append("updateType", "DOB");
-      userdata.append("firstName", formData.firstName); // Corrected key
+      userdata.append("applicantName", formData.firstName); // Corrected key
       userdata.append("phoneNumber", formData.phoneNumber); // Corrected key
       userdata.append("aadharNumber", formData.aadharNumber);
       userdata.append("adharUpdateDetails", formData.adharUpdateDetails);
-      userdata.append("livePic", formData.livePic);
-      userdata.append("files", formData.aadhaarFile);
-  
+      // userdata.append("file", uploadPic);
+
+      for (let i = 0; i < fileAadhar.length; i++) {
+        userdata.append("files", fileAadhar[i]);
+      }
       console.log("Form Data:", formData);
       getDobData(userdata);
     };
   
 
+    const handleLivePic = (e) => {
+      setUploadPic(e.target.files[0]);
+    };
+
   const getDobData = async (userdata) => {
     try {
-      const res = await Api.post("/product/aadhar", userdata, {
+      const res = await Api.post("/verify/product/aadhar", userdata, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -123,36 +136,39 @@ const DocVerify = () => {
                       </div>
 
 
-                           
                       <div className="mb-3">
-                        <label htmlFor="address" className="form-label">
-                        Upload Live Pic
-                        </label>
-                        <input
-                          type="file"
-                          multiple
-                          className="form-control"
-                          id="aadhaarFile" // Corrected ID
-                          name="aadhaarFile" // Corrected name
-                          value={formData.livePic}
-                          onChange={handleChange}
-                        />
-                      </div>
+                  <label htmlFor="address" className="form-label">
+                    Upload your Pic
+                  </label>
+                  <input
+                   required
+                    type="file"
+                    className="form-control"
+                    // value={formData.dob}
+                    multiple
+                    accept="image/*"
+                    // onChange={handleChange}
+                    onChange={handleLivePic}
+                  />
+                </div>
                     
-                      <div className="mb-3">
-                        <label htmlFor="address" className="form-label">
-                          Upload Aadhar Card
-                        </label>
-                        <input
-                          type="file"
-                          multiple
-                          className="form-control"
-                          id="aadhaarFile" // Corrected ID
-                          name="aadhaarFile" // Corrected name
-                          value={formData.aadhaarFile}
-                          onChange={handleChange}
-                        />
-                      </div>
+                         <div className="mb-3">
+                  <label htmlFor="address" className="form-label">
+                    upload Aadhaar
+                  </label>
+                  <input
+                  required
+                    type="file"
+                    className="form-control"
+                    id="aadhaarFile" // Corrected ID
+                    name="aadhaarFile" // Corrected name
+                    // value={formData.dob}
+                    multiple
+                    accept="image/*"
+                    // onChange={handleChange}
+                    onChange={handleFile}
+                  />
+                </div>
                  
                       <button type="submit" className="btn btn-primary">
                         Submit

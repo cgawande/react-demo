@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Api } from "../../../../../../axios/Axios";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const FindAadhaar = () => {
   const [userDob, setUserDob] = useState("");
@@ -41,7 +43,7 @@ const FindAadhaar = () => {
     console.log(userDob);
     await getDobData(userdata);
   };
-
+const navigate=useNavigate()
   const getDobData = async (data) => {
     setIsLoader(true);
     try {
@@ -50,8 +52,17 @@ const FindAadhaar = () => {
           "Content-Type": "multipart/form-data",
         },
       });
-      console.log("res", res);
+      toast.success("Application Submit Next Step for Document Verification", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+      setTimeout(() => {
+        navigate("/user/find-aadhar/doc-verify");
+      }, 1500);
+  
     } catch (error) {
+      toast.error(error.response.data.message, {
+        position: toast.POSITION.TOP_CENTER,
+      });
       console.log("dob aadhar error", error);
     } finally {
       setIsLoader(false);
@@ -75,6 +86,7 @@ const FindAadhaar = () => {
                     className="form-control"
                     id="name"
                     name="name"
+                    required
                     value={formData.name}
                     onChange={handleChange}
                   />
@@ -85,6 +97,7 @@ const FindAadhaar = () => {
                   </label>
                   <input
                     type="text"
+                    required
                     className="form-control"
                     id="fatherName"
                     name="fatherName"
@@ -97,7 +110,8 @@ const FindAadhaar = () => {
                     Mother Name
                   </label>
                   <input
-                    type="text"
+                   required
+                       type="text"
                     className="form-control"
                     id="motherName"
                     name="motherName"
@@ -111,6 +125,7 @@ const FindAadhaar = () => {
                   </label>
                   <div>
                     <input
+                     required
                       type="radio"
                       id="male"
                       name="gender"
@@ -121,6 +136,7 @@ const FindAadhaar = () => {
                   </div>
                   <div>
                     <input
+                     required
                       type="radio"
                       id="female"
                       name="gender"
@@ -135,6 +151,7 @@ const FindAadhaar = () => {
                     Date of Birth
                   </label>
                   <input
+                   required
                     type="date"
                     className="form-control"
                     onChange={(e) => setUserDob(e.target.value)}
@@ -145,6 +162,7 @@ const FindAadhaar = () => {
                    Address
                   </label>
                   <input
+                   required
                     type="text"
                     id="address"
                     name="address"
@@ -161,6 +179,7 @@ const FindAadhaar = () => {
                     type="text"
                     id="pinCode"
                     name="pinCode"
+                    required
                     value={formData.pinCode}
                     onChange={handleChange}
                     className="form-control"

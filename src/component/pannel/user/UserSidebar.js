@@ -155,13 +155,13 @@ const isVFindAadhar = () => {
           </SidebarNavItem>
         </li>
 
-        <li className="p-0">
+        {/* <li className="p-0">
           <SidebarNavItem to="/user/download-driver">
             <HiOutlineFolderDownload className={`icon`} />
             Driver Download
           </SidebarNavItem>
-        </li>
-        <li>
+        </li> */}
+        {/* <li>
           <NavLink
             to={"/user/aadhar-advance"}
             className={({ isActive }) =>
@@ -170,7 +170,7 @@ const isVFindAadhar = () => {
           >
             <span className="navItem">Aadhar Advance</span>
           </NavLink>
-        </li>
+        </li> */}
         <li className="nav-item">
           
             <span

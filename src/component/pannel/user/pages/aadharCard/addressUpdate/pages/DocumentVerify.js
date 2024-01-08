@@ -48,7 +48,7 @@ const AddressDocVerify = () => {
     userdata.append("phoneNumber", formData.phoneNumber);
     userdata.append("aadharNumber", formData.aadharNumber);
     userdata.append("aadharUpdateDetails", formData.aadharUpdateDetails);
-    userdata.append("uploadPic", uploadPic);
+    userdata.append("file", uploadPic);
     await getDobData(userdata);
   };
 
@@ -85,6 +85,7 @@ const AddressDocVerify = () => {
                     Applicant Name
                   </label>
                   <input
+                  required
                     type="text"
                     className="form-control"
                     id="name"
@@ -98,6 +99,7 @@ const AddressDocVerify = () => {
                     Mobile Number
                   </label>
                   <input
+                  required
                     type="text"
                     className="form-control"
                     id="phoneNumber"
@@ -111,6 +113,7 @@ const AddressDocVerify = () => {
                     AadharNumber
                   </label>
                   <input
+                  required
                     type="text"
                     className="form-control"
                     id="aadharNumbere"
@@ -125,6 +128,7 @@ const AddressDocVerify = () => {
                     Aadhar Update Details
                   </label>
                   <input
+                  required
                     type="text"
                     className="form-control"
                     name="aadharUpdateDetails"
@@ -139,11 +143,12 @@ const AddressDocVerify = () => {
                     Upload your Pic
                   </label>
                   <input
+              accept=".jpg, .jpeg" required
                     type="file"
                     className="form-control"
                     // value={formData.dob}
                     multiple
-                    accept="image/*"
+                   
                     // onChange={handleChange}
                     onChange={handleLivePic}
                   />
@@ -154,13 +159,14 @@ const AddressDocVerify = () => {
                     upload Aadhaar
                   </label>
                   <input
+              
                     type="file"
                     className="form-control"
                     id="aadhaarFile" // Corrected ID
                     name="aadhaarFile" // Corrected name
                     // value={formData.dob}
                     multiple
-                    accept="image/*"
+                    accept=".jpg, .jpeg" required
                     // onChange={handleChange}
                     onChange={handleAadharFile}
                   />

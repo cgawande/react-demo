@@ -47,7 +47,7 @@ const navigate=useNavigate()
             </ul>
           </div>
           <div className="d-flex align-items-center">
-            <span className="me-3 text-white" >Wallet Balance: INR {walletBalance}</span>
+            {/* <span className="me-3 text-white" >Wallet Balance: INR {walletBalance}</span> */}
          
             <button className="btn  text-white" onClick={()=>handleLogout()}
             style={{ border:"1px solid white"}}

@@ -91,6 +91,7 @@ const AddressUpdate = () => {
                     className="form-control"
                     id="name"
                     name="name"
+                    required
                     value={formData.name}
                     onChange={handleChange}
                   />
@@ -100,6 +101,7 @@ const AddressUpdate = () => {
                     Mobile Number
                   </label>
                   <input
+                  required
                     type="text"
                     className="form-control"
                     id="phoneNumber"
@@ -117,6 +119,7 @@ const AddressUpdate = () => {
                     className="form-control"
                     id="aadharNumbere"
                     name="aadharNumber"
+                    required
                     value={formData.aadharNumber}
                     onChange={handleChange}
                   />
@@ -127,6 +130,7 @@ const AddressUpdate = () => {
                     Aadhar Update Details
                   </label>
                   <input
+                  required
                     type="text"
                     className="form-control"
                     name="aadharUpdateDetails"
@@ -156,13 +160,14 @@ const AddressUpdate = () => {
                     upload Aadhaar
                   </label>
                   <input
+              
                     type="file"
                     className="form-control"
                     id="aadhaarFile" // Corrected ID
                     name="aadhaarFile" // Corrected name
                     // value={formData.dob}
                     multiple
-                    accept="image/*"
+                    accept=".jpg, .jpeg" required
                     // onChange={handleChange}
                     onChange={handleAadharFile}
                   />

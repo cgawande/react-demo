@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Api } from "../../../../../../axios/Axios";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const DobUpdate = () => {
   const [userDob, setUserDob] = useState("");
@@ -14,10 +16,11 @@ const DobUpdate = () => {
     pinCode: "",
   });
 
+
+
   const handleFile = (e) => {
     setAdharFile(e.target.files);
   };
-
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -45,7 +48,7 @@ const DobUpdate = () => {
     console.log(userDob);
     await getDobData(userdata);
   };
-
+const navigate =useNavigate()
   const getDobData = async (data) => {
     setIsLoader(true);
     try {
@@ -55,8 +58,17 @@ const DobUpdate = () => {
         },
       });
       console.log("res", res);
+      toast.success("Application Submit Next Step for Document Verification", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+      setTimeout(() => {
+        navigate("/user/dob-update/doc-verify");
+      }, 1500);
     } catch (error) {
-      console.log("dob aadhar error", error);
+      toast.error(error.response.data.message, {
+        position: toast.POSITION.TOP_CENTER,
+      });
+   
     } finally {
       setIsLoader(false);
     }
@@ -76,6 +88,7 @@ const DobUpdate = () => {
                     Applicant Name
                   </label>
                   <input
+                  required
                     type="text"
                     className="form-control"
                     id="name"
@@ -89,6 +102,7 @@ const DobUpdate = () => {
                     Father Name
                   </label>
                   <input
+                  required
                     type="text"
                     className="form-control"
                     id="fatherName"
@@ -102,6 +116,7 @@ const DobUpdate = () => {
                     Mother Name
                   </label>
                   <input
+                  required
                     type="text"
                     className="form-control"
                     id="motherName"
@@ -116,6 +131,7 @@ const DobUpdate = () => {
                     Date of Birth
                   </label>
                   <input
+                  required
                     type="date"
                     className="form-control"
                     onChange={(e) => setUserDob(e.target.value)}
@@ -126,6 +142,7 @@ const DobUpdate = () => {
                     upload Aadhaar
                   </label>
                   <input
+                  required
                     type="file"
                     className="form-control"
                     id="aadhaarFile" // Corrected ID

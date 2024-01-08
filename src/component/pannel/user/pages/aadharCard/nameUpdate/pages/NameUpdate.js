@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Api } from "../../../../../../axios/Axios";
+import { toast } from "react-toastify";
+import { Navigate, useNavigate } from "react-router-dom";
 
 
 const NameDocVerify = () => {
@@ -41,7 +43,7 @@ const NameDocVerify = () => {
 
     await getDobData(userdata);
   };
-
+const navigate=useNavigate()
   const getDobData = async (data) => {
     setIsLoader(true);
     try {
@@ -51,7 +53,16 @@ const NameDocVerify = () => {
         },
       });
       console.log("res", res);
+      toast.success("Application Submit Next Step for Document Verification", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+      setTimeout(() => {
+        navigate("/user/name-update/doc-verify");
+      }, 1500);
     } catch (error) {
+      toast.error(error.response.data.message, {
+        position: toast.POSITION.TOP_CENTER,
+      });
       console.log(error);
     } finally {
       setIsLoader(false);
@@ -71,6 +82,7 @@ const NameDocVerify = () => {
                     Applicant Name
                   </label>
                   <input
+                   required
                     type="text"
                     className="form-control"
                     id="name"
@@ -87,6 +99,7 @@ const NameDocVerify = () => {
                     upload Aadhaar
                   </label>
                   <input
+                   required
                     type="file"
                     className="form-control"
                     id="aadhaarFile" // Corrected ID

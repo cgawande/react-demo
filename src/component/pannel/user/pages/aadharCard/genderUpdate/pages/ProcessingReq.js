@@ -62,7 +62,7 @@ const navigate=useNavigate()
                 </div>
 
                 <button type="submit" className="btn btn-primary">
-                  Mavke Payment
+                  Make Payment
                 </button>
               </form>
             </div>
