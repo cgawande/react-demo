@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Api } from "../../../../../../axios/Axios";
 import WalletRecharge from "../../../WalletRecharge";
+import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const DobProcessingReq = () => {
   const [amount, setAmount] = useState();
@@ -15,7 +17,7 @@ setAmount(e.target.value)
 
     getDobData(amount);
   };
-
+const navigate=useNavigate()
   const getDobData = async (amount) => {
     try {
       const res = await Api.post("/product/payment", {amount:amount}, {
@@ -23,6 +25,11 @@ setAmount(e.target.value)
           "Content-Type": "multipart/form-data",
         },
       });
+      toast( res.data.message)
+      setTimeout(()=>{
+        navigate("/user/dob-update/proccessing")
+      },1500)
+   
       console.log("dob aadhar resr", res.data);
     } catch (error) {
       console.log("dob aadhar error", error);
@@ -57,6 +64,7 @@ setAmount(e.target.value)
             </div>
           </div>
         </div>
+        <ToastContainer/>
       </div>
     </>
   );
